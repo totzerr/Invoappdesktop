@@ -896,7 +896,7 @@ kNonVendu:'Coût des sorties non-vendues',kCA:'CA encaissé',kRatio:'Ratio mati�
 repart:'Répartition par motif',jrnl:'Derniers mouvements',vide:'Rien pour l\'instant',videD:'Les mouvements apparaîtront ici.',
 who:'Qui utilise l\'app ?',whoS:'Choisissez votre poste dans l\'établissement.',
 lang:'Langue',langS:'L\'app parle la langue de chaque membre de l\'équipe.',
-saved:'Sortie enregistrée',invOk:'Inventaire validé',cleared:'Démo remise à zéro',reset:'Remettre la démo à zéro',
+saved:'Sortie enregistrée',invOk:'Inventaire validé',cleared:'Démo réinitialisée',reset:'Reset',resetS:'Restaure les produits de démonstration et retire les données locales actuelles. Une sauvegarde est téléchargée avant.',resetConfirm:'Réinitialiser la démo va remplacer les données locales actuelles. Une sauvegarde sera téléchargée avant. Continuer ?',
 cTapas:'Tapas',cPlats:'Plats',cCock:'Cocktails',cVins:'Vins',cBieres:'Bières',cSofts:'Softs',cAlc:'Alcools',cDess:'Desserts',cCafe:'Café'},
 
 en:{code:'EN',nom:'English',fl:'🇬🇧',
@@ -1714,6 +1714,27 @@ async function preparerTestReel(){
  Docs._cache={};panier={};motif=null;decPhoto=null;screen='stock';
  _pvCache=null;_pvCle='';
  await save();closeModal();renderAll();toast(t('pilotReady'));
+}
+
+
+/* ── Retour volontaire à la démonstration, toujours précédé d'une sauvegarde. ── */
+async function resetDemo(){
+ let avant;
+ try{avant=await creerSauvegarde()}catch(e){toast(t('backupRead'));return}
+ if(!confirm(t('resetConfirm')))return;
+ dlJson(avant,nomSauvegarde('-avant-reset'));
+ const etabNom=st.etabNom,lang=st.lang,who=st.who,whoId=st.whoId,svc=st.svc;
+ const doseurs=st.doseurs?JSON.parse(JSON.stringify(st.doseurs)):undefined;
+ st=stVierge();
+ st.lang=lang;st.who=who;st.whoId=whoId;st.etabNom=etabNom;st.svc=svc;
+ if(doseurs)st.doseurs=doseurs;
+ st.modePilote=false;
+ st.prods=JSON.parse(JSON.stringify(PRODUITS_DEF));
+ st.carte=JSON.parse(JSON.stringify(CARTE_DEF));
+ st.prods.forEach(p=>st.stock[p.id]=p.s);
+ Docs._cache={};panier={};motif=null;decPhoto=null;screen='caisse';
+ _pvCache=null;_pvCle='';
+ await save();closeModal();renderAll();toast(t('cleared'));
 }
 
 async function importerSauvegarde(f){
@@ -4499,8 +4520,7 @@ ${blocAno}
 ${blocDos}
 <div class="eyebrow" style="margin-top:24px">${t('jrnl')}</div><div>${jrnl}</div>
 <div class="exp-row"><button class="btn btn-2 btn-sm" id="bilCsv">${t('exportCsv')}</button>
-<button class="btn btn-2 btn-sm" id="bilPrint">${t('imprimer')}</button></div>
-<button class="reset" id="rstBtn">${t('reset')}</button>`;
+<button class="btn btn-2 btn-sm" id="bilPrint">${t('imprimer')}</button></div>`;
 document.querySelectorAll('[data-dosr]').forEach(inp=>{
  inp.oninput=e=>{st.doseurs.releves[e.target.dataset.dosr]=e.target.value;save()};
  inp.onblur=()=>renderBil()});
@@ -4512,14 +4532,7 @@ document.getElementById('bilCsv').onclick=()=>{
    m.platN,m.qty,t(m.motif),m.src==='auto'?'Caisse':'Manuel',
    Math.round(coutMv(m)*100)/100,Math.round(pvMv(m)*100)/100])});
  dlCsv(rows,'bilan_'+new Date().toISOString().slice(0,10)+'.csv')};
-document.getElementById('rstBtn').onclick=async()=>{
-if(!confirm(t('confDel')))return;
-st={lang:st.lang,who:st.who,whoId:st.whoId,stock:{},mv:[],count:{},live:st.live,modeCaisse:'manuel',modePilote:false,
-lastSync:Date.now(),svc:st.svc,prods:null,carte:null,liv:[],invHist:[],photos:{}};
-st.prods=JSON.parse(JSON.stringify(PRODUITS_DEF));
-st.carte=JSON.parse(JSON.stringify(CARTE_DEF));
-st.prods.forEach(p=>st.stock[p.id]=p.s);panier={};motif=null;
-await save();renderAll();toast(t('cleared'))}}
+}
 
 /* ═════ NAV ═════ */
 function renderNav(){const nouv=Math.max(0,st.mv.length-seenFeed);const pc=panierCount();
@@ -4609,6 +4622,9 @@ function openReglages(){
   <input id="bkImport" type="file" accept=".json,application/json" style="display:none">
  </div>
  <div class="auth-msg info">${t('importAide')}</div>
+ <div class="set-sec">${t('reset')}</div>
+ <div class="auth-msg info">${t('resetS')}</div>
+ <div class="sh-actions" style="margin:10px 0 18px"><button class="btn btn-2 btn-sm" id="resetDemo">${t('reset')}</button></div>
  <div class="set-sec">${t('materiel')}</div>
  <div class="auth-msg info">${t('materielS')}</div>
  <div class="set-row"><span class="set-lab">${t('doseurs')}<small>${t('doseursS')}</small></span>
@@ -4630,6 +4646,8 @@ function openReglages(){
  if(bkBtn&&bkIn)bkBtn.onclick=()=>bkIn.click();
  const pilotBtn=document.getElementById('pilotStart');
  if(pilotBtn)pilotBtn.onclick=async()=>{pilotBtn.disabled=true;await preparerTestReel();};
+ const resetBtn=document.getElementById('resetDemo');
+ if(resetBtn)resetBtn.onclick=async()=>{resetBtn.disabled=true;await resetDemo();};
  if(bkIn)bkIn.onchange=async()=>{const f=bkIn.files&&bkIn.files[0];bkIn.value='';await importerSauvegarde(f)};
  const re_=document.getElementById('rEtab');
  if(re_)re_.oninput=e=>{st.etabNom=e.target.value;save()};
