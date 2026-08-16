@@ -1685,10 +1685,10 @@ const MOTIFS_A_TRACER=['annul','offClient','offPart','offGroupe','casse','rate']
 /* Quantité d'une vente/envoi qui peut encore être qualifiée ou annulée.
    Une même quantité ne peut recevoir qu'une seule qualification. */
 function resteATracer(mvId){
- const p=(st.mv||[]).find(m=>m.id===mvId);
+ const p=(st.mv||[]).find(m=>String(m.id)===String(mvId));
  if(!p||!MOTIFS_PRIMAIRES.includes(p.motif))return 0;
  const deja=(st.mv||[])
-  .filter(m=>MOTIFS_A_TRACER.includes(m.motif)&&m.parent===mvId)
+  .filter(m=>MOTIFS_A_TRACER.includes(m.motif)&&String(m.parent)===String(mvId))
   .reduce((s,m)=>s+(m.qty||0),0);
  return Math.max(0,(p.qty||0)-deja);
 }
