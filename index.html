@@ -1790,6 +1790,36 @@ function creerMouvement(m,opts){
  return{ok:true,mv,alerte:v.alerte||null};
 }
 
+/* ── Validation d'un lot : aucune écriture tant que tout le lot n'est pas cohérent. ── */
+function validerLotMouvements(mouvements,opts){
+ opts=opts||{};
+ const refus=[],besoins={};
+ for(const m of mouvements){
+  const v=validerMouvement(m);
+  if(!v.ok){refus.push({msg:v.msg,confirmable:false});continue}
+  if(!MOTIFS_A_TRACER.includes(m.motif)){
+   const c=item(m.plat);
+   for(const [pid,x] of Object.entries(c.f||{})){
+    const b=besoins[pid]||{q:0};
+    b.q+=x*Number(m.qty);besoins[pid]=b;
+   }
+  }
+ }
+ if(refus.length)return{ok:false,refus};
+ if(!opts.forcer&&!opts.accepteAlerte){
+  const manques=Object.entries(besoins).map(([id,b])=>{
+   const p=prod(id),dispo=st.stock[id]||0;
+   return{id,n:p?p.n:id,u:p?p.u:'',besoin:b.q,dispo};
+  }).filter(x=>x.besoin>x.dispo+1e-9);
+  if(manques.length){
+   const msg=t('trStockInsuffisant').replace('%l',manques.slice(0,3)
+    .map(x=>`${x.n} (${fmtQ(x.dispo)}/${fmtQ(x.besoin)} ${x.u})`).join(', '));
+   return{ok:false,refus:[{msg,confirmable:true}]};
+  }
+ }
+ return{ok:true,refus:[]};
+}
+
 /* Restitution de stock (annulation) */
 function rendreStock(platId,q){
  const c=item(platId);
@@ -1969,20 +1999,22 @@ else valider()}}
 
 async function valider(){if(!panierCount()||!motif)return;
 const now=new Date().toISOString();
-const refus=[];
+const projets=[],refus=[];
 for(const [id,q] of Object.entries(panier)){
  let parent=null;
  if(MOTIFS_A_TRACER.includes(motif)){
-  const cand=ventesATracer(id);         /* rattachement automatique à la vente la plus récente */
+  const cand=ventesATracer(id);
   if(!cand.length){refus.push({id,msg:t('trAnnulSansVente')});continue}
   parent=cand[0].id;
  }
- const r=creerMouvement({src:'main',motif,plat:id,qty:q,who:st.who,ts:now,
-  ph:decPhoto?1:0,parent},{accepteAlerte:!!forcerStock});
- if(!r.ok){
-  const c=item(id);
-  refus.push({id,msg:(c?c.n+' : ':'')+r.msg,confirmable:r.confirmable});
- }
+ projets.push({src:'main',motif,plat:id,qty:q,who:st.who,ts:now,
+  ph:decPhoto?1:0,parent});
+}
+
+/* Pré-vol du lot entier : aucune ligne ni aucun stock ne sont modifiés ici. */
+if(!refus.length){
+ const lot=validerLotMouvements(projets,{forcer:!!forcerStock});
+ if(!lot.ok)refus.push(...lot.refus);
 }
 if(refus.length){
  const confirmable=refus.every(x=>x.confirmable);
@@ -1991,9 +2023,20 @@ if(refus.length){
  if(confirmable)forcerStock=true;
  await save();renderDec();return;
 }
+
+/* Le lot est validé : les écritures se font maintenant, sans état intermédiaire visible. */
+const creations=[];
+for(const projet of projets){
+ const r=creerMouvement(projet,{accepteAlerte:true});
+ if(!r.ok)throw new Error('Validation de lot incohérente : '+r.code);
+ creations.push(r.mv);
+}
 msgDec=null;forcerStock=false;
-if(decPhoto){const k='p'+Date.now();st.photos[k]=decPhoto;st.mv[0].pk=k;
- const ks=Object.keys(st.photos);if(ks.length>25)delete st.photos[ks[0]]}
+if(decPhoto){
+ const k='p'+Date.now();st.photos[k]=decPhoto;
+ creations.forEach(m=>m.pk=k);
+ const ks=Object.keys(st.photos);if(ks.length>25)delete st.photos[ks[0]];
+}
 await save();panier={};motif=null;decPhoto=null;renderDec();toast(t('saved'))}
 
 
