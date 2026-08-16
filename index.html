@@ -703,6 +703,67 @@ border:1px solid var(--border,#C9B98D)}
 #s-caisse .kpi-l,#s-bil .kpi-l,#s-caisse .md,#s-dec .md{color:#4A4436}
 #s-caisse .eyebrow,#s-dec .eyebrow,#s-liv .eyebrow,#s-stock .eyebrow,#s-inv .eyebrow,#s-bil .eyebrow{color:#7A4F0A}
 
+
+/* ═════ VERSION ORDINATEUR ═════
+   Même application, mais l'espace de travail s'ouvre en deux colonnes.
+   Les règles ne s'appliquent qu'aux écrans larges : le téléphone conserve son interface. */
+@media (min-width:900px){
+ html,body{min-width:900px;background:#F1EBDC}
+ body{display:grid;grid-template-columns:272px minmax(0,1fr);align-items:start}
+ .drawer{position:sticky;top:0;left:auto;bottom:auto;z-index:80;grid-column:1;grid-row:1;
+  width:272px;max-width:none;height:100dvh;min-height:100vh;transform:none!important;
+  box-shadow:none;padding:26px 0 18px;overflow-y:auto}
+ .dr-bg,.burger{display:none!important}
+ .dr-head{padding:0 24px 20px;margin-bottom:14px}
+ .dr-head img{height:34px}
+ .dr-etab{font-size:12px}
+ .dr-list{padding:0 14px}
+ .dr-item{padding:13px 14px;font-size:14px}
+ .dr-item:hover{background:var(--surface-2,#E6DEC7)}
+ .dr-foot{padding:18px 24px 0}
+
+ .app{grid-column:2;grid-row:1;max-width:none;min-height:100dvh;background:#F1EBDC}
+ .top{position:sticky;top:0;padding:18px 38px;min-height:72px}
+ .top-right{gap:10px}
+ main{width:100%;max-width:1440px;margin:0 auto;padding:34px 44px 72px}
+ .h-title{font-size:31px}
+ .h-sub{font-size:14px;max-width:760px;margin-bottom:24px}
+ .screen{max-width:1180px}
+ .screen#s-caisse,.screen#s-bil{max-width:1100px}
+ .conn{max-width:760px}
+ .banner{max-width:860px;font-size:12px}
+ .svc{max-width:520px}
+ .cats{max-width:100%;gap:9px}
+ .grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+ .card{min-height:120px;padding:16px 10px}
+ .card .ico{font-size:29px}
+ .card .nm{font-size:12px}
+ .card .pxs{font-size:10.5px}
+ .panier{max-width:820px}
+ .motifs{grid-template-columns:repeat(3,minmax(0,1fr));max-width:940px}
+ .motif{min-height:106px}
+ .search{max-width:720px}
+ .line{max-width:980px;padding:14px 4px}
+ .liv-card,.hist-card,.prev-card{max-width:980px}
+ .kpis{grid-template-columns:repeat(4,minmax(0,1fr));max-width:1060px;gap:14px}
+ .kpi{padding:19px 18px}
+ .kpi-v{font-size:29px}
+ .split{max-width:760px;gap:14px}
+ .split-cell{padding:19px}
+ .dos-row,.dos-h{max-width:820px;grid-template-columns:minmax(240px,1fr) 90px 96px 80px;gap:12px}
+ .inv-line{max-width:980px;grid-template-columns:1fr 90px 120px;gap:16px;padding:13px 8px}
+ .iv-inp{padding:10px}
+ .zone-chips{max-width:980px}
+ .subtabs{max-width:760px}
+ .exp-row{max-width:760px}
+ .cartbar{left:272px;right:0;max-width:none;padding:0 44px;bottom:24px}
+ .cartbar-in{max-width:780px;margin-left:auto}
+ .sheet-bg{align-items:center;padding:28px}
+ .sheet{max-width:720px;border:1px solid var(--border,#C9B98D);border-radius:18px;
+  padding:30px;max-height:calc(100vh - 56px)}
+ .toast{left:calc(272px + 50%);bottom:28px}
+}
+
 </style>
 </head>
 <body>
