@@ -1734,7 +1734,7 @@ function validerMouvement(m){
  /* 4. Annulation, offert et perte : toujours rattachés à une ligne primaire. */
  if(MOTIFS_A_TRACER.includes(m.motif)){
   if(!m.parent)return{ok:false,code:'annul_sans_parent',msg:t('trAnnulSansVente')};
-  const p=(st.mv||[]).find(x=>x.id===m.parent);
+  const p=(st.mv||[]).find(x=>String(x.id)===String(m.parent));
   if(!p)return{ok:false,code:'parent_absent',msg:t('trParentAbsent')};
   if(!MOTIFS_PRIMAIRES.includes(p.motif))
    return{ok:false,code:'parent_invalide',msg:t('trParentInvalide')};
