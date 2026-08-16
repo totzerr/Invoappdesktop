@@ -4611,9 +4611,12 @@ function openReglages(){
  <div class="fld"><label>${t('nomEtab')}</label>
  <input id="rEtab" value="${(st.etabNom||'SP Wallace').replace(/"/g,'&quot;')}" placeholder="SP Wallace"></div>
 
- <div class="set-sec">${t('pilot')}</div>
+ <div class="set-sec">${t('pilot')} / ${t('reset')}</div>
  <div class="auth-msg ${st.modePilote?'ok':'info'}">${st.modePilote?t('pilotOn'):t('pilotS')}</div>
- ${st.modePilote?'':`<div class="sh-actions" style="margin:10px 0 18px"><button class="btn btn-2 btn-sm" id="pilotStart">${t('pilotStart')}</button></div>`}
+ <div class="sh-actions" style="margin:10px 0 18px">
+  ${st.modePilote?'':`<button class="btn btn-2 btn-sm" id="pilotStart">${t('pilotStart')}</button>`}
+  <button class="btn btn-2 btn-sm" id="resetDemo">${t('reset')}</button>
+ </div>
  <div class="set-sec">${t('sauvegarde')}</div>
  <div class="auth-msg info">${t('sauvegardeS')}</div>
  <div class="sh-actions" style="margin:10px 0 18px">
@@ -4622,9 +4625,6 @@ function openReglages(){
   <input id="bkImport" type="file" accept=".json,application/json" style="display:none">
  </div>
  <div class="auth-msg info">${t('importAide')}</div>
- <div class="set-sec">${t('reset')}</div>
- <div class="auth-msg info">${t('resetS')}</div>
- <div class="sh-actions" style="margin:10px 0 18px"><button class="btn btn-2 btn-sm" id="resetDemo">${t('reset')}</button></div>
  <div class="set-sec">${t('materiel')}</div>
  <div class="auth-msg info">${t('materielS')}</div>
  <div class="set-row"><span class="set-lab">${t('doseurs')}<small>${t('doseursS')}</small></span>
