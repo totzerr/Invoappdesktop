@@ -2165,7 +2165,7 @@ function renderLiv(){
   <button class="${livTab==='prev'?'on':''}" data-lt="prev">📈 ${t('tabPrev')}</button></div>`;
  let body='';
  if(livTab==='prev'){
-  const pv=prevision();
+  const pv=previsionIndex().pv;
   if(!pv.liste.length){
    body=`<div class="empty"><div class="e-ico">📈</div><p><b>${t('prevVideT')}</b><br>${t('prevVideD')}</p></div>`;
   }else{
@@ -3989,6 +3989,8 @@ function voirLivraison(ix){
 
 /* ═════ PRODUITS : matières + carte ═════ */
 function renderStock(){
+/* Les prévisions sont calculées une seule fois, même avec une longue liste. */
+const pvMap=stockTab==='mat'?previsionIndex().map:{};
 const sub=`<div class="subtabs">
 <button class="${stockTab==='mat'?'on':''}" data-sub2="mat">📦 ${t('tabMat')} (${st.prods.length})</button>
 <button class="${stockTab==='carte'?'on':''}" data-sub2="carte">🍽️ ${t('tabCarte')} (${st.carte.length})</button></div>`;
@@ -3999,7 +4001,7 @@ const rows=st.prods.filter(p=>p.n.toLowerCase().includes(sq.toLowerCase())).map(
 const q=st.stock[p.id]??p.s??0;const cls=q<=0?'out':(q<=p.seuil?'low':'');
 const cont=p.ct?` · ${fmtQ(p.ct)} ${p.u}`:'';
 const R=estResp();
-const pvx=previsionIndex().map[p.id];
+const pvx=pvMap[p.id];
 const bd=pvx&&q>0&&(pvx.type==='perte'||(pvx.type==='rupture'&&pvx.quand<7))?badgePrev(pvx):null;
 const qq=bd?{txt:bd.txt,cls:bd.cls}:null;
 const meta=(R?`${fmt(p.px)} €/${p.u}${cont} · ${zLabel(p.z||'reserve')}${p.pxPrev&&p.px>p.pxPrev?' · ▲':''}`
@@ -4763,7 +4765,7 @@ function anomalies(){
   d:bas.slice(0,4).map(p=>p.n).join(', ')});
 
  /* Ruptures prévues à court terme */
- const pv=prevision();
+ const pv=previsionIndex().pv;
  const bientot=pv.liste.filter(x=>x.type==='rupture'&&x.stock>0&&x.quand<3);
  if(bientot.length){
   const p1=bientot[0],q=quandRupture(p1.quand);
