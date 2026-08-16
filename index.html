@@ -851,10 +851,14 @@ noAlerte:'Aucune alerte. Vos marges tiennent.',
 valeurStock:'Valeur du stock',ecartValeur:'Valeur des écarts',
 inventaireDu:'Inventaire du',lignesEcart:'lignes en écart',
 nCaisse:'Caisse',nDec:'Déclarer',nStock:'Produits',nInv:'Inventaire',nBil:'Bilan',
-caisseT:'Flux de la caisse',caisseS:'Ventes, offerts, annulations et repas du personnel remontent tout seuls depuis Cashpad.',
+caisseT:'Flux de la caisse',caisseS:'Enregistrez vos ventes manuellement, puis classez uniquement celles à corriger.',
 connected:'CONNECTÉ',connSub:'Dernière synchro il y a %s',
+manualCaisse:'Mode manuel : aucune donnée n’est créée automatiquement.',newVente:'+ Nouvelle vente',
+aVerifier:'À vérifier',aVerifierS:'Ces ventes existent déjà. Classez uniquement celles qui deviennent un offert, une annulation ou une perte.',
+verifVide:'Aucune vente à vérifier.',qualifier:'Classer une vente',qualifierS:'La vente est déjà enregistrée. Le classement ne déduira pas le stock une seconde fois.',
+resteQ:'Quantité à classer',confQual:'Valider le classement',qualSaved:'Classement enregistré',
 demoCaisse:'Démonstration : ce flux simule ce que Cashpad enverrait à Invo en temps réel via son API.',
-vente:'Vente',offClient:'Offert client',offPart:'Offert partenaire',offGroupe:'Offert groupe',
+vente:'Vente',venteD:'Vente enregistrée manuellement',offClient:'Offert client',offPart:'Offert partenaire',offGroupe:'Offert groupe',
 annul:'Annulation',perso:'Repas personnel',casse:'Casse',rate:'Raté / refait',degus:'Dégustation',entame:'Bouteille entamée',
 offClientD:'Geste commercial en salle',offPartD:'Confrère, fournisseur, resto voisin',
 offGroupeD:'Groupe, événement, privatisation',persoD:'Équipe salle ou cuisine',
@@ -1459,7 +1463,7 @@ const CARTE_DEF=[
 
 const CATS=['cTapas','cPlats','cCock','cVins','cBieres','cSofts','cAlc','cDess','cCafe'];
 const UNITES=['cl','ml','L','kg','g','u','btl','carton'];
-const MOTIFS=[{id:'offClient',i:'🎁',ap:'tous'},{id:'offPart',i:'🤝',ap:'tous'},
+const MOTIFS=[{id:'vente',i:'🧾',ap:'tous'},{id:'offClient',i:'🎁',ap:'tous'},{id:'offPart',i:'🤝',ap:'tous'},
 {id:'offGroupe',i:'👥',ap:'tous'},{id:'casse',i:'💥',ap:'tous'},{id:'perso',i:'🍽️',ap:'food'},
 {id:'rate',i:'🔥',ap:'food'},{id:'degus',i:'🥄',ap:'tous'},{id:'entame',i:'🍾',ap:'drink'},
 {id:'annul',i:'↩️',ap:'tous'}];   /* rattachée automatiquement à la vente correspondante */
@@ -1472,7 +1476,7 @@ const POSTES=[{id:'salle',i:'🧑‍💼',n:'Responsable de salle',resp:true},{i
 const estResp=()=>{const p=POSTES.find(x=>x.id===st.whoId);return p?!!p.resp:true};
 const ONGLETS_RESP=['caisse','bil'];
 
-let st={lang:'fr',who:'Responsable de salle',whoId:'salle',stock:{},mv:[],count:{},live:true,
+let st={lang:'fr',who:'Responsable de salle',whoId:'salle',stock:{},mv:[],count:{},live:false,modeCaisse:'manuel',
 lastSync:Date.now(),svc:'soir',prods:null,carte:null,liv:[],invHist:[],photos:{}};
 let panier={},motif=null,cat='cCock',screen='caisse',seenFeed=0,timer=null,sq='',stockTab='mat',fm=null;
 let msgDec=null,forcerStock=false;   /* retours de validation sur l'écran Déclarer */
@@ -1522,7 +1526,7 @@ async function hashPwd(pwd,salt){
 }
 
 function stVierge(){return{lang:st?st.lang:'fr',who:'Responsable de salle',whoId:'salle',
-stock:{},mv:[],count:{},live:true,lastSync:Date.now(),svc:'soir',prods:null,carte:null,
+stock:{},mv:[],count:{},live:false,modeCaisse:'manuel',lastSync:Date.now(),svc:'soir',prods:null,carte:null,
 liv:[],invHist:[],photos:{},doseurs:{actif:false,releves:{}}}}
 
 /* ── Création de compte ── */
@@ -1644,6 +1648,8 @@ function dessineAuth(){
 }
 
 async function load(){const s=await Store.get(dataKey());if(s)st=Object.assign(st,s);
+/* Fin du flux fictif : INVO démarre désormais toujours en caisse manuelle. */
+if(st.modeCaisse!=='manuel'){st.modeCaisse='manuel';st.live=false;}
 if(!st.doseurs)st.doseurs={actif:false,releves:{}};
 if(!st.liv)st.liv=[];if(!st.invHist)st.invHist=[];if(!st.photos)st.photos={};
 if(!st.docs)st.docs={};          /* documents scannés (bons de livraison) */
@@ -1873,33 +1879,40 @@ function posEvent(){
 function startFeed(){if(timer)clearInterval(timer);timer=setInterval(()=>{if(st.live)posEvent()},3800)}
 function sinceSync(){const s=Math.floor((Date.now()-st.lastSync)/1000);return s<60?s+' s':Math.floor(s/60)+' min'}
 
-function renderCaisse(){const auto=st.mv.filter(m=>m.src==='auto');
-const rows=auto.length?auto.slice(0,40).map(m=>{const d=new Date(m.ts);
-const hh=d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0');
-/* Une vente affiche le prix encaissé ; les autres motifs affichent le coût matière.
-   Le libellé évite de faire passer un coût unitaire pour un prix de vente. */
-const estVente=m.motif==='vente';
-const mt=estVente?pvMv(m):coutMv(m);
-const libMontant=estVente?t('vente'):t('coutMat');
-return `<div class="feed-row"><span class="f-ico">${m.platI}</span>
-<span class="f-body"><div class="f-t">${m.platN}${m.qty>1?' × '+m.qty:''}</div>
-<div class="f-m">${hh} · ${m.table} · ${libMontant} : ${fmt(mt)} €${
- m.parent?` · ↩ ${t('trLiee')}`:''}</div></span>
-<span class="tag ${m.motif}">${t(m.motif).toUpperCase()}</span></div>`}).join('')
-:`<div class="empty"><div class="e-ico">📡</div><p><b>${t('vide')}</b><br>${t('videD')}</p></div>`;
-document.getElementById('s-caisse').innerHTML=`
-<div class="h-title">${t('caisseT')}</div><div class="h-sub">${t('caisseS')}</div>
-<div class="banner">${t('demoCaisse')}</div>
-<div class="conn ${st.live?'':'conn-off'}"><div class="conn-top"><span class="pulse"></span>
-<span class="conn-name">Cashpad · SP Wallace</span>
-<span class="conn-state">${st.live?t('connected'):'PAUSE'}</span></div>
-<div class="conn-sub">${t('connSub').replace('%s',sinceSync())} · ${auto.length}</div></div>
-<button class="btn btn-2 btn-sm" id="toggleLive" style="width:100%;margin-bottom:16px">
-${st.live?'⏸ '+t('pause'):'▶ '+t('reprendre')}</button>
-<div class="eyebrow">${t('auto')} — ${t('jrnl')}</div><div>${rows}</div>`;
-document.getElementById('toggleLive').onclick=async()=>{st.live=!st.live;await save();renderCaisse()};
-seenFeed=st.mv.length}
-
+function openQualification(mvId){
+ const m=(st.mv||[]).find(x=>x.id===mvId),reste=resteATracer(mvId);if(!m||reste<=0)return;
+ const c=item(m.plat),choix=MOTIFS.filter(x=>MOTIFS_A_TRACER.includes(x.id)&&(x.ap==='tous'||x.ap===c.k));
+ document.getElementById('modal').innerHTML=`<div class="sheet-bg" id="bgQual"><div class="sheet">
+ <h3>${t('qualifier')}</h3><p class="sh-sub">${t('qualifierS')}</p>
+ <div class="hint">${m.platI} <b>${m.platN}</b><br>${t('resteQ')} : ${fmtQ(reste)}</div>
+ <div class="fld"><label>${t('etape2')}</label><select id="qMotif">${choix.map(x=>`<option value="${x.id}">${x.i} ${t(x.id)}</option>`).join('')}</select></div>
+ <div class="fld"><label>${t('resteQ')}</label><input id="qQty" inputmode="decimal" value="${fmtQ(reste)}"></div>
+ <div class="sh-actions"><button class="btn btn-2" id="qCancel">${t('cancel')}</button><button class="btn" id="qSave">${t('confQual')}</button></div></div></div>`;
+ const bg=document.getElementById('bgQual');bg.onclick=e=>{if(e.target===bg)closeModal()};
+ document.getElementById('qCancel').onclick=closeModal;
+ document.getElementById('qSave').onclick=async()=>{
+  const q=Number((document.getElementById('qQty').value||'').replace(',','.')),motifQ=document.getElementById('qMotif').value;
+  if(!(q>0)||q>reste+1e-9){toast(t('trQteInvalide'));return}
+  const r=creerMouvement({src:'main',motif:motifQ,plat:m.plat,qty:q,table:m.table,who:st.who,parent:m.id},{accepteAlerte:true});
+  if(!r.ok){toast(r.msg);return}await save();closeModal();renderCaisse();toast(t('qualSaved'));
+ };
+}
+function renderCaisse(){
+ const rows=st.mv.length?st.mv.slice(0,40).map(m=>{const d=new Date(m.ts),hh=d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0');
+  const estVente=m.motif==='vente',mt=estVente?pvMv(m):coutMv(m),libMontant=estVente?t('vente'):t('coutMat');
+  return `<div class="feed-row"><span class="f-ico">${m.platI}</span><span class="f-body"><div class="f-t">${m.platN}${m.qty>1?' × '+m.qty:''}</div>
+  <div class="f-m">${hh} · ${m.table} · ${libMontant} : ${fmt(mt)} €${m.parent?` · ↩ ${t('trLiee')}`:''}</div></span><span class="tag ${m.motif}">${t(m.motif).toUpperCase()}</span></div>`;}).join('')
+ :`<div class="empty"><div class="e-ico">🧾</div><p><b>${t('vide')}</b><br>${t('manualCaisse')}</p></div>`;
+ const aVerifier=(st.mv||[]).filter(m=>MOTIFS_PRIMAIRES.includes(m.motif)&&resteATracer(m.id)>0).slice(0,8);
+ const verif=aVerifier.length?`<div class="eyebrow">${t('aVerifier')}</div><div class="hint">${t('aVerifierS')}</div>${aVerifier.map(m=>`<button class="line" data-qual="${m.id}">
+  <span class="l-ico">${m.platI}</span><span class="l-body"><div class="l-nm">${m.platN}</div><div class="l-meta">${fmtQ(resteATracer(m.id))} · ${fmt(pvMv(m))} €</div></span><span class="l-edit">›</span></button>`).join('')}`
+ :`<div class="eyebrow">${t('aVerifier')}</div><div class="hint">${t('verifVide')}</div>`;
+ document.getElementById('s-caisse').innerHTML=`<div class="h-title">${t('caisseT')}</div><div class="h-sub">${t('caisseS')}</div><div class="banner">${t('manualCaisse')}</div>
+ <div class="conn conn-off"><div class="conn-top"><span class="pulse"></span><span class="conn-name">${t('manuel')}</span><span class="conn-state">${t('manuel')}</span></div><div class="conn-sub">${t('manualCaisse')} · ${st.mv.length}</div></div>
+ <button class="btn" id="newSale">${t('newVente')}</button><div style="margin-top:22px">${verif}</div><div class="eyebrow" style="margin-top:24px">${t('jrnl')}</div><div>${rows}</div>`;
+ document.getElementById('newSale').onclick=()=>{screen='dec';motif='vente';go()};
+ document.querySelectorAll('[data-qual]').forEach(b=>b.onclick=()=>openQualification(b.dataset.qual));seenFeed=st.mv.length;
+}
 /* ═════ DÉCLARER ═════ */
 function catsDispo(){const s=new Set(st.carte.filter(c=>c.sv===st.svc||c.sv==='tous').map(c=>c.c));
 return CATS.filter(c=>s.has(c))}
