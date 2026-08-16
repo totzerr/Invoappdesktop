@@ -469,6 +469,7 @@ align-items:center;justify-content:center;padding:0 6px;font-family:'Inter',sans
 
 /* ── SCAN DES BONS DE LIVRAISON ── */
 .scan-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:16px}
+.scan-actions .desktop-scan-note{margin-bottom:0;display:flex;align-items:center;text-align:left}
 .scan-btn{background:var(--surface,#FFFFFF);border:1px solid var(--border,#C9B98D);border-radius:13px;
 padding:16px 12px;cursor:pointer;font-family:inherit;display:flex;flex-direction:column;
 align-items:center;gap:7px;color:var(--ink,#1C1914);box-shadow:var(--shadow-card);transition:transform .1s}
@@ -2068,8 +2069,7 @@ function renderLiv(){
     <div class="l-meta">${b.lines.length} ${t('scLignes')} · ${new Date(b.ts).toLocaleDateString('fr-FR')}</div></span>
     <span class="l-edit">›</span></button>`).join('')}`:'';
   body=`<div class="scan-actions">
-   <button class="scan-btn primary" id="scanLiv"><span class="sb-i">📷</span>
-    <span class="sb-l">${t('scScannerBon')}</span></button>
+   <div class="hint desktop-scan-note">📱 Les bons de livraison se scannent dans INVO mobile. Les livraisons validées apparaissent ensuite ici.</div>
    <button class="scan-btn" id="newLiv"><span class="sb-i">✍️</span>
     <span class="sb-l">${t('newLiv')}</span></button></div>
    ${brouil}
@@ -2101,7 +2101,6 @@ function renderLiv(){
   <div class="h-sub">${livTab==='recep'?t('livS'):''}</div>${sub}${body}`;
  document.querySelectorAll('[data-lt]').forEach(b=>b.onclick=()=>{livTab=b.dataset.lt;renderLiv()});
  const nl=document.getElementById('newLiv');if(nl)nl.onclick=()=>openLiv();
- const sc=document.getElementById('scanLiv');if(sc)sc.onclick=nouveauScan;
  document.querySelectorAll('[data-livix]').forEach(c=>c.onclick=()=>voirLivraison(+c.dataset.livix));
  document.querySelectorAll('[data-brou]').forEach(b=>b.onclick=()=>{
   const i=+b.dataset.brou;scan={...st.brouillons[i]};st.brouillons.splice(i,1);save();dessineScan()});
