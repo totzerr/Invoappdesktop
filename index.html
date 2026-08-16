@@ -1649,7 +1649,7 @@ function dessineAuth(){
 
 async function load(){const s=await Store.get(dataKey());if(s)st=Object.assign(st,s);
 /* Fin du flux fictif : INVO démarre désormais toujours en caisse manuelle. */
-if(st.modeCaisse!=='manuel'){st.modeCaisse='manuel';st.live=false;}
+if(!s||s.modeCaisse!=='manuel'){st.modeCaisse='manuel';st.live=false;}
 if(!st.doseurs)st.doseurs={actif:false,releves:{}};
 if(!st.liv)st.liv=[];if(!st.invHist)st.invHist=[];if(!st.photos)st.photos={};
 if(!st.docs)st.docs={};          /* documents scannés (bons de livraison) */
