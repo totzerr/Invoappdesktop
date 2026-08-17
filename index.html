@@ -1124,6 +1124,13 @@ main{padding:43px 42px 84px!important;max-width:1480px!important;margin:0 auto!i
 .top .logo-img{filter:brightness(0) invert(1)!important}
 .top .logo:after{color:#dbe5ff!important;border-left-color:rgba(219,229,255,.25)!important}
 @media(max-width:759px){.top .logo{padding:6px 10px!important;border-radius:10px!important}.top .logo-img{height:28px!important}}
+
+/* Logo réel, issu du modèle INVO d’origine, affiché dans l’en-tête */
+.top-brand{display:flex!important;align-items:center!important;order:-1!important;background:#101a32!important;padding:7px 12px!important;border-radius:12px!important;box-shadow:0 8px 18px rgba(16,26,50,.16)!important}
+.top-brand .logo{display:flex!important;align-items:center!important;gap:13px!important}
+.top-brand .logo-img{display:block!important;visibility:visible!important;opacity:1!important;height:30px!important;width:auto!important;filter:brightness(0) invert(1)!important}
+.top-brand .logo:after{content:"STOCK INTELLIGENCE"!important;display:block!important;color:#dbe5ff!important;border-left:1px solid rgba(219,229,255,.25)!important;padding-left:12px!important;font-size:9px!important;letter-spacing:.16em!important;font-weight:800!important;line-height:18px!important;white-space:nowrap!important}
+@media(max-width:759px){.top-brand{padding:6px 10px!important;border-radius:10px!important}.top-brand .logo-img{height:25px!important}.top-brand .logo:after{display:none!important}}
 </style>
 </head>
 <body>
@@ -5401,7 +5408,12 @@ document.getElementById('whoName').textContent=st.who.split(' ')[0];go()}
 async function bootApp(){
  document.body.classList.remove('locked');
  document.getElementById('auth').classList.remove('on');
- await load();seenFeed=st.mv.length;
+ await load();
+ const topBrandTpl=document.getElementById('invoLogo');
+ if(topBrandTpl&&!document.getElementById('topBrand')){
+   topBrandTpl.insertAdjacentHTML('afterend',`<div class="top-brand" id="topBrand">${topBrandTpl.innerHTML}</div>`);
+ }
+ seenFeed=st.mv.length;
  Docs.migrer().then(n=>{if(n)console.log('Documents migrés vers IndexedDB :',n)});
  document.getElementById('langBtn').onclick=openLang;
  document.getElementById('whoBtn').onclick=openWho;
