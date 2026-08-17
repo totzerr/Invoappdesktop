@@ -25,7 +25,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light">
 <meta name="theme-color" content="#F2F2F7">
-<title>Invo — Version d'essai</title>
+<title>Invo DESKTOP — Gestion de stock</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Sinhala:wght@400;600;700&family=Noto+Sans+Tamil:wght@400;600;700&display=swap" rel="stylesheet">
@@ -981,6 +981,49 @@ main{padding-top:24px;padding-bottom:calc(92px + env(safe-area-inset-bottom))}
 
 /* Commandes en attente : passer directement à la réception contrôlée */
 .pending-orders{margin:0 0 16px}.pending-order-card{width:100%;display:grid;grid-template-columns:28px minmax(0,1fr) auto 10px;align-items:center;gap:8px;text-align:left;border:1px solid var(--accent-soft-brd,#D9BE85);border-radius:13px;background:var(--surface,#fff);box-shadow:var(--shadow-card);padding:12px 11px;margin:0 0 8px;color:var(--ink,#1C1914);font-family:inherit;cursor:pointer}.pending-order-icon{font-size:18px;text-align:center}.pending-order-card b{display:block;font-size:12.5px;line-height:1.25}.pending-order-card small{display:block;margin-top:2px;color:var(--steel-d,#4A4436);font-size:10px;line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pending-order-card em{font-style:normal;border-radius:999px;padding:4px 6px;font-size:8.5px;font-weight:800;white-space:nowrap}.pending-order-card em.ok{background:var(--green-soft,#EAF2EC);color:var(--green,#235A34)}.pending-order-card em.warn{background:var(--amber-soft,#F8F2E5);color:var(--amber,#7A4F0A)}.pending-order-card em.info{background:var(--blue-soft,#E9EFF4);color:var(--blue,#254A67)}.pending-order-card i{font-style:normal;color:var(--steel-d,#4A4436);font-size:17px}
+
+
+/* ═════ INVO · INTERFACE FROIDE ET ÉPURÉE ═════ */
+:root{
+ --bg:#F4F7FB;--surface:#FFFFFF;--surface-2:#EDF2F8;--border:#D9E2EF;
+ --ink:#172033;--steel-d:#64748B;--accent:#2563EB;--accent-2:#1D4ED8;
+ --accent-soft:#EAF1FF;--accent-soft-brd:#BDD4FF;--green:#16815A;
+ --green-soft:#E9F8F1;--amber:#B7791F;--amber-d:#8A5B14;--amber-soft:#FFF7E7;
+ --red:#C2414A;--red-soft:#FFF0F1;--blue:#2563EB;--blue-soft:#EAF1FF;
+ --teal:#0F766E;--teal-soft:#E7F8F6;--purple:#6D5BD0;--purple-soft:#F0EEFF;
+ --gold:#2563EB;--shadow:none;--shadow-sm:0 10px 28px rgba(28,54,98,.11);
+ --shadow-card:0 1px 1px rgba(25,45,78,.02);--invo-version:"INVO DESKTOP";
+}
+html,body,.app{background:#F4F7FB;color:#172033}
+body{font-family:-apple-system,BlinkMacSystemFont,"Inter",system-ui,sans-serif}
+.top{background:rgba(244,247,251,.9);border-color:#D9E2EF;box-shadow:0 1px 0 rgba(25,45,78,.03)}
+.logo-img{height:27px}.who-pill,.lang{background:#FFF;border-color:#D9E2EF;color:#334155;border-radius:10px}
+.who-pill .dot{background:#2563EB}.burger i{background:#334155}
+main{padding-top:26px}.h-title{font-family:-apple-system,BlinkMacSystemFont,"Inter",system-ui,sans-serif;font-size:28px;font-weight:750;letter-spacing:-.045em;color:#172033;margin-bottom:4px}
+.h-sub{font-size:12px;line-height:1.45;color:#64748B;max-width:620px;margin-bottom:20px}
+.eyebrow{color:#2563EB;font-size:10px;letter-spacing:.12em;margin-bottom:8px}
+.btn{border-radius:11px;background:#2563EB;box-shadow:0 8px 18px rgba(37,99,235,.16);font-size:14px;padding:13px 16px}
+.btn:hover{background:#1D4ED8}.btn-2{background:#FFF;color:#334155;border-color:#D9E2EF;box-shadow:none}.btn-del{background:#FFF0F1;color:#C2414A;border-color:#FFD5D8;box-shadow:none}
+.card,.motif,.conn,.kpi,.split-cell,.inv-head,.panier,.liv-card,.order-card,.cmd-product,.cmd-hero,.cmd-toolbar,.cmd-create,.pending-order-card{border-color:#D9E2EF!important;border-radius:16px!important;box-shadow:none!important;background:#FFF!important}
+.card{min-height:92px}.card.has,.motif.sel{border-color:#8AB4FF!important;background:#F5F9FF!important}.qbadge,.cartbar-in{background:#2563EB}.cartbar-in{border-radius:14px;box-shadow:0 12px 24px rgba(37,99,235,.22)}
+.svc,.seg,.subtabs{background:#EAF0F7;border-radius:12px;padding:3px}.svc button,.seg button,.subtabs button{color:#64748B;border-radius:9px;font-size:12px}.svc button.on,.seg button.on,.subtabs button.on{color:#1D4ED8;background:#FFF;box-shadow:0 1px 3px rgba(30,58,100,.12)}
+.cat,.zchip{border-color:#D9E2EF;background:#FFF;color:#64748B}.cat.on,.zchip.on{background:#2563EB;border-color:#2563EB}
+.search,.iv-inp,.fld input,.fld select{border-color:#D9E2EF;background:#FFF;color:#172033;border-radius:11px}.search:focus,.iv-inp:focus,.fld input:focus,.fld select:focus{border-color:#2563EB;box-shadow:0 0 0 3px rgba(37,99,235,.11)}
+.hint{background:#EDF4FF;color:#52627B;border-left:3px solid #7FB0FF;border-radius:11px}.tag,.src{border-radius:7px}
+.line,.feed-row,.pk-row,.inv-line{border-color:#E7EDF5}.l-nm,.pk-n,.f-t,.iv-nm{color:#172033}.l-meta,.pk-c,.f-m,.iv-sub{color:#64748B}
+.kpi-v,.sp-v{font-family:-apple-system,BlinkMacSystemFont,"Inter",system-ui,sans-serif;letter-spacing:-.045em}.kpi.amber .kpi-v{color:#B7791F}.kpi.red .kpi-v{color:#C2414A}.kpi.green .kpi-v{color:#16815A}
+.dash-hero,.dash-priority,.dash-section,.dash-caisse{border-color:#D9E2EF!important;box-shadow:none!important}.dash-hero{background:linear-gradient(135deg,#FFF,#F3F7FF)!important}.dash-priority{background:#FFF!important}.dash-kpi{border-color:#D9E2EF!important;box-shadow:none!important}.dash-kpi.blue{background:#EDF4FF!important}.dash-kpi.dark{background:#172033!important}
+.cmd-hero{background:linear-gradient(135deg,#F8FBFF,#FFF)!important}.cmd-toolbar,.cmd-create{background:#F7F9FC!important}.cmd-supplier-select select{border-color:#D9E2EF!important}
+.workspace-label{display:block;color:#94A3B8!important;font-size:9px!important;font-weight:800!important;letter-spacing:.14em!important;margin:20px 0 8px!important;padding:0 10px!important}
+.workspace-list{display:grid!important;gap:3px!important}.workspace-link{border-radius:10px!important;color:#64748B!important;padding:10px 11px!important}.workspace-link:hover{background:#EDF4FF!important;color:#1D4ED8!important}.workspace-link.on{background:#EAF1FF!important;color:#1D4ED8!important;font-weight:750!important}.workspace-icon{color:inherit!important}.workspace-badge{background:#2563EB!important}
+.workspace-add{background:#2563EB!important;border-radius:11px!important;box-shadow:0 8px 18px rgba(37,99,235,.18)!important}.workspace-settings{border-radius:10px!important}.workspace-place{color:#334155!important}.workspace-brand:after{content:var(--invo-version);display:block;margin-top:4px;font-size:9px;letter-spacing:.16em;font-weight:800;color:#94A3B8}
+.drawer{background:#FFFFFF!important;border-right:1px solid #D9E2EF!important}.workspace-head{border-color:#E7EDF5!important}.workspace-bottom{border-color:#E7EDF5!important}.workspace-bottom p{color:#94A3B8!important}
+.nav{background:rgba(255,255,255,.94)!important;border-color:#D9E2EF!important;backdrop-filter:blur(16px)}.tab-item{color:#64748B!important}.tab-item.on{color:#2563EB!important}.tab-item.on .tab-icon{background:#EAF1FF!important}.tab-item i{background:#2563EB!important}
+.sheet{border-radius:20px 20px 0 0!important;background:#FFF!important}.sheet h3{font-family:-apple-system,BlinkMacSystemFont,"Inter",system-ui,sans-serif;color:#172033}.set-sec{color:#2563EB!important;border-color:#E7EDF5!important}
+@media(min-width:900px){
+ body{background:#F4F7FB}.drawer{position:fixed!important;inset:0 auto 0 0!important;width:272px!important;transform:none!important;visibility:visible!important;z-index:90!important;display:flex!important;flex-direction:column!important}.dr-bg{display:none!important}.app{max-width:none!important;margin-left:272px!important;min-height:100vh}.top{padding:18px 34px!important}.burger{display:none!important}main{width:100%;max-width:1440px;margin:0 auto;padding:32px 42px 52px!important}.workspace-content{flex:1;overflow:auto;padding:4px 14px 18px!important}.workspace-compose{padding:14px!important}.workspace-head{padding:22px 20px 16px!important}.workspace-bottom{padding:16px 18px 20px!important}.screen{max-width:1240px}.dash-hero{padding:28px!important}.h-title{font-size:32px}.nav{display:none!important}
+}
+@media(max-width:899px){.drawer{background:#FFF!important}.drawer.on{box-shadow:18px 0 48px rgba(23,32,51,.16)}.workspace-content{padding:4px 14px 18px}.workspace-head{padding:20px 18px 14px}.workspace-compose{padding:12px 14px}.workspace-bottom{padding:16px}.workspace-label{margin-top:17px!important}.dash-hero{border-radius:18px!important}.dash-priority{border-radius:16px!important}}
 
 </style>
 </head>
@@ -4981,7 +5024,7 @@ function renderNav(){
   <div class="workspace-head"><div class="workspace-brand">${logoHTML}</div>
    <button class="workspace-place" data-reg="1"><span>${st.etabNom||'SP Wallace'}</span><b>⌄</b></button></div>
   <div class="workspace-compose"><button class="workspace-add" data-nav="dec"><span>＋</span>${t('newVente')}</button></div>
-  <div class="workspace-content">${groupe('PILOTAGE',['dash'])}${groupe(t('nCaisse'),['caisse','dec'])}${groupe(t('nStock'),['liv','cmd','stock','inv'])}${groupe(t('nBil'),['bil'])}</div>
+  <div class="workspace-content">${groupe('APERÇU',['dash'])}${groupe('OPÉRATIONS',['caisse','dec'])}${groupe('STOCK & ACHATS',['liv','cmd','stock','inv'])}${groupe('ANALYSE',['bil'])}</div>
   <div class="workspace-bottom"><button class="workspace-settings" data-reg="1"><span>⚙</span>${t('reglages')}</button>
    <p>${t('slogan')}</p></div>`;
  const tabs=items.filter(x=>['dash','caisse','dec','liv'].includes(x.id));
