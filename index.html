@@ -979,6 +979,7 @@ main{padding-top:24px;padding-bottom:calc(92px + env(safe-area-inset-bottom))}
 <section class="screen on" id="s-caisse"></section>
 <section class="screen" id="s-dec"></section>
 <section class="screen" id="s-liv"></section>
+<section class="screen" id="s-cmd"></section>
 <section class="screen" id="s-stock"></section>
 <section class="screen" id="s-inv"></section>
 <section class="screen" id="s-bil"></section>
@@ -2402,7 +2403,7 @@ async function preparerCommande(){
  const lines=(st.prods||[]).filter(function(p){return(p.fo||'Divers')===fournisseur}).map(function(p){return{id:p.id,q:qteCommande(p),px:p.px}}).filter(function(l){return l.q>0});
  if(!lines.length)return toast('Ajoute au moins une quantité à commander.');
  st.commandes=st.commandes||[];st.commandes.unshift({id:uid('cmd'),fournisseur:fournisseur,dateLiv:dateLiv,cree:new Date().toISOString(),statut:'preparee',lines:lines});
- st.cmdQ={};await save();renderLiv();toast('Commande enregistrée. Le stock attendra ta validation à réception.');
+ st.cmdQ={};await save();renderCommanderScreen();toast('Commande enregistrée. Le stock attendra ta validation à réception.');
 }
 function signalerProduitManquant(){
  const nom=prompt('Quel produit manque chez '+(commandeFo||'ce fournisseur')+' ?');
@@ -2429,13 +2430,30 @@ async function saveFournisseur(){
  if(doublon)return toast('Ce fournisseur existe déjà.');
  if(fournisseurForm.id){const f=st.fournisseurs.find(function(x){return x.id===fournisseurForm.id}),ancien=f.n;f.n=n;f.mail=mail;(st.prods||[]).forEach(function(p){if(p.fo===ancien)p.fo=n});(st.commandes||[]).forEach(function(c){if(c.fournisseur===ancien)c.fournisseur=n});}
  else st.fournisseurs.push({id:uid('fo'),n:n,mail:mail});
- commandeFo=n;await save();closeModal();renderLiv();toast('Fournisseur enregistré.');
+ commandeFo=n;await save();closeModal();renderCommanderScreen();toast('Fournisseur enregistré.');
 }
 async function retirerFournisseur(){
  const f=(st.fournisseurs||[]).find(function(x){return x.id===fournisseurForm.id}),nb=(st.prods||[]).filter(function(p){return p.fo===f.n}).length;
  if(nb)return toast('Réassigne ou retire d’abord ses '+nb+' produit'+(nb>1?'s':'')+'.');
  if(!confirm('Retirer ce fournisseur ?'))return;
- st.fournisseurs=st.fournisseurs.filter(function(x){return x.id!==f.id});commandeFo='';await save();closeModal();renderLiv();toast('Fournisseur retiré.');
+ st.fournisseurs=st.fournisseurs.filter(function(x){return x.id!==f.id});commandeFo='';await save();closeModal();renderCommanderScreen();toast('Fournisseur retiré.');
+}
+
+function bindCommanderActions(){
+ document.querySelectorAll('[data-cmd]').forEach(function(i){i.oninput=function(e){st.cmdQ=st.cmdQ||{};st.cmdQ[e.target.dataset.cmd]=e.target.value}});
+ document.querySelectorAll('[data-cmdfo]').forEach(function(b){b.onclick=function(){commandeFo=b.dataset.cmdfo;renderCommanderScreen()}});
+ document.querySelectorAll('[data-cmdedit]').forEach(function(b){b.onclick=function(){openMat(b.dataset.cmdedit)}});
+ const addProd=document.getElementById('addSupplierProduct');if(addProd)addProd.onclick=function(){openMat(null,commandeFo)};
+ const addF=document.getElementById('addSupplier');if(addF)addF.onclick=function(){openFournisseur()};
+ const manage=document.getElementById('manageSuppliers');if(manage)manage.onclick=function(){openFournisseur(commandeFo)};
+ const prep=document.getElementById('prepareOrder');if(prep)prep.onclick=preparerCommande;
+ const manque=document.getElementById('missingProduct');if(manque)manque.onclick=signalerProduitManquant;
+ document.querySelectorAll('[data-copyorder]').forEach(function(b){b.onclick=function(){const c=(st.commandes||[]).find(function(x){return x.id===b.dataset.copyorder});if(c){copyText(texteCommande(c));toast('Commande copiée. Tu peux la relire puis l’envoyer au fournisseur.')}}});
+ document.querySelectorAll('[data-receivecmd]').forEach(function(b){b.onclick=function(){openLiv(b.dataset.receivecmd)}});
+}
+function renderCommanderScreen(){
+ document.getElementById('s-cmd').innerHTML='<div class="h-title">Commander</div><div class="h-sub">Catalogue fournisseur, commandes et réception vérifiée.</div>'+renderCommander();
+ bindCommanderActions();
 }
 
 function renderLiv(){
@@ -2445,8 +2463,8 @@ function renderLiv(){
 
  const sub=`<div class="subtabs">
   <button class="${livTab==='recep'?'on':''}" data-lt="recep">📥 ${t('tabRecep')}</button>
-  <button class="${livTab==='cmd'?'on':''}" data-lt="cmd">🛒 ${t('tabCmd')}</button>
   <button class="${livTab==='prev'?'on':''}" data-lt="prev">📈 ${t('tabPrev')}</button></div>`;
+
  let body='';
  if(livTab==='prev'){
   const pv=previsionIndex().pv;
@@ -2512,11 +2530,11 @@ function renderLiv(){
    ${brouil}
    <div class="eyebrow">${t('histLiv')}</div>${cards}`;
  }else{
-  body=renderCommander();
+  body='';
  }
  document.getElementById('s-liv').innerHTML=`
-  <div class="h-title">${livTab==='recep'?t('livT'):livTab==='cmd'?'Commander':t('cmdT')}</div>
-  <div class="h-sub">${livTab==='recep'?t('livS'):livTab==='cmd'?'Catalogue fournisseur, commandes et réception vérifiée.':''}</div>${sub}${body}`;
+  <div class="h-title">${livTab==='recep'?t('livT'):'Prévisions'}</div>
+  <div class="h-sub">${livTab==='recep'?t('livS'):''}</div>${sub}${body}`;
  document.querySelectorAll('[data-lt]').forEach(b=>b.onclick=()=>{livTab=b.dataset.lt;renderLiv()});
  const nl=document.getElementById('newLiv');if(nl)nl.onclick=()=>openLiv();
  document.querySelectorAll('[data-livix]').forEach(c=>c.onclick=()=>voirLivraison(+c.dataset.livix));
@@ -4466,7 +4484,7 @@ if(fm.mode==='cont'){obj.ct=num(fm.ct);obj.pc=num(fm.pc)}
 if(fm.id){const ix=st.prods.findIndex(p=>p.id===fm.id);st.prods[ix]=obj}
 else st.prods.push(obj);
 st.stock[obj.id]=num(fm.stock);assurerFournisseurs();
-await save();closeModal();renderStock();if(screen==='liv'&&livTab==='cmd')renderLiv();toast(t('matSaved'))}
+await save();closeModal();renderStock();if(screen==='cmd')renderCommanderScreen();toast(t('matSaved'))}
 
 async function delMat(){
 const used=st.carte.filter(c=>c.f&&c.f[fm.id]!==undefined).length;
@@ -4824,6 +4842,7 @@ function renderNav(){
   {id:'caisse',i:'◌',l:t('nCaisse'),b:screen!=='caisse'?nouv:0,group:'activité'},
   {id:'dec',i:'＋',l:t('nDec'),b:screen!=='dec'?pc:0,group:'activité'},
   {id:'liv',i:'↓',l:t('nLiv'),b:sousSeuil,group:'gestion'},
+  {id:'cmd',i:'🛒',l:'Commander',group:'gestion'},
   {id:'stock',i:'□',l:t('nStock'),group:'gestion'},
   {id:'inv',i:'✓',l:t('nInv'),group:'gestion'},
   {id:'bil',i:'⌁',l:t('nBil'),group:'analyse'}
@@ -4840,10 +4859,10 @@ function renderNav(){
   <div class="workspace-head"><div class="workspace-brand">${logoHTML}</div>
    <button class="workspace-place" data-reg="1"><span>${st.etabNom||'SP Wallace'}</span><b>⌄</b></button></div>
   <div class="workspace-compose"><button class="workspace-add" data-nav="dec"><span>＋</span>${t('newVente')}</button></div>
-  <div class="workspace-content">${groupe(t('nCaisse'),['caisse','dec'])}${groupe(t('nStock'),['liv','stock','inv'])}${groupe(t('nBil'),['bil'])}</div>
+  <div class="workspace-content">${groupe(t('nCaisse'),['caisse','dec'])}${groupe(t('nStock'),['liv','cmd','stock','inv'])}${groupe(t('nBil'),['bil'])}</div>
   <div class="workspace-bottom"><button class="workspace-settings" data-reg="1"><span>⚙</span>${t('reglages')}</button>
    <p>${t('slogan')}</p></div>`;
- const tabs=items.filter(x=>['caisse','dec','liv','stock'].includes(x.id));
+ const tabs=items.filter(x=>['caisse','dec','liv','cmd'].includes(x.id));
  document.getElementById('nav').innerHTML=`${tabs.map(x=>`<button class="tab-item ${screen===x.id?'on':''}" data-nav="${x.id}">
   <span class="tab-icon">${x.i}</span><span>${x.l}</span>${x.b?`<i>${x.b>99?'99+':x.b}</i>`:''}</button>`).join('')}
   <button class="tab-item tab-more" data-menu="1"><span class="tab-icon">•••</span><span>Plus</span></button>`;
@@ -4872,7 +4891,7 @@ if(!estResp()&&ONGLETS_RESP.includes(screen))screen='dec';
 document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));
 document.getElementById('s-'+screen).classList.add('on');window.scrollTo({top:0});renderNav();
 if(screen==='caisse')renderCaisse();if(screen==='dec')renderDec();
-if(screen==='liv')renderLiv();
+if(screen==='liv')renderLiv();if(screen==='cmd')renderCommanderScreen();
 if(screen==='stock')renderStock();if(screen==='inv')renderInv();if(screen==='bil')renderBil();
 if(screen!=='dec')document.getElementById('cartbar').innerHTML=''}
 
