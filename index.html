@@ -964,6 +964,10 @@ main{padding-top:24px;padding-bottom:calc(92px + env(safe-area-inset-bottom))}
 
 /* NOVA · guide pixel de premiers pas */
 .cmd-supplier-row{display:flex;align-items:flex-end;gap:10px}.cmd-supplier-select{flex:1;display:grid;gap:5px;font-size:10px;font-weight:800;letter-spacing:.06em;color:#6E6E73;text-transform:uppercase}.cmd-supplier-select select{width:100%;appearance:auto;border:1px solid var(--line,#d8d8de);background:var(--card,#fff);border-radius:12px;padding:10px 12px;color:#17171a;font:600 13px -apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif}.guide-widget{position:fixed;right:20px;bottom:22px;z-index:90;display:flex;align-items:flex-end;gap:10px;pointer-events:none}.guide-widget>*{pointer-events:auto}.pixel-bot{position:relative;width:55px;height:52px;flex:none;border:0;border-radius:8px;background:#25252A;box-shadow:inset 0 0 0 4px #111116,4px 4px 0 #0C0C0F,0 8px 18px rgba(0,0,0,.18);cursor:pointer;image-rendering:pixelated}.pixel-antenna{position:absolute;width:6px;height:10px;background:#25252A;left:25px;top:-8px;box-shadow:0 -4px 0 #71D5FF}.pixel-ear{position:absolute;top:15px;width:8px;height:20px;background:#71D5FF;box-shadow:inset 0 0 0 3px #111116}.pixel-ear.left{left:-6px}.pixel-ear.right{right:-6px}.pixel-face{position:absolute;inset:9px 8px 8px;background:#86DDFF;box-shadow:inset 0 0 0 4px #111116;display:flex;justify-content:center;gap:8px;padding-top:10px}.pixel-face i{width:6px;height:8px;background:#111116;box-shadow:0 3px 0 #fff}.pixel-face em{position:absolute;width:13px;height:3px;background:#111116;bottom:7px}.guide-bubble{width:255px;background:#17171B;color:#fff;border:3px solid #0B0B0D;box-shadow:5px 5px 0 #007AFF,0 12px 26px rgba(0,0,0,.2);border-radius:12px;padding:12px 13px 11px;transform-origin:bottom right;animation:guideIn .22s ease-out}.guide-bubble:after{content:"";position:absolute;right:-11px;bottom:15px;width:0;height:0;border-top:9px solid transparent;border-bottom:9px solid transparent;border-left:11px solid #17171B;filter:drop-shadow(3px 0 0 #0B0B0D)}.guide-title{display:flex;align-items:center;justify-content:space-between;color:#71D5FF;font-size:10px;font-weight:900;letter-spacing:.12em}.guide-title button{border:0;background:transparent;color:#A1A1AA;font-size:20px;line-height:14px;cursor:pointer}.guide-bubble p{margin:7px 0 10px;font-size:12px;line-height:1.42;color:#E8E8ED}.guide-bubble p b{color:#fff}.guide-next{border:0;background:#007AFF;color:#fff;border-radius:7px;padding:7px 9px;font:800 11px -apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;cursor:pointer}.guide-next span{font-size:14px;margin-left:4px}.guide-widget.is-speaking .pixel-bot{animation:pixelTalk .36s steps(2,end) infinite}.guide-widget:not(.is-open) .guide-bubble{display:none}@keyframes pixelTalk{0%{transform:translateY(0) rotate(-1deg)}100%{transform:translateY(-5px) rotate(1deg)}}@keyframes guideIn{from{transform:scale(.88) translateY(8px);opacity:0}to{transform:scale(1);opacity:1}}@media(max-width:620px){.cmd-supplier-row{align-items:stretch;flex-direction:column}.cmd-supplier-row .cmd-supplier{width:100%}.guide-widget{right:12px;bottom:calc(66px + env(safe-area-inset-bottom));gap:7px}.guide-bubble{width:min(240px,calc(100vw - 92px))}.pixel-bot{width:50px;height:48px}.guide-bubble:after{right:-10px}}@media(min-width:900px){.guide-widget{right:24px;bottom:24px}}
+
+
+/* NOVA · assistant premium, parcours interactif */
+#guideFocus{position:fixed;z-index:80;pointer-events:none;border:2px solid #64D2FF;border-radius:14px;opacity:0;transform:scale(.96);box-shadow:0 0 0 9999px rgba(10,13,20,0);transition:opacity .22s ease,transform .28s cubic-bezier(.2,.9,.2,1),box-shadow .28s ease}#guideFocus.on{opacity:1;transform:scale(1);box-shadow:0 0 0 9999px rgba(10,13,20,.22),0 0 0 5px rgba(100,210,255,.18),0 0 28px rgba(74,178,255,.45);animation:focusPulse .9s ease-in-out infinite alternate}.guide-target{animation:targetLift .32s ease-out both}.guide-widget{right:24px;bottom:24px;gap:12px}.nova-bot{width:58px;height:58px;border-radius:17px;background:linear-gradient(145deg,#2E3441,#0D1018 68%);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),inset 0 0 0 2px #090B11,5px 7px 0 #06070B,0 14px 26px rgba(0,0,0,.28);overflow:hidden}.nova-bot:before{content:"";position:absolute;inset:7px;border:1px solid rgba(130,224,255,.32);border-radius:12px}.nova-mark{position:absolute;left:10px;top:9px;width:5px;height:5px;background:#64D2FF;box-shadow:34px 0 0 #64D2FF,0 34px 0 rgba(100,210,255,.38),34px 34px 0 rgba(100,210,255,.38)}.nova-core{position:absolute;left:13px;top:17px;width:32px;height:22px;background:#111722;border:1px solid rgba(100,210,255,.54);border-radius:6px;display:flex;justify-content:center;gap:7px;padding-top:6px}.nova-core i{width:5px;height:5px;background:#8BE7FF;box-shadow:0 0 9px #4ACBFF}.nova-core em{position:absolute;bottom:4px;width:12px;height:1px;background:rgba(139,231,255,.72)}.nova-scan{position:absolute;left:0;right:0;height:2px;top:10px;background:linear-gradient(90deg,transparent,#A6EDFF,transparent);opacity:.8;animation:novaScan 2.2s linear infinite}.pixel-bot.nova-bot .pixel-antenna,.pixel-bot.nova-bot .pixel-ear,.pixel-bot.nova-bot .pixel-face{display:none}.guide-widget.is-speaking .nova-bot{animation:novaPulse .78s ease-in-out infinite alternate}.guide-bubble{border:1px solid rgba(128,218,255,.36);border-radius:16px;background:linear-gradient(145deg,#171D2A,#0E1118);box-shadow:0 12px 34px rgba(0,0,0,.25),0 0 0 1px rgba(0,0,0,.42)}.guide-bubble:after{border-left-color:#131824;filter:drop-shadow(2px 0 0 rgba(128,218,255,.25))}.guide-title{color:#8BE7FF}.guide-title em{font-style:normal;color:#8C93A2;font-size:8px;font-weight:800;letter-spacing:.08em}.guide-bubble p{color:#DDE3EE}.guide-progress{display:flex;gap:5px;margin:-1px 0 11px}.guide-progress i{width:18px;height:2px;border-radius:99px;background:#343A47}.guide-progress i.done{background:#4E9FF8}.guide-progress i.on{background:#8BE7FF;box-shadow:0 0 9px #4ACBFF}.guide-next{background:linear-gradient(135deg,#087EFF,#4A8DFF);box-shadow:0 5px 13px rgba(0,122,255,.28)}@keyframes novaPulse{from{transform:translateY(0);filter:brightness(1)}to{transform:translateY(-4px);filter:brightness(1.18)}}@keyframes novaScan{0%,20%{transform:translateY(0);opacity:0}35%{opacity:.9}80%{transform:translateY(42px);opacity:.25}100%{transform:translateY(42px);opacity:0}}@keyframes focusPulse{from{border-color:#64D2FF}to{border-color:#FFF}}@keyframes targetLift{from{transform:scale(.985)}to{transform:scale(1)}}@media(max-width:620px){.guide-widget{right:12px;bottom:calc(66px + env(safe-area-inset-bottom))}.nova-bot{width:53px;height:53px;border-radius:15px}.nova-core{left:11px;top:15px}.nova-mark{left:9px;top:8px}.guide-title em{display:none}#guideFocus{border-radius:12px}}
 </style>
 </head>
 <body>
@@ -992,6 +996,7 @@ main{padding-top:24px;padding-bottom:calc(92px + env(safe-area-inset-bottom))}
 <nav class="nav" id="nav"></nav>
 <div id="modal"></div>
 <div id="toast"></div>
+<div id="guideFocus" aria-hidden="true"></div>
 <aside id="guideBot" class="guide-widget" aria-live="polite"></aside>
 <script>
 const Store=(()=>{const mem={};const hasW=typeof window.storage!=='undefined'&&window.storage;
@@ -1682,7 +1687,7 @@ lastSync:Date.now(),svc:'soir',prods:null,carte:null,liv:[],invHist:[],photos:{}
 let panier={},motif=null,cat='cCock',screen='caisse',seenFeed=0,timer=null,sq='',stockTab='mat',fm=null;
 let msgDec=null,forcerStock=false;   /* retours de validation sur l'écran Déclarer */
 let cartePrix=false,prixEdit={},cartCat='tous';   /* édition groupée des prix de vente */
-let livTab='recep',invTab='count',invZone='all',livForm=null,decPhoto=null,commandeFo='',fournisseurForm=null,guideOpen=true,guideStep=0;
+let livTab='recep',invTab='count',invZone='all',livForm=null,decPhoto=null,commandeFo='',fournisseurForm=null,guideOpen=true,guideStep=0,guideStarted=false,guideFocusTimer=null;
 
 const t=k=>(L[st.lang]&&L[st.lang][k])??L.fr[k];
 const prod=id=>st.prods.find(p=>p.id===id);
@@ -4893,20 +4898,38 @@ function basculerMenu(){
 }
 
 const GUIDE_INVO=[
- {titre:'Bienvenue dans INVO',texte:'Je suis NOVA, ton petit guide. On commence simplement, sans rien automatiser à ta place.'},
- {titre:'1 · Prépare tes produits',texte:'Dans Produits, vérifie les unités, les seuils et les fournisseurs avant de travailler.'},
- {titre:'2 · Passe une commande',texte:'Dans Commander, choisis le fournisseur puis ajuste les quantités proposées par les seuils.'},
- {titre:'3 · Valide à réception',texte:'À la livraison, vérifie les quantités réelles. Le stock bouge seulement après ta validation.'}
+ {titre:'Produits et seuils',texte:'Ici, vérifie les unités, les seuils et le fournisseur de chaque produit avant de commencer.',screen:'stock',cible:'#s-stock .h-title'},
+ {titre:'Commander au bon fournisseur',texte:'Choisis un fournisseur dans ce menu, ajuste les quantités proposées, puis prépare la commande.',screen:'cmd',cible:'#cmdSupplierSelect'},
+ {titre:'Réceptionner sans erreur',texte:'Quand une livraison arrive, ouvre cette action et confirme les quantités réellement reçues.',screen:'liv',cible:'#newLiv'},
+ {titre:'Déclarer avec contrôle',texte:'Choisis les produits et le motif, puis vérifie avant de valider. INVO ne modifie rien sans validation.',screen:'dec',cible:'#s-dec .declare-catalog'}
 ];
+function focusGuideTarget(selector){
+ const focus=document.getElementById('guideFocus'),target=document.querySelector(selector);
+ if(!focus||!target)return;
+ target.scrollIntoView({behavior:'smooth',block:'center'});
+ setTimeout(function(){
+  const r=target.getBoundingClientRect();if(r.width<1||r.height<1)return;
+  focus.style.left=Math.max(8,r.left-8)+'px';focus.style.top=Math.max(8,r.top-8)+'px';
+  focus.style.width=Math.min(window.innerWidth-16,r.width+16)+'px';focus.style.height=Math.min(window.innerHeight-16,r.height+16)+'px';
+  focus.classList.add('on');target.classList.add('guide-target');
+  clearTimeout(guideFocusTimer);guideFocusTimer=setTimeout(function(){focus.classList.remove('on');target.classList.remove('guide-target')},2600);
+ },360);
+}
+function avancerGuide(){
+ if(guideStarted&&guideStep===GUIDE_INVO.length-1){guideOpen=false;guideStarted=false;guideStep=0;renderGuide();return;}
+ if(!guideStarted){guideStarted=true;guideStep=0}else guideStep++;
+ const etape=GUIDE_INVO[guideStep];guideOpen=true;screen=etape.screen;go();setTimeout(function(){focusGuideTarget(etape.cible)},120);
+}
 function renderGuide(){
  const root=document.getElementById('guideBot');if(!root)return;
- const contexte={caisse:'Enregistre uniquement les ventes déjà réalisées hors d’INVO.',dec:'Choisis un produit, puis vérifie avant de valider.',liv:'Ici, on enregistre uniquement les livraisons réellement reçues.',cmd:'Choisis un fournisseur dans le menu déroulant, puis prépare la commande.',stock:'Retrouve ici chaque produit, son unité et son seuil.',inv:'Compte le réel, INVO t’aide à comparer.'}[screen]||'Je suis là si tu as besoin d’un coup de main.';
- const etape=GUIDE_INVO[guideStep];
+ const etape=GUIDE_INVO[guideStep],titre=guideStarted?('ÉTAPE '+(guideStep+1)+' / '+GUIDE_INVO.length):'GUIDE INTELLIGENT',texte=guideStarted?etape.texte:'Je peux te guider dans INVO, écran par écran, et mettre en évidence chaque action utile.';
+ const action=!guideStarted?'Démarrer':(guideStep===GUIDE_INVO.length-1?'Terminer':'Étape suivante');
+ const points=GUIDE_INVO.map(function(x,i){return'<i class="'+(guideStarted&&i===guideStep?'on':(guideStarted&&i<guideStep?'done':''))+'"></i>'}).join('');
  root.className='guide-widget '+(guideOpen?'is-open is-speaking':'');
- root.innerHTML='<div class="guide-bubble" '+(guideOpen?'':'aria-hidden="true"')+'><div class="guide-title"><span>NOVA</span><button id="guideClose" aria-label="Fermer le guide">×</button></div><p><b>'+etape.titre+'</b><br>'+ (guideStep===0?contexte:etape.texte) +'</p><button class="guide-next" id="guideNext">'+(guideStep===GUIDE_INVO.length-1?'Compris !':'Suivant')+' <span>→</span></button></div><button class="pixel-bot" id="guideToggle" aria-label="'+(guideOpen?'Réduire le guide NOVA':'Ouvrir le guide NOVA')+'"><span class="pixel-antenna"></span><span class="pixel-ear left"></span><span class="pixel-ear right"></span><span class="pixel-face"><i></i><i></i><em></em></span></button>';
+ root.innerHTML='<div class="guide-bubble" '+(guideOpen?'':'aria-hidden="true"')+'><div class="guide-title"><span>NOVA <em>· '+titre+'</em></span><button id="guideClose" aria-label="Réduire NOVA">×</button></div><p><b>'+etape.titre+'</b><br>'+texte+'</p><div class="guide-progress">'+points+'</div><button class="guide-next" id="guideNext">'+action+' <span>→</span></button></div><button class="pixel-bot nova-bot" id="guideToggle" aria-label="'+(guideOpen?'Réduire le guide NOVA':'Ouvrir le guide NOVA')+'"><span class="nova-mark"></span><span class="nova-core"><i></i><i></i><em></em></span><span class="nova-scan"></span></button>';
  const toggle=document.getElementById('guideToggle');if(toggle)toggle.onclick=function(){guideOpen=!guideOpen;renderGuide()};
  const close=document.getElementById('guideClose');if(close)close.onclick=function(){guideOpen=false;renderGuide()};
- const next=document.getElementById('guideNext');if(next)next.onclick=function(){guideStep=(guideStep+1)%GUIDE_INVO.length;guideOpen=true;renderGuide()};
+ const next=document.getElementById('guideNext');if(next)next.onclick=avancerGuide;
 }
 
 function go(){
