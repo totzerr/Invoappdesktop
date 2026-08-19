@@ -1237,6 +1237,25 @@ html,body,.app{background:#F6F5F2!important;color:#171614!important}
 button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #B8892A!important;outline-offset:3px}
 #mainContent:focus{outline:none}
 
+
+
+/* INVO · HIÉRARCHIE OPÉRATIONNELLE */
+.nord-metrics button.is-clear{opacity:.68;background:#FAF9F7!important;box-shadow:none!important}
+.nord-metrics button.is-clear:hover{opacity:1;transform:translateY(-2px)!important}
+.nord-metrics button.is-critical{background:#FFF7F4!important;border-color:#E7B8A8!important}
+.nord-metrics button.is-critical b{color:#9C321C!important}
+.nord-metrics button.is-watch{background:#FFFBF1!important;border-color:#E2C77E!important}
+.nord-metrics button.is-watch b{color:#806126!important}
+.nord-metrics button.is-pending{background:#F4F7FB!important;border-color:#C6D5E9!important}
+.nord-metrics button.is-pending b{color:#31506F!important}
+.nord-metrics button.is-review{background:#F7F4FB!important;border-color:#D7C8E3!important}
+.nord-metrics button.is-review b{color:#68427A!important}
+.nord-focus.urgent{border-left:4px solid #A13A22!important}
+.nord-focus.attention{border-left:4px solid #A67B22!important}
+.nord-focus.info{border-left:4px solid #31506F!important}
+.nord-focus.ok{border-left:4px solid #2E6B42!important}
+@media(max-width:759px){.nord-metrics button.is-clear{opacity:.75}.nord-focus.urgent,.nord-focus.attention,.nord-focus.info,.nord-focus.ok{border-left-width:3px!important}}
+
 </style>
 </head>
 <body>
@@ -2549,7 +2568,7 @@ function renderDash(){
  const demo=st.demoParcours?'<div class="nord-demo">PARCOURS DE DÉMONSTRATION</div>':'';
  document.getElementById('s-dash').innerHTML=demo+'<div class="nord-dashboard">'
   +'<section class="nord-hero"><div><span>INVO · AUJOURD’HUI</span><h1>'+((nom?'Bonjour '+escapeHTML(nom):'Bonjour'))+'</h1><p>'+dateMiseAJour+'</p></div><section class="nord-weekly" aria-label="Tendances de la semaine"><div class="nord-week-summary"><span>SEMAINE EN COURS</span><b>'+fmt(caSemaine)+' €</b><small>'+ventesSemaine.length+' vente'+(ventesSemaine.length>1?'s':'')+' enregistrée'+(ventesSemaine.length>1?'s':'')+'</small></div><div class="nord-week-bars">'+barresSemaine+'</div><p>Mise à jour · '+maintenant.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})+'</p></section></section>'
-  +'<section class="nord-metrics"><button data-dashgo="stock"><b>'+ruptures.length+'</b><span>Rupture'+(ruptures.length>1?'s':'')+'</span></button><button data-dashgo="cmd"><b>'+sousSeuil.length+'</b><span>Sous seuil</span></button><button data-dashgo="liv"><b>'+commandesARecevoir.length+'</b><span>À recevoir</span></button><button data-dashgo="caisse"><b>'+aVerifier.length+'</b><span>À classer</span></button></section>'
+  +'<section class="nord-metrics" aria-label="Indicateurs à suivre"><button class="'+(ruptures.length?'is-critical':'is-clear')+'" data-dashgo="stock"><b>'+ruptures.length+'</b><span>Rupture'+(ruptures.length>1?'s':'')+'</span></button><button class="'+(sousSeuil.length?'is-watch':'is-clear')+'" data-dashgo="cmd"><b>'+sousSeuil.length+'</b><span>Sous seuil</span></button><button class="'+(commandesARecevoir.length?'is-pending':'is-clear')+'" data-dashgo="liv"><b>'+commandesARecevoir.length+'</b><span>À recevoir</span></button><button class="'+(aVerifier.length?'is-review':'is-clear')+'" data-dashgo="caisse"><b>'+aVerifier.length+'</b><span>À classer</span></button></section>'
   +'<section class="nord-focus '+priorite.etat+'"><span class="nord-focus-dot"></span><div><small>À TRAITER</small><b>'+priorite.titre+'</b><p>'+priorite.detail+'</p></div><button '+attr+'>'+priorite.action+' <i>›</i></button></section>'
   +'<div class="nord-columns"><section class="nord-panel"><header><div><small>STOCK</small><b>À surveiller</b></div><button data-dashgo="stock">Tout voir ›</button></header>'+stockRows+'</section>'
   +'<section class="nord-panel"><header><div><small>COMMANDES</small><b>En cours</b></div><button data-dashgo="cmd">Commander ›</button></header>'+orderRows+'</section></div>'
