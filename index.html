@@ -1449,7 +1449,7 @@ pvModifier:'Modifier les prix',pvTous:'Tous',pvAide:'Modifiez directement les pr
 
 qCoupe:'Le bon touche deux bords de l\'image : une partie peut manquer.',qCoupeFort:'Document incomplet : reculez ou recentrez pour voir le bon en entier.',qReflet:'Un reflet éclaircit une partie du document.',qRefletFort:'Reflet important : une partie du texte est effacée. Changez l\'angle ou éloignez la source de lumière.',qVerdictVert:'Photo exploitable, la lecture peut être lancée.',qVerdictOrange:'Photo imparfaite mais exploitable : le prétraitement devrait suffire.',qVerdictRouge:'Photo probablement inexploitable pour la lecture automatique.',
 
-trProduitInconnu:'« %p » n\'existe pas au catalogue : enregistrez-le d\'abord dans Produits.',trQteInvalide:'Quantité invalide.',trMotifInconnu:'Motif de mouvement inconnu.',trAnnulSansVente:'Aucune transaction correspondante à qualifier pour ce produit.',trParentAbsent:'La transaction d\'origine est introuvable.',trParentInvalide:'Cette qualification ne peut porter que sur une vente ou un envoi.',trParentAutreProduit:'La transaction d\'origine concerne un autre produit.',trDejaAnnule:'Cette transaction est déjà entièrement qualifiée.',trAnnulTrop:'Qualification de %q demandée, mais il ne reste que %r à qualifier.',trStockInsuffisant:'Stock insuffisant : %l',trAppuyerEncore:'Appuyez à nouveau pour enregistrer malgré tout.',trLiee:'liée à une transaction',trStockAlerte:'stock insuffisant au moment du mouvement',annul:'Annulation',annulD:'Annule une vente existante',
+trProduitInconnu:'« %p » n\'existe pas au catalogue : enregistrez-le d\'abord dans Produits.',trQteInvalide:'Quantité invalide.',trMotifInconnu:'Motif de mouvement inconnu.',trAnnulSansVente:'Impossible de valider : enregistre d’abord la vente ou la transaction d’origine pour ce produit.',trParentAbsent:'La transaction d\'origine est introuvable.',trParentInvalide:'Cette qualification ne peut porter que sur une vente ou un envoi.',trParentAutreProduit:'La transaction d\'origine concerne un autre produit.',trDejaAnnule:'Cette transaction est déjà entièrement qualifiée.',trAnnulTrop:'Qualification de %q demandée, mais il ne reste que %r à qualifier.',trStockInsuffisant:'Stock insuffisant : %l',trAppuyerEncore:'Appuyez à nouveau pour enregistrer malgré tout.',trLiee:'liée à une transaction',trStockAlerte:'stock insuffisant au moment du mouvement',annul:'Annulation',annulD:'Annule une vente existante',
 
 qViseur:'Placez le bon de livraison dans le cadre',qC1:'Posez le bon à plat, sur une surface unie',qC2:'Tenez le téléphone bien au-dessus, pas de biais',qC3:'Évitez les ombres portées et les reflets',qTitre:'Qualité de la photo',qBonne:'Bonne qualité, la lecture devrait bien se passer.',qFlou:'Photo floue : le texte risque d\'être illisible. Refaites-la en stabilisant le téléphone.',qPeuNet:'Photo un peu molle : la lecture sera moins fiable.',qSombre:'Photo trop sombre : allumez la lumière ou approchez-vous d\'une fenêtre.',qSurexpose:'Photo surexposée : le texte clair risque de disparaître.',qPeuContraste:'Peu de contraste entre le texte et le papier.',qTropLoin:'Le bon occupe une trop petite partie de l\'image : rapprochez-vous.',qUnPeuLoin:'Rapprochez-vous un peu, le texte sera plus net.',qIncline:'Document incliné de %a° : redressez-le pour aligner les colonnes.',qPetite:'Image de faible définition : le texte fin sera difficile à lire.',qConseilRefaire:'Nous vous conseillons de reprendre cette photo avant de lancer la lecture.',
 
@@ -2820,7 +2820,7 @@ const motifsList=[...motifsActuels].sort((a,b)=>(motifsRapidesIds.includes(b.id)
 const mts=motifsList.map(m=>`<button class="motif ${motifsRapidesIds.includes(m.id)?'quick':''} ${motif===m.id?'sel':''}" data-motif="${m.id}">
 <span class="mi">${m.i}</span><span class="mt">${t(m.id)}</span>
 <span class="md">${t(m.id+'D')}</span></button>`).join('');
-const blocMsg=msgDec?`<div class="warn ${msgDec.type==='err'?'err':'dup'}">${msgDec.txt}</div>`:'';
+const blocMsg=msgDec?`<div id="decFeedback" class="warn ${msgDec.type==='err'?'err':'dup'}" role="alert">${msgDec.txt}</div>`:'';
 document.getElementById('s-dec').innerHTML=`
  <section class="declare-hero"><div class="declare-overline">${t('nDec')}</div>
   <h1>${t('decT')}</h1><p>${t('decS')}</p></section>
@@ -2902,7 +2902,9 @@ if(refus.length){
  msgDec={type:confirmable?'warn':'err',
   txt:refus.map(x=>x.msg).join('<br>')+(confirmable?'<br><b>'+t('trAppuyerEncore')+'</b>':'')};
  if(confirmable)forcerStock=true;
- await save();renderDec();return;
+ await save();renderDec();
+ requestAnimationFrame(()=>{const feedback=document.getElementById('decFeedback');if(feedback)feedback.scrollIntoView({behavior:'smooth',block:'center'});toast(refus[0].msg)});
+ return;
 }
 
 /* Le lot est validé : les écritures se font maintenant, sans état intermédiaire visible. */
