@@ -1301,6 +1301,91 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 #bgR .sheet{max-width:720px!important}.settings-tabs{gap:8px!important;padding:0!important;background:transparent!important;display:grid!important;grid-template-columns:1fr 1fr!important}.settings-tabs button{min-height:74px!important;align-items:flex-start!important;justify-content:center!important;flex-direction:column!important;padding:14px 15px!important;border:1px solid #E3DED4!important;border-radius:15px!important;background:#FBFAF8!important;color:#5A554D!important;box-shadow:none!important}.settings-tabs button:before{display:block;font-size:18px;line-height:1;margin-bottom:5px}.settings-tabs button[data-settings="general"]:before{content:"◌"}.settings-tabs button[data-settings="users"]:before{content:"◫"}.settings-tabs button.on{background:#171614!important;border-color:#171614!important;color:#fff!important;box-shadow:0 8px 20px rgba(23,22,20,.12)!important}.settings-tabs button.on:after{content:"Établissement, données et matériel";font:500 9px Inter,sans-serif;opacity:.68}.settings-tabs button[data-settings="users"].on:after{content:"Accès et rôles de l’équipe"}#bgR .set-sec{display:flex;align-items:center;gap:9px;margin-top:22px!important;padding:0!important;background:transparent!important;color:#6F675B!important;font:800 10px Inter,sans-serif!important;letter-spacing:.12em!important}#bgR .set-sec:before{content:"";width:7px;height:7px;border-radius:50%;background:#B28A3C}#bgR .set-row,#bgR .auth-msg{border-radius:13px!important}
 @media(max-width:759px){:root{--inv-grid:minmax(0,1fr) 62px 76px}.inv-line,.inv-table-head{gap:8px!important}.iv-nm{font-size:12px!important}.iv-sub{font-size:9px!important}.iv-att{font-size:12px!important}.inv-table-head{font-size:8px!important;letter-spacing:.07em!important}.iv-inp{min-height:39px!important;font-size:13px!important}.pk-motif-field{align-items:flex-start;flex-direction:column;gap:4px}.pk-motif{font-size:12px!important}.cb-action{padding:8px 9px;font-size:10px}.ing-row{grid-template-columns:minmax(0,1fr) 62px 49px 29px!important}.settings-tabs button{min-height:66px!important;padding:12px!important}.settings-tabs button.on:after{font-size:8px!important}}
 
+
+/* ── SORTIES · PANIER FIXE ET MOTIFS COMPACTS ── */
+#cartbar{
+ position:fixed!important;
+ inset:auto 0 calc(18px + env(safe-area-inset-bottom)) 0!important;
+ z-index:200!important;
+ width:100%!important;
+ max-width:none!important;
+ margin:0!important;
+ padding:0 max(16px, env(safe-area-inset-right)) 0 max(16px, env(safe-area-inset-left))!important;
+ pointer-events:none!important;
+}
+#cartbar:empty{display:none!important}
+#cartbar .cartbar{
+ position:static!important;
+ width:min(680px,100%)!important;
+ max-width:none!important;
+ margin:0 auto!important;
+ padding:0!important;
+ pointer-events:none!important;
+}
+#cartbar .cartbar-in{
+ min-height:58px!important;
+ width:100%!important;
+ border:0!important;
+ text-align:left!important;
+ font:inherit!important;
+ pointer-events:auto!important;
+}
+#s-dec{padding-bottom:128px!important}
+.declare-reason .motifs{
+ display:grid!important;
+ grid-template-columns:repeat(3,minmax(0,1fr))!important;
+ gap:8px!important;
+}
+.declare-reason .motif{
+ position:relative!important;
+ display:grid!important;
+ grid-template-columns:22px minmax(0,1fr)!important;
+ grid-template-rows:auto auto!important;
+ column-gap:8px!important;
+ align-items:center!important;
+ min-height:72px!important;
+ padding:11px 30px 11px 12px!important;
+ text-align:left!important;
+ border-radius:14px!important;
+}
+.declare-reason .motif .mi{grid-row:1 / span 2!important;font-size:17px!important}
+.declare-reason .motif .mt{font-size:12px!important;font-weight:750!important;line-height:1.2!important}
+.declare-reason .motif .md{
+ display:block!important;
+ overflow:hidden!important;
+ color:var(--steel-d,#4A4436)!important;
+ font-size:10px!important;
+ line-height:1.25!important;
+ text-overflow:ellipsis!important;
+ white-space:nowrap!important;
+}
+.declare-reason .motif::after{
+ content:'✓';
+ position:absolute;
+ right:11px;
+ top:50%;
+ transform:translateY(-50%) scale(.85);
+ opacity:0;
+ color:var(--accent,#7A4F0A);
+ font-size:14px;
+ font-weight:800;
+ transition:opacity .16s,transform .16s;
+}
+.declare-reason .motif.sel::after{opacity:1;transform:translateY(-50%) scale(1)}
+.pk-motif-field{margin-top:7px!important}
+.pk-motif{
+ min-height:34px!important;
+ padding:6px 28px 6px 9px!important;
+ border-radius:9px!important;
+ font-size:11px!important;
+ font-weight:650!important;
+}
+@media(max-width:620px){
+ #cartbar{bottom:calc(14px + env(safe-area-inset-bottom))!important}
+ #s-dec{padding-bottom:118px!important}
+ .declare-reason .motifs{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .declare-reason .motif{min-height:66px!important}
+}
 </style>
 </head>
 <body>
@@ -2704,7 +2789,7 @@ ${q?`<span class="qbadge">${q}</span>`:''}
 <span class="ico">${c.i}</span><span class="nm">${c.n}</span>
 <span class="pxs">${fmt(c.pv)} €</span></button>`}).join('');
 const lignes=Object.entries(panier).map(([id,q])=>{const c=item(id);if(!c)return '';const choisi=panierMotifs[id]||'',options=motifsProduit(id).map(m=>`<option value="${m.id}" ${choisi===m.id?'selected':''}>${m.i} ${t(m.id)}</option>`).join('');
-return `<div class="pk-row"><span class="pk-ico">${c.i}</span><span class="pk-body"><div class="pk-n">${c.n}</div><div class="pk-c">${fmt(coutMat(id,q))} €</div><div class="pk-motif-field"><small>Mode</small><select class="pk-motif" data-pkmotif="${id}"><option value="">${motif?'Motif général · '+t(motif):'Choisir un motif'}</option>${options}</select></div></span><span class="pk-ctrl"><button class="pk-btn" data-sub="${id}">−</button><span class="pk-q">${q}</span><button class="pk-btn" data-plus="${id}">+</button></span></div>`}).join('');
+return `<div class="pk-row"><span class="pk-ico">${c.i}</span><span class="pk-body"><div class="pk-n">${c.n}</div><div class="pk-c">${fmt(coutMat(id,q))} €</div><div class="pk-motif-field"><select class="pk-motif" aria-label="Motif pour ${c.n}" data-pkmotif="${id}"><option value="">${motif?'Motif général · '+t(motif):'Choisir un motif'}</option>${options}</select></div></span><span class="pk-ctrl"><button class="pk-btn" data-sub="${id}">−</button><span class="pk-q">${q}</span><button class="pk-btn" data-plus="${id}">+</button></span></div>`}).join('');
 const pkBlock=panierCount()?`<div class="panier">
 <div class="pk-head"><span class="pk-title">${t('panier').toUpperCase()}</span>
 <button class="pk-clear" id="pkClear">${t('vider')}</button></div>${lignes}
