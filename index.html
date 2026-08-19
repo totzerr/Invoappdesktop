@@ -1526,6 +1526,23 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .dashboard-new .dash-performance-delta.up{color:#2c7246!important}.dashboard-new .dash-performance-delta.down{color:#a4402a!important}.dashboard-new .dash-performance-delta.neutral{color:#7b6b50!important}.dashboard-new .dash-performance-delta.empty{color:#938572!important;font-weight:700!important}
 .dashboard-new .dash-performance-best{overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;color:#837768!important;font:600 10px Inter,system-ui,sans-serif!important;text-align:right!important}
 @media(max-width:759px){.dashboard-new .dash-performance-banner{grid-template-columns:1fr!important}.dashboard-new .dash-performance-details{align-items:flex-start!important;flex-direction:column!important;gap:3px!important}.dashboard-new .dash-performance-best{text-align:left!important;white-space:normal!important}}
+
+/* INVO · PERFORMANCE · COURBES COMPARATIVES */
+.dashboard-new .dash-performance-banner{align-items:center!important}
+.dashboard-new .dash-comparison-chart{display:grid!important;gap:5px!important;min-width:0!important}
+.dashboard-new .dash-comparison-chart svg{display:block!important;width:100%!important;height:72px!important;overflow:visible!important}
+.dashboard-new .comparison-grid{fill:none!important;stroke:#e2dacb!important;stroke-width:1!important;stroke-dasharray:2 4!important}
+.dashboard-new .comparison-area{fill:url(#invoPerformanceArea)!important}
+.dashboard-new .comparison-current{fill:none!important;stroke:#a67a23!important;stroke-width:2.6!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+.dashboard-new .comparison-previous{fill:none!important;stroke:#a8a096!important;stroke-width:1.8!important;stroke-linecap:round!important;stroke-linejoin:round!important;stroke-dasharray:4 4!important}
+.dashboard-new .comparison-current-point{fill:#fff!important;stroke:#a67a23!important;stroke-width:2!important}
+.dashboard-new .comparison-chart text{fill:#9a8d7a!important;font:600 7px Inter,system-ui,sans-serif!important}
+.dashboard-new .comparison-days{display:flex!important;justify-content:space-between!important;color:#8d806c!important;font:700 8px Inter,system-ui,sans-serif!important}
+.dashboard-new .comparison-legend{display:flex!important;align-items:center!important;gap:12px!important;color:#827768!important;font:600 9px Inter,system-ui,sans-serif!important}
+.dashboard-new .comparison-legend span{display:inline-flex!important;align-items:center!important;gap:4px!important;white-space:nowrap!important}
+.dashboard-new .comparison-legend i{display:inline-block!important;width:12px!important;height:2px!important;border-radius:99px!important;background:#a67a23!important}
+.dashboard-new .comparison-legend .previous i{background:repeating-linear-gradient(90deg,#a8a096 0 3px,transparent 3px 6px)!important}
+@media(max-width:759px){.dashboard-new .dash-comparison-chart svg{height:64px!important}.dashboard-new .comparison-legend{gap:9px!important;font-size:8px!important}}
 </style>
 </head>
 <body>
@@ -2842,7 +2859,9 @@ function renderDash(){
  ventesSemaine.forEach(function(m){const d=new Date(m.ts);const ix=Math.floor((new Date(d.getFullYear(),d.getMonth(),d.getDate())-debutSemaine)/86400000);if(joursSemaine[ix])joursSemaine[ix].ca+=pvMv(m)});
  const caSemaine=ventesSemaine.reduce(function(s,m){return s+pvMv(m)},0),maximumSemaine=Math.max.apply(null,joursSemaine.map(function(j){return j.ca}).concat([1]));
  const debutSemainePrecedente=new Date(debutSemaine);debutSemainePrecedente.setDate(debutSemainePrecedente.getDate()-7);
+ const joursSemainePrecedente=Array.from({length:7},function(_,ix){const d=new Date(debutSemainePrecedente);d.setDate(d.getDate()+ix);return{d:d,ca:0}});
  const ventesSemainePrecedente=mouvements.filter(function(m){return m.motif==='vente'&&m.ts&&new Date(m.ts)>=debutSemainePrecedente&&new Date(m.ts)<debutSemaine});
+ ventesSemainePrecedente.forEach(function(m){const d=new Date(m.ts);const ix=Math.floor((new Date(d.getFullYear(),d.getMonth(),d.getDate())-debutSemainePrecedente)/86400000);if(joursSemainePrecedente[ix])joursSemainePrecedente[ix].ca+=pvMv(m)});
  const caSemainePrecedente=ventesSemainePrecedente.reduce(function(s,m){return s+pvMv(m)},0);
  const ecartSemaine=caSemaine-caSemainePrecedente;
  const ecartPct=caSemainePrecedente>0?Math.round(ecartSemaine/caSemainePrecedente*100):null;
@@ -2850,7 +2869,14 @@ function renderDash(){
  const comparaisonClasse=caSemainePrecedente>0?(ecartSemaine>0?'up':ecartSemaine<0?'down':'neutral'):'empty';
  const meilleurJour=joursSemaine.reduce(function(max,j){return j.ca>max.ca?j:max},joursSemaine[0]);
  const detailMeilleurJour=caSemaine>0?'Meilleur jour : '+meilleurJour.d.toLocaleDateString('fr-FR',{weekday:'long'})+' · '+fmt(meilleurJour.ca)+' €':'Aucune vente cette semaine';
- const bars=joursSemaine.map(function(j){const pct=Math.max(5,Math.round(j.ca/maximumSemaine*100)),jour=j.d.toLocaleDateString('fr-FR',{weekday:'narrow'}),date=j.d.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'});return '<div class="dash-bar" title="'+date+' · '+fmt(j.ca)+' €"><i style="height:'+pct+'%"></i><span>'+jour+'</span></div>'}).join('');
+ const maximumGraphique=Math.max.apply(null,joursSemaine.map(function(j){return j.ca}).concat(joursSemainePrecedente.map(function(j){return j.ca}),[1]));
+ const pointsGraphique=function(jours){return jours.map(function(j,ix){return{x:8+ix*37.3,y:55-Math.round(j.ca/maximumGraphique*42),jour:j.d.toLocaleDateString('fr-FR',{weekday:'narrow'}),date:j.d.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'}),ca:j.ca}})};
+ const pointsCourants=pointsGraphique(joursSemaine),pointsPrecedents=pointsGraphique(joursSemainePrecedente);
+ const cheminCourant='M '+pointsCourants.map(function(p){return p.x+' '+p.y}).join(' L ');
+ const cheminPrecedent='M '+pointsPrecedents.map(function(p){return p.x+' '+p.y}).join(' L ');
+ const aireCourante=cheminCourant+' L 232 58 L 8 58 Z';
+ const joursGraphique=pointsCourants.map(function(p){return '<span>'+p.jour+'</span>'}).join('');
+ const graphComparison='<div class="dash-comparison-chart" aria-label="Comparaison des ventes de cette semaine et de la semaine précédente"><svg viewBox="0 0 240 62" preserveAspectRatio="none" role="img"><defs><linearGradient id="invoPerformanceArea" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#d4b061" stop-opacity=".34"></stop><stop offset="1" stop-color="#d4b061" stop-opacity="0"></stop></linearGradient></defs><path class="comparison-grid" d="M 8 58 L 232 58"></path><path class="comparison-grid" d="M 8 36 L 232 36"></path>'+(caSemainePrecedente>0?'<path class="comparison-previous" d="'+cheminPrecedent+'"></path>':'<text x="120" y="27" text-anchor="middle">Historique semaine précédente indisponible</text>')+'<path class="comparison-area" d="'+aireCourante+'"></path><path class="comparison-current" d="'+cheminCourant+'"></path>'+pointsCourants.map(function(p){return '<circle class="comparison-current-point" cx="'+p.x+'" cy="'+p.y+'" r="2.6"><title>'+p.date+' · '+fmt(p.ca)+' €</title></circle>'}).join('')+'</svg><div class="comparison-days">'+joursGraphique+'</div><div class="comparison-legend"><span class="current"><i></i>Cette semaine</span><span class="previous"><i></i>'+(caSemainePrecedente>0?'Semaine dernière':'Semaine dernière · aucune donnée')+'</span></div></div>';
  const priorite=ruptures.length?{titre:ruptures.length+' rupture'+(ruptures.length>1?'s':''),detail:ruptures.slice(0,2).map(function(p){return p.n}).join(' · '),action:'Voir le stock',screen:'stock',etat:'critical'}:sousSeuil.length?{titre:sousSeuil.length+' sous seuil',detail:sousSeuil.slice(0,2).map(function(p){return p.n}).join(' · '),action:'Préparer la commande',screen:'cmd',etat:'watch'}:commandesARecevoir.length?{titre:commandesARecevoir.length+' réception'+(commandesARecevoir.length>1?'s':''),detail:'Quantités à contrôler',action:'Réceptionner',screen:'liv',commandeId:commandesARecevoir[0].id,etat:'pending'}:aVerifier.length?{titre:aVerifier.length+' vente'+(aVerifier.length>1?'s':'')+' à classer',detail:'Offert, perte ou annulation',action:'Ouvrir la caisse',screen:'caisse',etat:'review'}:{titre:'Tout est prêt.',detail:'Aucune action urgente pour le moment.',action:'Voir le stock',screen:'stock',etat:'clear'};
  const attr=priorite.commandeId?'data-dashreceive="'+priorite.commandeId+'"':'data-dashgo="'+priorite.screen+'"';
  const stockRows=ruptures.concat(sousSeuil).slice(0,4).map(function(p){const q=st.stock[p.id]??0,etat=q<=0?'Rupture':'Sous seuil';return '<button class="dash-row" data-dashgo="stock"><span class="dash-row-icon">'+(p.i||'□')+'</span><span><b>'+escapeHTML(p.n)+'</b><small>'+fmtQ(q)+' '+escapeHTML(p.u||'')+' en stock</small></span><em class="'+(q<=0?'danger':'warning')+'">'+etat+'</em><i>›</i></button>'}).join('')||'<div class="dash-empty">Aucun produit à surveiller.</div>';
@@ -2863,7 +2889,7 @@ function renderDash(){
  const titre=priorite.etat==='clear'?(nom?'Bonjour '+escapeHTML(nom)+'.':'Bonjour.'):'À traiter maintenant.';
  const demo='';
  document.getElementById('s-dash').innerHTML=demo+'<div class="dashboard-new">'
- +'<section class="dash-performance-banner" aria-label="Performance de la semaine"><div class="dash-performance-copy"><small>PERFORMANCE · CETTE SEMAINE</small><b>'+fmt(caSemaine)+' €</b><span>'+ventesSemaine.length+' vente'+(ventesSemaine.length>1?'s':'')+'</span></div><div class="dash-performance-chart"><div class="dash-bars">'+bars+'</div><div class="dash-performance-details"><span class="dash-performance-delta '+comparaisonClasse+'">'+comparaisonSemaine+'</span><span class="dash-performance-best">'+detailMeilleurJour+'</span></div></div></section>'
+ +'<section class="dash-performance-banner" aria-label="Performance de la semaine"><div class="dash-performance-copy"><small>PERFORMANCE · CETTE SEMAINE</small><b>'+fmt(caSemaine)+' €</b><span>'+ventesSemaine.length+' vente'+(ventesSemaine.length>1?'s':'')+'</span></div><div class="dash-performance-chart">'+graphComparison+'<div class="dash-performance-details"><span class="dash-performance-delta '+comparaisonClasse+'">'+comparaisonSemaine+'</span><span class="dash-performance-best">'+detailMeilleurJour+'</span></div></div></section>'
  +'<section class="dash-head"><div><div class="dash-eyebrow"><i></i>VUE D’ENSEMBLE · '+date.toUpperCase()+'</div><h1>'+titre+'</h1><p>'+escapeHTML(priorite.detail)+'</p><button class="dash-main-action" '+attr+'>'+priorite.action+' <i>›</i></button></div><aside class="dash-sales"><small>VENTES AUJOURD’HUI</small><b>'+fmt(caJour)+' €</b><span>'+ventesJour.length+' vente'+(ventesJour.length>1?'s':'')+' enregistrée'+(ventesJour.length>1?'s':'')+'</span><time>Actualisé · '+heure+'</time></aside></section>'
  +'<section class="dash-kpis" aria-label="Raccourcis de suivi">'
  +'<button class="dash-kpi '+(ruptures.length?'critical':'')+'" data-dashgo="stock"><small>RUPTURES</small><b>'+ruptures.length+'</b><span>'+(ruptures.length?'À traiter':'Stock stable')+'<i>›</i></span></button>'
