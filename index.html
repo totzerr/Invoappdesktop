@@ -1394,6 +1394,17 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
  cursor:not-allowed!important;
  opacity:1!important;
 }
+
+/* ── SORTIES · FLUX SIMPLIFIÉ ── */
+#s-dec .declare-submit{display:none!important}
+.declare-reason .motifs:not(.open){grid-template-columns:repeat(4,minmax(0,1fr))!important}
+.declare-reason .motifs:not(.open) .motif:not(.quick):not(.sel){display:none!important}
+.declare-reason .motifs:not(.open) .motif{min-height:62px!important;grid-template-rows:auto!important;padding:10px 28px 10px 10px!important}
+.declare-reason .motifs:not(.open) .motif .mi{grid-row:1!important}
+.declare-reason .motifs:not(.open) .motif .md{display:none!important}
+.motifs-more-toggle{display:flex!important;width:auto!important;margin:10px auto 0!important;padding:8px 12px!important;border:0!important;border-radius:999px!important;background:var(--surface-2,#E6DEC7)!important;color:var(--steel-d,#4A4436)!important;font:inherit!important;font-size:11px!important;font-weight:700!important;cursor:pointer!important}
+.pk-edit-motif{display:block!important;margin-top:6px!important;padding:0!important;border:0!important;background:none!important;color:var(--accent,#7A4F0A)!important;font:inherit!important;font-size:11px!important;font-weight:750!important;cursor:pointer!important}
+@media(max-width:620px){.declare-reason .motifs:not(.open){grid-template-columns:repeat(2,minmax(0,1fr))!important}.declare-reason .motifs:not(.open) .motif{min-height:56px!important}}
 </style>
 </head>
 <body>
@@ -2110,7 +2121,7 @@ const ONGLETS_RESP=['caisse','bil'];
 
 let st={lang:'fr',who:'Responsable de salle',whoId:'salle',stock:{},mv:[],count:{},live:false,modeCaisse:'manuel',modePilote:false,
 lastSync:Date.now(),svc:'soir',prods:null,carte:null,liv:[],invHist:[],photos:{},fournisseurs:[],commandes:[]};
-let panier={},panierMotifs={},motif=null,cat='cCock',screen='dash',seenFeed=0,timer=null,sq='',stockTab='mat',fm=null;
+let panier={},panierMotifs={},motif=null,motifLigneEditee=null,motifsOuverts=false,cat='cCock',screen='dash',seenFeed=0,timer=null,sq='',stockTab='mat',fm=null;
 let msgDec=null,forcerStock=false;   /* retours de validation sur l'écran Déclarer */
 let cartePrix=false,prixEdit={},cartCat='tous';   /* édition groupée des prix de vente */
 let livTab='recep',invTab='count',invZone='all',invOrderMode=false,draggedProductId=null,zoneOrderSaveTimer=null,
@@ -2796,14 +2807,17 @@ return `<button class="card ${q?'has':''}" data-add="${c.id}">
 ${q?`<span class="qbadge">${q}</span>`:''}
 <span class="ico">${c.i}</span><span class="nm">${c.n}</span>
 <span class="pxs">${fmt(c.pv)} €</span></button>`}).join('');
-const lignes=Object.entries(panier).map(([id,q])=>{const c=item(id);if(!c)return '';const choisi=panierMotifs[id]||'',options=motifsProduit(id).map(m=>`<option value="${m.id}" ${choisi===m.id?'selected':''}>${m.i} ${t(m.id)}</option>`).join('');
-return `<div class="pk-row"><span class="pk-ico">${c.i}</span><span class="pk-body"><div class="pk-n">${c.n}</div><div class="pk-c">${fmt(coutMat(id,q))} €</div><div class="pk-motif-field"><select class="pk-motif" aria-label="Motif pour ${c.n}" data-pkmotif="${id}"><option value="">${motif?'Motif général · '+t(motif):'Choisir un motif'}</option>${options}</select></div></span><span class="pk-ctrl"><button class="pk-btn" data-sub="${id}">−</button><span class="pk-q">${q}</span><button class="pk-btn" data-plus="${id}">+</button></span></div>`}).join('');
+const lignes=Object.entries(panier).map(([id,q])=>{const c=item(id);if(!c)return '';const edition=motifLigneEditee===id;const choisi=panierMotifs[id]||'',options=motifsProduit(id).map(m=>`<option value="${m.id}" ${choisi===m.id?'selected':''}>${m.i} ${t(m.id)}</option>`).join('');
+return `<div class="pk-row"><span class="pk-ico">${c.i}</span><span class="pk-body"><div class="pk-n">${c.n}</div><div class="pk-c">${fmt(coutMat(id,q))} €</div><button type="button" class="pk-edit-motif" data-editmotif="${id}">${edition?'Fermer':'Modifier'}</button><div class="pk-motif-field" ${edition?'':'hidden'}><select class="pk-motif" aria-label="Motif pour ${c.n}" data-pkmotif="${id}"><option value="">${motif?'Motif général · '+t(motif):'Choisir un motif'}</option>${options}</select></div></span><span class="pk-ctrl"><button class="pk-btn" data-sub="${id}">−</button><span class="pk-q">${q}</span><button class="pk-btn" data-plus="${id}">+</button></span></div>`}).join('');
 const pkBlock=panierCount()?`<div class="panier">
 <div class="pk-head"><span class="pk-title">${t('panier').toUpperCase()}</span>
 <button class="pk-clear" id="pkClear">${t('vider')}</button></div>${lignes}
 <div class="pk-total"><span class="pk-tl">${t('coutMat')}</span>
 <span class="pk-tv">${fmt(panierCout())} €</span></div></div>`:'';
-const mts=motifsDispo().map(m=>`<button class="motif ${motif===m.id?'sel':''}" data-motif="${m.id}">
+const motifsRapidesIds=['vente','offClient','casse','perso'];
+const motifsActuels=motifsDispo();
+const motifsList=[...motifsActuels].sort((a,b)=>(motifsRapidesIds.includes(b.id)?1:0)-(motifsRapidesIds.includes(a.id)?1:0));
+const mts=motifsList.map(m=>`<button class="motif ${motifsRapidesIds.includes(m.id)?'quick':''} ${motif===m.id?'sel':''}" data-motif="${m.id}">
 <span class="mi">${m.i}</span><span class="mt">${t(m.id)}</span>
 <span class="md">${t(m.id+'D')}</span></button>`).join('');
 const blocMsg=msgDec?`<div class="warn ${msgDec.type==='err'?'err':'dup'}">${msgDec.txt}</div>`:'';
@@ -2816,20 +2830,22 @@ document.getElementById('s-dec').innerHTML=`
   <div class="cats">${cats}</div><div class="grid">${items}</div></section>
  ${pkBlock}
  <section class="declare-reason" id="motifBlock"><div class="declare-section-head"><span>${t('etape2')}</span><small>Motif par défaut</small></div>
-  <div class="motifs">${mts}</div></section>
+  <div class="motifs ${motifsOuverts?'open':''}">${mts}</div><button type="button" class="motifs-more-toggle" id="motifsMore">${motifsOuverts?'Réduire les motifs':'Plus de motifs'}</button></section>
  ${(motif==='casse'||motif==='rate')?(decPhoto?
   `<div class="photo-prev"><img src="${decPhoto}" alt=""><button class="photo-x" id="rmPhoto">×</button></div>`
   :`<button class="photo-btn" id="addPhoto">${t('addPhoto')}</button>
     <input type="file" id="photoInput" accept="image/*" capture="environment" style="display:none">`):''}
- <div class="declare-submit"><button class="btn" id="sendBtn" ${(!panierCount()||!panierPret())?'disabled':''}>${t('send')}</button></div>`;
+`;
 document.querySelectorAll('[data-svc]').forEach(b=>b.onclick=async()=>{st.svc=b.dataset.svc;await save();renderDec()});
 document.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{cat=b.dataset.cat;renderDec()});
 document.querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>addP(b.dataset.add));
 document.querySelectorAll('[data-plus]').forEach(b=>b.onclick=()=>addP(b.dataset.plus));
 document.querySelectorAll('[data-sub]').forEach(b=>b.onclick=()=>subP(b.dataset.sub));
-const pc=document.getElementById('pkClear');if(pc)pc.onclick=()=>{panier={};panierMotifs={};motif=null;renderDec()};
+const pc=document.getElementById('pkClear');if(pc)pc.onclick=()=>{panier={};panierMotifs={};motif=null;motifLigneEditee=null;motifsOuverts=false;renderDec()};
 document.querySelectorAll('[data-motif]').forEach(b=>b.onclick=()=>{motif=motif===b.dataset.motif?null:b.dataset.motif;msgDec=null;forcerStock=false;renderDec()});
-document.querySelectorAll('[data-pkmotif]').forEach(sel=>sel.onchange=()=>{const id=sel.dataset.pkmotif;if(sel.value)panierMotifs[id]=sel.value;else delete panierMotifs[id];msgDec=null;forcerStock=false;renderDec()});
+document.querySelectorAll('[data-pkmotif]').forEach(sel=>sel.onchange=()=>{const id=sel.dataset.pkmotif;if(sel.value)panierMotifs[id]=sel.value;else delete panierMotifs[id];motifLigneEditee=null;msgDec=null;forcerStock=false;renderDec()});
+const mm=document.getElementById('motifsMore');if(mm)mm.onclick=()=>{motifsOuverts=!motifsOuverts;renderDec()};
+document.querySelectorAll('[data-editmotif]').forEach(b=>b.onclick=()=>{motifLigneEditee=motifLigneEditee===b.dataset.editmotif?null:b.dataset.editmotif;renderDec()});
 document.getElementById('sendBtn').onclick=valider;
 const ap=document.getElementById('addPhoto');
 if(ap)ap.onclick=()=>document.getElementById('photoInput').click();
@@ -2902,7 +2918,7 @@ if(decPhoto){
  creations.forEach(m=>m.pk=k);
  const ks=Object.keys(st.photos);if(ks.length>25)delete st.photos[ks[0]];
 }
-await save();panier={};panierMotifs={};motif=null;decPhoto=null;renderDec();toast(t('saved'))}
+await save();panier={};panierMotifs={};motif=null;motifLigneEditee=null;motifsOuverts=false;decPhoto=null;renderDec();toast(t('saved'))}
 
 
 /* ═════ LIVRAISONS ═════ */
