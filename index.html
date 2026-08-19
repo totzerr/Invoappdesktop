@@ -1222,6 +1222,12 @@ html,body,.app{background:#F6F5F2!important;color:#171614!important}
 /* INVO · RETRAIT DES ÉTIQUETTES TECHNIQUES */
 .workspace-brand:after,.top .logo:before{content:none!important;display:none!important}
 .workspace-brand svg,.workspace-brand img,.top .logo-img{display:block!important}
+
+/* INVO · SYNTHÈSE HEBDOMADAIRE */
+.workspace-icon svg,.tab-icon svg{width:18px;height:18px;display:block;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.nord-hero{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(300px,.9fr);align-items:stretch;gap:26px}.nord-weekly{padding:16px 17px 12px;border:1px solid rgba(255,255,255,.18);border-radius:16px;background:rgba(255,255,255,.10);backdrop-filter:blur(12px);min-width:0}.nord-week-summary{display:grid;grid-template-columns:1fr auto;gap:2px 12px;align-items:end}.nord-week-summary span{grid-column:1/-1;color:rgba(255,255,255,.68);font:800 10px Inter,sans-serif;letter-spacing:.11em}.nord-week-summary b{color:#fff;font:25px Fraunces,serif;letter-spacing:-.04em;line-height:1}.nord-week-summary small{color:rgba(255,255,255,.74);font-size:11px;text-align:right}.nord-week-bars{height:71px;display:flex;align-items:end;gap:7px;margin:13px 0 6px}.nord-week-bar{height:100%;flex:1;min-width:0;display:flex;flex-direction:column;justify-content:end;align-items:center;gap:5px}.nord-week-bar i{display:block;width:100%;min-height:4px;border-radius:999px 999px 3px 3px;background:linear-gradient(180deg,#F5D990,#FFFFFF);box-shadow:0 2px 8px rgba(0,0,0,.14)}.nord-week-bar span{color:rgba(255,255,255,.6);font:700 10px Inter,sans-serif;text-transform:uppercase}.nord-weekly>p{margin:4px 0 0!important;color:rgba(255,255,255,.58)!important;font:500 10px Inter,sans-serif!important}
+@media(max-width:760px){.nord-hero{grid-template-columns:1fr!important;gap:18px}.nord-weekly{padding:15px}.nord-week-bars{height:62px}}
+
 </style>
 </head>
 <body>
@@ -2503,6 +2509,15 @@ function renderDash(){
  const ventesJour=mouvements.filter(function(m){return m.motif==='vente'&&new Date(m.ts)>=debutJour});
  const caJour=ventesJour.reduce(function(s,m){return s+pvMv(m)},0);
  const nom=(st.who||'').split(' ')[0]||'';
+ const maintenant=new Date();
+ const debutSemaine=new Date(maintenant);debutSemaine.setHours(0,0,0,0);debutSemaine.setDate(debutSemaine.getDate()-((debutSemaine.getDay()+6)%7));
+ const joursSemaine=Array.from({length:7},function(_,ix){const d=new Date(debutSemaine);d.setDate(d.getDate()+ix);return{d:d,ca:0}});
+ const ventesSemaine=mouvements.filter(function(m){return m.motif==='vente'&&m.ts&&new Date(m.ts)>=debutSemaine&&new Date(m.ts)<new Date(debutSemaine.getTime()+7*86400000)});
+ ventesSemaine.forEach(function(m){const d=new Date(m.ts);const ix=Math.floor((new Date(d.getFullYear(),d.getMonth(),d.getDate())-debutSemaine)/86400000);if(joursSemaine[ix])joursSemaine[ix].ca+=pvMv(m)});
+ const caSemaine=ventesSemaine.reduce(function(s,m){return s+pvMv(m)},0),maximumSemaine=Math.max.apply(null,joursSemaine.map(function(j){return j.ca}).concat([1]));
+ const barresSemaine=joursSemaine.map(function(j){const pct=Math.max(5,Math.round(j.ca/maximumSemaine*100)),jour=j.d.toLocaleDateString('fr-FR',{weekday:'narrow'}),date=j.d.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'});return '<div class="nord-week-bar" title="'+date+' · '+fmt(j.ca)+' €"><i style="height:'+pct+'%"></i><span>'+jour+'</span></div>'}).join('');
+ const dateMiseAJour=maintenant.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})+' · '+maintenant.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+
  const priorite=ruptures.length
   ? {titre:ruptures.length+' rupture'+(ruptures.length>1?'s':''),detail:ruptures.slice(0,2).map(function(p){return p.n}).join(' · '),action:'Voir le stock',screen:'stock',etat:'urgent'}
   : sousSeuil.length
@@ -2523,7 +2538,7 @@ function renderDash(){
  const attr=priorite.commandeId?'data-dashreceive="'+priorite.commandeId+'"':'data-dashgo="'+priorite.screen+'"';
  const demo=st.demoParcours?'<div class="nord-demo">PARCOURS DE DÉMONSTRATION</div>':'';
  document.getElementById('s-dash').innerHTML=demo+'<div class="nord-dashboard">'
-  +'<section class="nord-hero"><div><span>INVO · AUJOURD’HUI</span><h1>'+((nom?'Bonjour '+escapeHTML(nom):'Bonjour'))+'</h1><p>'+new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})+'</p></div><div class="nord-hero-actions"><button data-dashgo="dec"><b>＋</b> Déclarer</button><button data-dashgo="cmd">Commander</button></div></section>'
+  +'<section class="nord-hero"><div><span>INVO · AUJOURD’HUI</span><h1>'+((nom?'Bonjour '+escapeHTML(nom):'Bonjour'))+'</h1><p>'+dateMiseAJour+'</p></div><section class="nord-weekly" aria-label="Tendances de la semaine"><div class="nord-week-summary"><span>SEMAINE EN COURS</span><b>'+fmt(caSemaine)+' €</b><small>'+ventesSemaine.length+' vente'+(ventesSemaine.length>1?'s':'')+' enregistrée'+(ventesSemaine.length>1?'s':'')+'</small></div><div class="nord-week-bars">'+barresSemaine+'</div><p>Mise à jour · '+maintenant.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})+'</p></section></section>'
   +'<section class="nord-metrics"><button data-dashgo="stock"><b>'+ruptures.length+'</b><span>Rupture'+(ruptures.length>1?'s':'')+'</span></button><button data-dashgo="cmd"><b>'+sousSeuil.length+'</b><span>Sous seuil</span></button><button data-dashgo="liv"><b>'+commandesARecevoir.length+'</b><span>À recevoir</span></button><button data-dashgo="caisse"><b>'+aVerifier.length+'</b><span>À classer</span></button></section>'
   +'<section class="nord-focus '+priorite.etat+'"><span class="nord-focus-dot"></span><div><small>À TRAITER</small><b>'+priorite.titre+'</b><p>'+priorite.detail+'</p></div><button '+attr+'>'+priorite.action+' <i>›</i></button></section>'
   +'<div class="nord-columns"><section class="nord-panel"><header><div><small>STOCK</small><b>À surveiller</b></div><button data-dashgo="stock">Tout voir ›</button></header>'+stockRows+'</section>'
@@ -5197,17 +5212,18 @@ document.getElementById('bilCsv').onclick=()=>{
 
 /* ═════ NAV ═════ */
 function renderNav(){
+ const iconesNav={dash:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><rect x="14" y="14" width="6" height="6" rx="1"></rect></svg>',caisse:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19V9m5 10V5m5 14v-7m5 7V8"></path></svg>',dec:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"></circle><path d="M12 9v6m-3-3h6"></path></svg>',liv:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14v11H5zM9 4h6M12 4v8m-3-3 3 3 3-3"></path></svg>',cmd:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h3l2 10h9l2-7H8"></path><circle cx="10" cy="19" r="1"></circle><circle cx="18" cy="19" r="1"></circle></svg>',stock:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z"></path><path d="m4 7.5 8 4.5 8-4.5M12 12v9"></path></svg>',inv:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="4" width="12" height="17" rx="2"></rect><path d="M9 4.5h6M9 10h6m-6 4h6m-6 4h4"></path></svg>',bil:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18 9 13l4 3 7-8"></path><path d="M15 8h5v5"></path></svg>'};
  const nouv=Math.max(0,st.mv.length-seenFeed),pc=panierCount();
  const sousSeuil=st.prods.filter(p=>(st.stock[p.id]??0)<=p.seuil).length;
  let items=[
-  {id:'dash',i:'⌂',l:'Vue générale',group:'pilotage'},
-  {id:'caisse',i:'⇄',l:'Ventes',b:screen!=='caisse'?nouv:0,group:'activité'},
-  {id:'dec',i:'＋',l:'Déclarer',b:screen!=='dec'?pc:0,group:'activité'},
-  {id:'liv',i:'↓',l:'Réceptions',b:sousSeuil,group:'gestion'},
-  {id:'cmd',i:'→',l:'Commandes',group:'gestion'},
-  {id:'stock',i:'□',l:'Catalogue',group:'gestion'},
-  {id:'inv',i:'≡',l:'Inventaire',group:'gestion'},
-  {id:'bil',i:'↗',l:'Analyse',group:'analyse'}
+  {id:'dash',i:iconesNav.dash,l:'Vue générale',group:'pilotage'},
+  {id:'caisse',i:iconesNav.caisse,l:'Ventes',b:screen!=='caisse'?nouv:0,group:'activité'},
+  {id:'dec',i:iconesNav.dec,l:'Déclarer',b:screen!=='dec'?pc:0,group:'activité'},
+  {id:'liv',i:iconesNav.liv,l:'Réceptions',b:sousSeuil,group:'gestion'},
+  {id:'cmd',i:iconesNav.cmd,l:'Commandes',group:'gestion'},
+  {id:'stock',i:iconesNav.stock,l:'Catalogue',group:'gestion'},
+  {id:'inv',i:iconesNav.inv,l:'Inventaire',group:'gestion'},
+  {id:'bil',i:iconesNav.bil,l:'Analyse',group:'analyse'}
  ];
  if(!estResp())items=items.filter(x=>!ONGLETS_RESP.includes(x.id));
  const logoTpl=document.getElementById('invoLogo');
