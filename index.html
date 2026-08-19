@@ -1419,6 +1419,18 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
  outline:2px solid var(--accent,#9A772F)!important;
  outline-offset:3px!important;
 }
+
+/* Correctif : #nav est lui-même la barre de navigation. */
+#nav .tab-item.on{
+ background:transparent!important;
+ background-image:none!important;
+ border-color:transparent!important;
+ box-shadow:none!important;
+ color:var(--ink,#171614)!important;
+ font-weight:800!important;
+}
+#nav .tab-item.on .tab-icon{color:currentColor!important;opacity:1!important}
+#nav .tab-item:focus-visible{outline:2px solid var(--accent,#9A772F)!important;outline-offset:3px!important}
 </style>
 </head>
 <body>
