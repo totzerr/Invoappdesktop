@@ -22,6 +22,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<meta name="description" content="INVO Desktop — pilotez stocks, commandes, livraisons et ventes de votre restaurant.">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light">
 <meta name="theme-color" content="#0D1728">
@@ -1228,9 +1229,18 @@ html,body,.app{background:#F6F5F2!important;color:#171614!important}
 .nord-hero{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(300px,.9fr);align-items:stretch;gap:26px}.nord-weekly{padding:16px 17px 12px;border:1px solid rgba(255,255,255,.18);border-radius:16px;background:rgba(255,255,255,.10);backdrop-filter:blur(12px);min-width:0}.nord-week-summary{display:grid;grid-template-columns:1fr auto;gap:2px 12px;align-items:end}.nord-week-summary span{grid-column:1/-1;color:rgba(255,255,255,.68);font:800 10px Inter,sans-serif;letter-spacing:.11em}.nord-week-summary b{color:#fff;font:25px Fraunces,serif;letter-spacing:-.04em;line-height:1}.nord-week-summary small{color:rgba(255,255,255,.74);font-size:11px;text-align:right}.nord-week-bars{height:71px;display:flex;align-items:end;gap:7px;margin:13px 0 6px}.nord-week-bar{height:100%;flex:1;min-width:0;display:flex;flex-direction:column;justify-content:end;align-items:center;gap:5px}.nord-week-bar i{display:block;width:100%;min-height:4px;border-radius:999px 999px 3px 3px;background:linear-gradient(180deg,#F5D990,#FFFFFF);box-shadow:0 2px 8px rgba(0,0,0,.14)}.nord-week-bar span{color:rgba(255,255,255,.6);font:700 10px Inter,sans-serif;text-transform:uppercase}.nord-weekly>p{margin:4px 0 0!important;color:rgba(255,255,255,.58)!important;font:500 10px Inter,sans-serif!important}
 @media(max-width:760px){.nord-hero{grid-template-columns:1fr!important;gap:18px}.nord-weekly{padding:15px}.nord-week-bars{height:62px}}
 
+
+/* INVO · CLARTÉ & ACCESSIBILITÉ */
+.logo:after{content:none!important;display:none!important}
+.skip-link{position:fixed;z-index:1000;top:12px;left:12px;transform:translateY(-180%);padding:10px 14px;border-radius:10px;background:#171614;color:#fff;font:700 13px Inter,sans-serif;text-decoration:none;box-shadow:0 8px 20px rgba(0,0,0,.18);transition:transform .18s ease}
+.skip-link:focus{transform:translateY(0)}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #B8892A!important;outline-offset:3px}
+#mainContent:focus{outline:none}
+
 </style>
 </head>
 <body>
+<a class="skip-link" href="#mainContent">Aller au contenu</a>
 <div class="auth" id="auth"></div>
 <div class="dr-bg" id="drBg"></div>
 <aside class="drawer" id="drawer"></aside>
@@ -1243,7 +1253,7 @@ html,body,.app{background:#F6F5F2!important;color:#171614!important}
 <button class="who-pill" id="whoBtn"><span class="dot"></span><span id="whoName">Thomas</span></button>
 <button class="gear" id="gearBtn" title="Réglages">⚙</button>
 </div></div>
-<main>
+<main id="mainContent" tabindex="-1">
 <section class="screen on" id="s-dash"></section>
 <section class="screen" id="s-caisse"></section>
 <section class="screen" id="s-dec"></section>
