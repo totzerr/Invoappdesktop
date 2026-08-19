@@ -2829,7 +2829,7 @@ document.getElementById('s-dec').innerHTML=`
  <section class="declare-catalog"><div class="declare-section-head"><span>${t('etape1')}</span><small>${panierCount()?panierCount():''}</small></div>
   <div class="cats">${cats}</div><div class="grid">${items}</div></section>
  ${pkBlock}
- <section class="declare-reason" id="motifBlock"><div class="declare-section-head"><span>${t('etape2')}</span><small>Motif par défaut</small></div>
+ <section class="declare-reason" id="motifBlock"><div class="declare-section-head"><span>2 — Motif</span><small>Choix principal</small></div>
   <div class="motifs ${motifsOuverts?'open':''}">${mts}</div><button type="button" class="motifs-more-toggle" id="motifsMore">${motifsOuverts?'Réduire les motifs':'Plus de motifs'}</button></section>
  ${(motif==='casse'||motif==='rate')?(decPhoto?
   `<div class="photo-prev"><img src="${decPhoto}" alt=""><button class="photo-x" id="rmPhoto">×</button></div>`
@@ -2846,7 +2846,7 @@ document.querySelectorAll('[data-motif]').forEach(b=>b.onclick=()=>{motif=motif=
 document.querySelectorAll('[data-pkmotif]').forEach(sel=>sel.onchange=()=>{const id=sel.dataset.pkmotif;if(sel.value)panierMotifs[id]=sel.value;else delete panierMotifs[id];motifLigneEditee=null;msgDec=null;forcerStock=false;renderDec()});
 const mm=document.getElementById('motifsMore');if(mm)mm.onclick=()=>{motifsOuverts=!motifsOuverts;renderDec()};
 document.querySelectorAll('[data-editmotif]').forEach(b=>b.onclick=()=>{motifLigneEditee=motifLigneEditee===b.dataset.editmotif?null:b.dataset.editmotif;renderDec()});
-document.getElementById('sendBtn').onclick=valider;
+const sendBtn=document.getElementById('sendBtn');if(sendBtn)sendBtn.onclick=valider;
 const ap=document.getElementById('addPhoto');
 if(ap)ap.onclick=()=>document.getElementById('photoInput').click();
 const pi=document.getElementById('photoInput');
