@@ -1543,6 +1543,15 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .dashboard-new .comparison-legend i{display:inline-block!important;width:12px!important;height:2px!important;border-radius:99px!important;background:#a67a23!important}
 .dashboard-new .comparison-legend .previous i{background:repeating-linear-gradient(90deg,#a8a096 0 3px,transparent 3px 6px)!important}
 @media(max-width:759px){.dashboard-new .dash-comparison-chart svg{height:64px!important}.dashboard-new .comparison-legend{gap:9px!important;font-size:8px!important}}
+
+/* INVO · CORRECTIF DE COMPOSITION DU GRAPHIQUE */
+.dashboard-new .dash-performance-banner{min-height:0!important;height:auto!important;padding:14px 18px!important}
+.dashboard-new .dash-performance-chart{display:grid!important;grid-template-rows:91px 20px!important;align-content:start!important;align-self:start!important;gap:6px!important;height:117px!important;min-height:0!important}
+.dashboard-new .dash-comparison-chart{display:grid!important;grid-template-rows:72px 9px 10px!important;align-content:start!important;gap:4px!important;height:91px!important;min-height:0!important}
+.dashboard-new .dash-comparison-chart svg{height:72px!important}
+.dashboard-new .dash-performance-details{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;grid-template-rows:20px!important;align-items:center!important;align-self:start!important;gap:12px!important;height:20px!important;min-height:0!important}
+.dashboard-new .dash-performance-delta,.dashboard-new .dash-performance-best{line-height:1.15!important}
+@media(max-width:759px){.dashboard-new .dash-performance-banner{padding:13px 15px!important}.dashboard-new .dash-performance-chart{grid-template-rows:83px auto!important;height:auto!important;gap:6px!important}.dashboard-new .dash-comparison-chart{grid-template-rows:64px 8px 9px!important;height:83px!important}.dashboard-new .dash-comparison-chart svg{height:64px!important}.dashboard-new .dash-performance-details{grid-template-columns:1fr!important;grid-template-rows:auto auto!important;height:auto!important;gap:3px!important}}
 </style>
 </head>
 <body>
