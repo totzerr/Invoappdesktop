@@ -1502,6 +1502,21 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .dashboard-new .dash-grid{grid-template-columns:minmax(0,1fr) minmax(300px,.5fr)!important;align-items:start!important}
 .dashboard-new .dash-side{display:block!important}.dashboard-new .dash-side .dash-actions{height:auto!important}
 @media(max-width:759px){.dashboard-new .dash-head{grid-template-columns:1fr!important;gap:13px!important}.dashboard-new .dash-head-side{grid-template-columns:1fr!important;gap:9px!important}.dashboard-new .dash-head .dash-sales,.dashboard-new .dash-head .dash-week-top{height:118px!important;min-height:118px!important}.dashboard-new .dash-week-top{padding:14px 15px 10px!important}.dashboard-new .dash-week-top .dash-bars{height:38px!important;margin-top:6px!important}.dashboard-new .dash-grid{grid-template-columns:1fr!important}}
+
+/* INVO · PERFORMANCE EN PREMIER PLAN */
+.dashboard-new .dash-performance-banner{display:grid!important;grid-template-columns:205px minmax(0,1fr)!important;align-items:center!important;gap:22px!important;padding:15px 18px!important;border:1px solid #ded7c9!important;border-radius:15px!important;background:linear-gradient(90deg,#fbfaf6,#f4efe4)!important;box-shadow:0 7px 18px rgba(42,34,21,.035)!important}
+.dashboard-new .dash-performance-copy small{display:block!important;color:#8c7f6c!important;font:800 9px Inter,system-ui,sans-serif!important;letter-spacing:.14em!important}
+.dashboard-new .dash-performance-copy b{display:inline-block!important;margin:4px 7px 0 0!important;color:#1d1a16!important;font:600 25px/1 Fraunces,Georgia,serif!important;letter-spacing:-.055em!important}
+.dashboard-new .dash-performance-copy span{display:inline-block!important;color:#9b7425!important;font:700 11px Inter,system-ui,sans-serif!important}
+.dashboard-new .dash-performance-chart{min-width:0!important}
+.dashboard-new .dash-performance-banner .dash-bars{display:flex!important;align-items:end!important;gap:9px!important;height:49px!important;margin:0!important;padding:0 0 2px!important;border-bottom:1px solid #ded5c5!important}
+.dashboard-new .dash-performance-banner .dash-bar{display:grid!important;grid-template-rows:1fr auto!important;flex:1!important;height:100%!important;gap:5px!important}
+.dashboard-new .dash-performance-banner .dash-bar i{display:block!important;align-self:end!important;width:100%!important;min-height:3px!important;border-radius:3px 3px 0 0!important;background:linear-gradient(180deg,#d8ba73,#a77d29)!important}
+.dashboard-new .dash-performance-banner .dash-bar span{color:#8d806c!important;text-align:center!important;font:700 8px Inter,system-ui,sans-serif!important}
+.dashboard-new .dash-head{grid-template-columns:minmax(0,1fr) 218px!important;gap:24px!important}
+.dashboard-new .dash-head .dash-sales{height:132px!important;min-height:132px!important;margin:0!important;padding:17px!important}
+.dashboard-new .dash-head-side,.dashboard-new .dash-week-top{display:none!important}
+@media(max-width:759px){.dashboard-new .dash-performance-banner{grid-template-columns:1fr!important;gap:10px!important;padding:14px 15px!important;border-radius:13px!important}.dashboard-new .dash-performance-banner .dash-bars{height:38px!important;gap:7px!important}.dashboard-new .dash-head{grid-template-columns:1fr!important;gap:13px!important}.dashboard-new .dash-head .dash-sales{height:118px!important;min-height:118px!important}}
 </style>
 </head>
 <body>
@@ -2830,7 +2845,8 @@ function renderDash(){
  const titre=priorite.etat==='clear'?(nom?'Bonjour '+escapeHTML(nom)+'.':'Bonjour.'):'À traiter maintenant.';
  const demo='';
  document.getElementById('s-dash').innerHTML=demo+'<div class="dashboard-new">'
- +'<section class="dash-head"><div><div class="dash-eyebrow"><i></i>VUE D’ENSEMBLE · '+date.toUpperCase()+'</div><h1>'+titre+'</h1><p>'+escapeHTML(priorite.detail)+'</p><button class="dash-main-action" '+attr+'>'+priorite.action+' <i>›</i></button></div><aside class="dash-head-side"><section class="dash-week dash-week-top"><small>PERFORMANCE · SEMAINE</small><b>'+fmt(caSemaine)+' €</b><strong>'+ventesSemaine.length+' vente'+(ventesSemaine.length>1?'s':'')+'</strong><p>'+ventesSemaine.length+' vente'+(ventesSemaine.length>1?'s':'')+' enregistrée'+(ventesSemaine.length>1?'s':'')+'</p><div class="dash-bars">'+bars+'</div></section><section class="dash-sales"><small>VENTES AUJOURD’HUI</small><b>'+fmt(caJour)+' €</b><span>'+ventesJour.length+' vente'+(ventesJour.length>1?'s':'')+' enregistrée'+(ventesJour.length>1?'s':'')+'</span><time>Actualisé · '+heure+'</time></section></aside></section>'
+ +'<section class="dash-performance-banner" aria-label="Performance de la semaine"><div class="dash-performance-copy"><small>PERFORMANCE · CETTE SEMAINE</small><b>'+fmt(caSemaine)+' €</b><span>'+ventesSemaine.length+' vente'+(ventesSemaine.length>1?'s':'')+'</span></div><div class="dash-performance-chart"><div class="dash-bars">'+bars+'</div></div></section>'
+ +'<section class="dash-head"><div><div class="dash-eyebrow"><i></i>VUE D’ENSEMBLE · '+date.toUpperCase()+'</div><h1>'+titre+'</h1><p>'+escapeHTML(priorite.detail)+'</p><button class="dash-main-action" '+attr+'>'+priorite.action+' <i>›</i></button></div><aside class="dash-sales"><small>VENTES AUJOURD’HUI</small><b>'+fmt(caJour)+' €</b><span>'+ventesJour.length+' vente'+(ventesJour.length>1?'s':'')+' enregistrée'+(ventesJour.length>1?'s':'')+'</span><time>Actualisé · '+heure+'</time></aside></section>'
  +'<section class="dash-kpis" aria-label="Raccourcis de suivi">'
  +'<button class="dash-kpi '+(ruptures.length?'critical':'')+'" data-dashgo="stock"><small>RUPTURES</small><b>'+ruptures.length+'</b><span>'+(ruptures.length?'À traiter':'Stock stable')+'<i>›</i></span></button>'
  +'<button class="dash-kpi '+(sousSeuil.length?'watch':'')+'" data-dashgo="cmd"><small>SOUS SEUIL</small><b>'+sousSeuil.length+'</b><span>'+(sousSeuil.length?'À anticiper':'Rien à commander')+'<i>›</i></span></button>'
