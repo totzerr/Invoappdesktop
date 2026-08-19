@@ -1036,7 +1036,7 @@ main{padding-top:26px}.h-title{font-family:-apple-system,BlinkMacSystemFont,"Int
 @media(max-width:700px){.nord-dashboard{gap:12px}.nord-hero{min-height:168px;padding:22px 19px;display:block;border-radius:20px}.nord-hero h1{font-size:31px}.nord-hero-actions{margin-top:22px}.nord-hero-actions button{flex:1;padding:10px}.nord-metrics{border-radius:14px}.nord-metrics button{padding:12px 9px}.nord-metrics b{font-size:21px}.nord-metrics span{font-size:8px;line-height:1.2}.nord-focus{grid-template-columns:8px minmax(0,1fr);padding:14px}.nord-focus button{grid-column:2;justify-self:start;margin-top:2px}.nord-columns{grid-template-columns:1fr;gap:12px}.nord-panel{border-radius:14px;padding:13px}.nord-revenue{border-radius:14px;padding:15px}.nord-revenue b{font-size:22px}.nord-revenue button{font-size:10px}}
 
 
-/* ═════ INVO OS · REFONTE TOTALE ═════
+/* ═════ HISTORIQUE · REFONTE VISUELLE ═════
    Nouvelle coque visuelle. Les écrans et règles métier restent inchangés. */
 :root{--bg:#edf2f7;--surface:#ffffff;--surface-2:#e7edf5;--border:#d7e0eb;--ink:#132033;--steel-d:#607086;--accent:#2563eb;--accent-2:#1d4ed8;--accent-soft:#e8f0ff;--accent-soft-brd:#b9cffb;--green:#14805e;--green-soft:#e7f6ef;--amber:#a45d06;--amber-d:#7c4603;--amber-soft:#fff3df;--red:#c83d52;--red-soft:#fff0f2;--blue:#2563eb;--blue-soft:#e8f0ff;--teal:#137b82;--teal-soft:#e7f6f6;--purple:#635bca;--purple-soft:#efefff;--gold:#f2b84b;--shadow:0 12px 34px rgba(24,42,68,.08);--shadow-sm:0 8px 20px rgba(24,42,68,.10);--shadow-card:0 1px 2px rgba(20,39,65,.03),0 8px 22px rgba(20,39,65,.055)}
 html,body{background:#edf2f7!important;color:#132033!important}
@@ -1076,7 +1076,7 @@ body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,
  html,body{min-width:1024px!important}
  .app{margin-left:248px!important;width:calc(100% - 248px)!important;min-height:100vh}
  #drawer{position:fixed!important;z-index:200!important;top:0!important;bottom:0!important;left:0!important;width:248px!important;display:flex!important;flex-direction:column!important;transform:none!important;visibility:visible!important;opacity:1!important;background:#0d1728!important;border:0!important;box-shadow:none!important}
- #drBg{display:none!important}.workspace-head{padding:28px 18px 18px!important}.workspace-brand:before{content:"IN";display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;margin-right:9px;background:#2563eb;color:#fff;border-radius:8px;font-size:12px;font-weight:800;letter-spacing:-.08em}.workspace-brand{font-size:0!important}.workspace-brand:after{content:"INVO OS";font-size:13px;letter-spacing:.15em;font-weight:800;color:#fff;vertical-align:top;line-height:34px}.workspace-brand svg,.workspace-brand img{display:none!important}
+ #drBg{display:none!important}.workspace-head{padding:28px 18px 18px!important}.workspace-brand:before{content:"IN";display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;margin-right:9px;background:#2563eb;color:#fff;border-radius:8px;font-size:12px;font-weight:800;letter-spacing:-.08em}.workspace-brand{font-size:0!important}.workspace-brand:after{content:"";font-size:13px;letter-spacing:.15em;font-weight:800;color:#fff;vertical-align:top;line-height:34px}.workspace-brand svg,.workspace-brand img{display:none!important}
  .workspace-content{padding:10px 12px!important}.workspace-bottom{padding:14px 18px!important}.workspace-bottom p{font-size:9px!important;color:#7190b7!important}
  .top{height:70px!important;padding:0 42px!important;position:sticky!important}.top .logo{display:none!important}.top-right{margin-left:auto!important}
  main{padding:40px 44px 70px!important;max-width:1420px!important;margin:0 auto!important;width:100%!important}
@@ -1084,7 +1084,7 @@ body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,
  .grid{grid-template-columns:repeat(4,minmax(150px,1fr))!important}.kpis{grid-template-columns:repeat(4,1fr)!important}.split{max-width:760px!important}
 }
 @media(max-width:759px){
- .app{max-width:none!important}.top{background:#0d1728!important;border:0!important;padding:calc(13px + env(safe-area-inset-top)) 18px 13px!important}.top .logo{display:flex!important}.top .logo:before{content:"INVO OS";font-size:12px;font-weight:800;letter-spacing:.14em;color:#fff}.top .logo-img{display:none}.lang,.who-pill{background:rgba(255,255,255,.1)!important;border-color:rgba(255,255,255,.12)!important;color:#fff!important}.who-pill{font-size:0!important}.who-pill .dot{background:#55d6ad!important}
+ .app{max-width:none!important}.top{background:#0d1728!important;border:0!important;padding:calc(13px + env(safe-area-inset-top)) 18px 13px!important}.top .logo{display:flex!important}.top .logo:before{content:"";font-size:12px;font-weight:800;letter-spacing:.14em;color:#fff}.top .logo-img{display:none}.lang,.who-pill{background:rgba(255,255,255,.1)!important;border-color:rgba(255,255,255,.12)!important;color:#fff!important}.who-pill{font-size:0!important}.who-pill .dot{background:#55d6ad!important}
  main{padding:24px 16px calc(92px + env(safe-area-inset-bottom))!important}.h-title{font-size:25px!important}
  .nav{background:#0d1728!important;border:0!important;padding-top:6px!important;box-shadow:0 -8px 24px rgba(13,23,40,.14)!important;max-width:none!important}.nav button{color:#7f98b8!important}.nav button.on{color:#fff!important}.nav button.on:after{background:#2563eb!important;border-radius:99px!important;width:22px!important;height:3px!important;bottom:5px!important}
  .cartbar{max-width:none!important}.cartbar-in{background:#2563eb!important;border-radius:9px!important}
@@ -1218,6 +1218,10 @@ html,body,.app{background:#F6F5F2!important;color:#171614!important}
 .btn-2{background:#fff!important;border-color:#D9D4CB!important;color:#34312C!important}
 .cat.on{background:#171614!important;color:#fff!important;border-color:#171614!important}
 
+
+/* INVO · RETRAIT DES ÉTIQUETTES TECHNIQUES */
+.workspace-brand:after,.top .logo:before{content:none!important;display:none!important}
+.workspace-brand svg,.workspace-brand img,.top .logo-img{display:block!important}
 </style>
 </head>
 <body>
