@@ -631,6 +631,28 @@ white-space:nowrap;cursor:pointer;flex-shrink:0;display:flex;align-items:center;
 .zchip.on{background:var(--accent,#7A4F0A);border-color:var(--accent,#7A4F0A);color:#fff}
 .zchip .zc{font-size:10.5px;opacity:.8;font-variant-numeric:tabular-nums;
 padding-left:7px;margin-left:1px;border-left:1px solid currentColor}
+.zone-order-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--surface,#FFFFFF);
+border:1px solid var(--border,#C9B98D);border-radius:12px;padding:10px 12px;margin:-4px 0 14px;box-shadow:var(--shadow-card)}
+.zone-order-copy{font-size:11.5px;color:var(--steel-d,#4A4436);line-height:1.4}
+.zone-order-copy b{display:block;color:var(--ink,#1C1914);font-size:12.5px}
+.zone-order-list{display:grid;gap:8px;margin-bottom:16px}
+.zone-order-row{display:grid;grid-template-columns:34px minmax(0,1fr) auto;align-items:center;gap:10px;background:var(--surface,#FFFFFF);
+border:1px solid var(--border,#C9B98D);border-radius:12px;padding:10px;box-shadow:var(--shadow-card);transition:transform .15s,border-color .15s,opacity .15s,background .15s}
+.zone-order-row[draggable="true"]{cursor:grab}.zone-order-row.dragging{opacity:.48;transform:scale(.985)}
+.zone-order-row.drag-over{border-color:var(--accent,#7A4F0A);background:var(--accent-soft,#F8F2E5)}
+.zone-drag{font-size:20px;color:var(--steel-d,#4A4436);text-align:center;line-height:1;user-select:none}
+.zone-product{min-width:0}.zone-product b{display:block;font-size:13.5px;color:var(--ink,#1C1914);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.zone-product small{display:block;font-size:10.5px;color:var(--steel-d,#4A4436);margin-top:2px}
+.zone-moves{display:flex;gap:4px}.zone-moves button{width:31px;height:31px;border:1px solid var(--border,#C9B98D);border-radius:8px;background:var(--surface-2,#E6DEC7);
+color:var(--ink,#1C1914);font:700 13px 'Inter',sans-serif;cursor:pointer}.zone-moves button:disabled{opacity:.32;cursor:default}
+.zone-empty{text-align:center;padding:28px 18px;color:var(--steel-d,#4A4436);font-size:12.5px;border:1px dashed var(--border,#C9B98D);border-radius:12px}
+.settings-tabs{margin-bottom:18px}.user-list{display:grid;gap:9px;margin:12px 0 18px}
+.user-card{background:var(--surface,#FFFFFF);border:1px solid var(--border,#C9B98D);border-radius:12px;padding:12px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center}
+.user-name{font-size:13.5px;font-weight:700;color:var(--ink,#1C1914)}.user-mail{font-size:10.5px;color:var(--steel-d,#4A4436);margin-top:2px;overflow-wrap:anywhere}
+.user-meta{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:7px}.user-status{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:3px 7px;border-radius:999px;background:var(--green-soft,#EAF2EC);color:var(--green,#235A34)}
+.user-status.invite{background:var(--amber-soft,#F8F2E5);color:var(--amber,#7A4F0A)}.user-date{font-size:10px;color:var(--steel-d,#4A4436)}
+.user-actions{display:flex;align-items:center;gap:6px}.user-role{max-width:150px;padding:7px 8px!important;font-size:11px!important}.user-remove{width:32px;height:32px;border-radius:9px;border:1px solid var(--red-soft,#F9EAE4);background:var(--red-soft,#F9EAE4);color:var(--red,#7E2F1B);cursor:pointer}
+@media(max-width:620px){.zone-order-bar{align-items:flex-start;flex-direction:column}.zone-order-bar .btn{width:100%}.zone-order-row{grid-template-columns:28px minmax(0,1fr)}.zone-moves{grid-column:1/-1;justify-content:flex-end}.zone-moves button{flex:1;max-width:58px}.user-card{grid-template-columns:1fr}.user-actions{justify-content:space-between}.user-role{max-width:none;flex:1}}
 .frac{display:flex;gap:4px;margin-top:5px;justify-content:flex-end}
 .frac button{background:var(--surface-2,#E6DEC7);border:1px solid var(--border,#C9B98D);color:var(--steel-d,#4A4436);
 width:30px;height:24px;border-radius:7px;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;cursor:pointer;padding:0}
@@ -1989,7 +2011,8 @@ lastSync:Date.now(),svc:'soir',prods:null,carte:null,liv:[],invHist:[],photos:{}
 let panier={},motif=null,cat='cCock',screen='dash',seenFeed=0,timer=null,sq='',stockTab='mat',fm=null;
 let msgDec=null,forcerStock=false;   /* retours de validation sur l'écran Déclarer */
 let cartePrix=false,prixEdit={},cartCat='tous';   /* édition groupée des prix de vente */
-let livTab='recep',invTab='count',invZone='all',livForm=null,decPhoto=null,commandeFo='',fournisseurForm=null;
+let livTab='recep',invTab='count',invZone='all',invOrderMode=false,draggedProductId=null,zoneOrderSaveTimer=null,
+livForm=null,decPhoto=null,commandeFo='',fournisseurForm=null,settingsTab='general',userForm=null;
 
 const t=k=>(L[st.lang]&&L[st.lang][k])??L.fr[k];
 const prod=id=>st.prods.find(p=>p.id===id);
@@ -2007,7 +2030,17 @@ const AUTH_KEY='invo_auth_v1', SESS_KEY='invo_sess_v1';
 let auth={users:{}}, session=null, authVue='login', authMsg=null, authCode=null;
 
 const dataKey=()=>'invo_v5';  /* clé unique tant qu'il n'y a pas de comptes */
-const loadAuth=async()=>{auth=(await Store.get(AUTH_KEY))||{users:{}};session=await Store.get(SESS_KEY)};
+const loadAuth=async()=>{
+ auth=(await Store.get(AUTH_KEY))||{users:{}};session=await Store.get(SESS_KEY);
+ if(!auth.users||typeof auth.users!=='object')auth.users={};
+ let changed=false;
+ Object.values(auth.users).forEach(u=>{
+  if(!u.role){u.role='gestion';changed=true}
+  if(!u.statut){u.statut=u.hash?'actif':'invite';changed=true}
+  if(!u.cree){u.cree=Date.now();changed=true}
+ });
+ if(changed)await saveAuth();
+};
 const saveAuth=()=>Store.set(AUTH_KEY,auth);
 const saveSess=()=>Store.set(SESS_KEY,session);
 const normMail=e=>(e||'').trim().toLowerCase();
@@ -2047,7 +2080,7 @@ async function creerCompte(nom,mail,etab,pwd,pwd2){
  if(auth.users[mail])return{e:t('aDejaPris')};
  const salt=rnd(16), code=rnd(4)+'-'+rnd(4), etabId=uid('etab');
  auth.users[mail]={mail,nom:nom.trim(),etabId,etabNom:etab.trim(),
-  salt,hash:await hashPwd(pwd,salt),codeHash:await hashPwd(code,salt),cree:Date.now()};
+  salt,hash:await hashPwd(pwd,salt),codeHash:await hashPwd(code,salt),cree:Date.now(),role:'gestion',statut:'actif'};
  await saveAuth();
  session={email:mail,etabId};await saveSess();
  /* Reprise éventuelle des données de la version précédente (sans compte) */
@@ -2062,6 +2095,7 @@ async function connecter(mail,pwd){
  const u=auth.users[mail];
  if(!u)return{e:t('aIntrouvable')};
  if(await hashPwd(pwd,u.salt)!==u.hash)return{e:t('aMauvaisPwd')};
+ u.derniereActivite=Date.now();u.statut='actif';await saveAuth();
  session={email:mail,etabId:u.etabId};await saveSess();
  return{ok:true};
 }
@@ -2168,13 +2202,22 @@ if(!st.brouillons)st.brouillons=[];
 if(st.modePilote===undefined)st.modePilote=false;
 if(!Array.isArray(st.prods))st.prods=st.modePilote?[]:JSON.parse(JSON.stringify(PRODUITS_DEF));
 else if(!st.prods.length&&!st.modePilote)st.prods=JSON.parse(JSON.stringify(PRODUITS_DEF));
-st.prods.forEach(p=>{if(!p.z)p.z='reserve';if(!p.fo)p.fo='Divers';
+let ordreMigre=false;
+st.prods.forEach(p=>{if(!p.z){p.z='reserve';ordreMigre=true}if(!p.fo)p.fo='Divers';
  if(p.dlc===undefined){const d=PRODUITS_DEF.find(x=>x.id===p.id);
   p.dlc=d?d.dlc:((p.u==='cl'||p.u==='btl')?0:7)}});
+ZONES_L.forEach(z=>{
+ const produits=st.prods.map((p,index)=>({p,index})).filter(x=>(x.p.z||'reserve')===z)
+  .sort((a,b)=>{
+   const ao=Number(a.p.displayOrder),bo=Number(b.p.displayOrder),av=Number.isFinite(ao),bv=Number.isFinite(bo);
+   return av&&bv?ao-bo:(av?-1:(bv?1:a.index-b.index))});
+ produits.forEach((x,index)=>{if(x.p.displayOrder!==index){x.p.displayOrder=index;ordreMigre=true}});
+});
 if(!Array.isArray(st.carte))st.carte=st.modePilote?[]:JSON.parse(JSON.stringify(CARTE_DEF));
 else if(!st.carte.length&&!st.modePilote)st.carte=JSON.parse(JSON.stringify(CARTE_DEF));
 if(!Object.keys(st.stock).length)st.prods.forEach(p=>st.stock[p.id]=p.s);
-assurerFournisseurs()}
+assurerFournisseurs();
+if(ordreMigre)await Store.set(dataKey(),st)}
 const save=()=>Store.set(dataKey(),st);
 /* ── Sauvegarde locale : aucun envoi réseau, uniquement un fichier INVO. ── */
 const BACKUP_MAX=120*1024*1024;
@@ -2758,6 +2801,46 @@ await save();panier={};motif=null;decPhoto=null;renderDec();toast(t('saved'))}
 /* ═════ LIVRAISONS ═════ */
 const ZONES_L=['bar','cave','cuisine','reserve'];
 const zLabel=z=>t('z'+z.charAt(0).toUpperCase()+z.slice(1));
+
+/* Ordre d'affichage persistant et indépendant pour chaque zone. */
+function produitsZone(z){
+ return st.prods.map((p,index)=>({p,index})).filter(x=>(x.p.z||'reserve')===z)
+  .sort((a,b)=>{
+   const ao=Number(a.p.displayOrder),bo=Number(b.p.displayOrder),av=Number.isFinite(ao),bv=Number.isFinite(bo);
+   return av&&bv?ao-bo:(av?-1:(bv?1:a.index-b.index))})
+  .map(x=>x.p);
+}
+function produitsOrdonnesToutesZones(){
+ const ids=new Set(),liste=[];
+ ZONES_L.forEach(z=>produitsZone(z).forEach(p=>{ids.add(p.id);liste.push(p)}));
+ st.prods.forEach(p=>{if(!ids.has(p.id))liste.push(p)});
+ return liste;
+}
+function normaliserZone(z){produitsZone(z).forEach((p,index)=>p.displayOrder=index)}
+function prochainePositionZone(z){const ps=produitsZone(z);return ps.length?Math.max(...ps.map(p=>Number(p.displayOrder)||0))+1:0}
+function planifierSauvegardeOrdre(){
+ if(zoneOrderSaveTimer)clearTimeout(zoneOrderSaveTimer);
+ zoneOrderSaveTimer=setTimeout(async()=>{zoneOrderSaveTimer=null;await save()},180);
+}
+window.addEventListener('pagehide',()=>{
+ if(zoneOrderSaveTimer){clearTimeout(zoneOrderSaveTimer);zoneOrderSaveTimer=null;Store.set(dataKey(),st)}
+});
+async function deplacerProduitZone(id,action,cibleId){
+ const p=prod(id);if(!p)return;
+ const z=p.z||'reserve',liste=produitsZone(z),depart=liste.findIndex(x=>x.id===id);
+ if(depart<0)return;
+ let arrivee=depart;
+ if(action==='first')arrivee=0;
+ else if(action==='up')arrivee=Math.max(0,depart-1);
+ else if(action==='down')arrivee=Math.min(liste.length-1,depart+1);
+ else if(action==='last')arrivee=liste.length-1;
+ else if(action==='before')arrivee=liste.findIndex(x=>x.id===cibleId);
+ if(arrivee<0||arrivee===depart)return;
+ const [moved]=liste.splice(depart,1);
+ if(action==='before'&&depart<arrivee)arrivee--;
+ liste.splice(arrivee,0,moved);liste.forEach((x,index)=>x.displayOrder=index);
+ planifierSauvegardeOrdre();renderInv();
+}
 
 
 /* ── Fournisseurs et commandes : stock uniquement après réception validée. ── */
@@ -4896,20 +4979,27 @@ const num=v=>{const x=parseFloat(String(v).replace(',','.'));return isNaN(x)?0:x
 async function saveMat(){
 if(!fm.n.trim())return;
 const px=fm.mode==='cont'?(num(fm.ct)>0?num(fm.pc)/num(fm.ct):0):num(fm.px);
+const ancien=fm.id?prod(fm.id):null,nouvelleZone=fm.z||'reserve';
 const obj={id:fm.id||uid('m'),n:fm.n.trim(),i:fm.i||'📦',u:fm.u,px,
- seuil:num(fm.seuil),s:num(fm.stock),dlc:num(fm.dlc),z:fm.z||'reserve',fo:(fm.fo||'Divers').trim()};
+ seuil:num(fm.seuil),s:num(fm.stock),dlc:num(fm.dlc),z:nouvelleZone,fo:(fm.fo||'Divers').trim(),
+ displayOrder:ancien&&(ancien.z||'reserve')===nouvelleZone&&Number.isFinite(Number(ancien.displayOrder))
+  ?Number(ancien.displayOrder):prochainePositionZone(nouvelleZone)};
 if(fm.pxPrev)obj.pxPrev=fm.pxPrev;if(fm.hist)obj.hist=fm.hist;
 if(fm.mode==='cont'){obj.ct=num(fm.ct);obj.pc=num(fm.pc)}
 if(fm.id){const ix=st.prods.findIndex(p=>p.id===fm.id);st.prods[ix]=obj}
 else st.prods.push(obj);
+if(ancien&&(ancien.z||'reserve')!==nouvelleZone)normaliserZone(ancien.z||'reserve');
+normaliserZone(nouvelleZone);
 st.stock[obj.id]=num(fm.stock);assurerFournisseurs();
 await save();closeModal();renderStock();if(screen==='cmd')renderCommanderScreen();toast(t('matSaved'))}
 
 async function delMat(){
 const used=st.carte.filter(c=>c.f&&c.f[fm.id]!==undefined).length;
 if(!confirm(t('confDel')+(used?'\n'+t('usedIn').replace('%s',used):'')))return;
+const ancienneZone=(prod(fm.id)?.z)||'reserve';
 st.prods=st.prods.filter(p=>p.id!==fm.id);delete st.stock[fm.id];delete st.count[fm.id];
 st.carte.forEach(c=>{if(c.f&&c.f[fm.id]!==undefined)delete c.f[fm.id]});
+normaliserZone(ancienneZone);
 await save();closeModal();renderStock();toast(t('matDel'))}
 
 /* ── Formulaire CARTE ── */
@@ -4997,14 +5087,21 @@ function renderInv(){
 
  const zones=['all',...ZONES_L];
  const chips=zones.map(z=>{
-  const list=z==='all'?st.prods:st.prods.filter(p=>(p.z||'reserve')===z);
-  if(z!=='all'&&!list.length)return '';
+  const list=z==='all'?produitsOrdonnesToutesZones():produitsZone(z);
   const done=list.filter(p=>{const v=st.count[p.id];return v!==''&&v!==undefined}).length;
   return `<button class="zchip ${invZone===z?'on':''}" data-iz="${z}">
    ${z==='all'?t('zToutes'):zLabel(z)}<span class="zc">${done}/${list.length}</span></button>`}).join('');
 
- const list=invZone==='all'?st.prods:st.prods.filter(p=>(p.z||'reserve')===invZone);
- const rows=list.map(p=>{
+ const list=invZone==='all'?produitsOrdonnesToutesZones():produitsZone(invZone);
+ const rows=invOrderMode&&invZone!=='all'?list.map((p,index)=>`<div class="zone-order-row" draggable="true" data-order-id="${p.id}">
+  <span class="zone-drag" aria-hidden="true">☰</span>
+  <span class="zone-product"><b>${p.i} ${escapeHTML(p.n)}</b><small>${escapeHTML(p.u)} · ${zLabel(p.z||'reserve')}</small></span>
+  <span class="zone-moves">
+   <button data-move="first" data-id="${p.id}" ${index===0?'disabled':''} title="Première position" aria-label="Placer ${escapeHTML(p.n)} en première position">⇤</button>
+   <button data-move="up" data-id="${p.id}" ${index===0?'disabled':''} title="Monter" aria-label="Monter ${escapeHTML(p.n)}">↑</button>
+   <button data-move="down" data-id="${p.id}" ${index===list.length-1?'disabled':''} title="Descendre" aria-label="Descendre ${escapeHTML(p.n)}">↓</button>
+   <button data-move="last" data-id="${p.id}" ${index===list.length-1?'disabled':''} title="Dernière position" aria-label="Placer ${escapeHTML(p.n)} en dernière position">⇥</button>
+  </span></div>`).join(''):list.map(p=>{
   const att=st.stock[p.id]??0;const v=st.count[p.id];
   const has=v!==undefined&&v!=='';const gap=has&&Math.abs(parseFloat(v)-att)>0.001;
   const frac=(p.u==='btl'||p.u==='u')?`<div class="frac">
@@ -5015,6 +5112,10 @@ function renderInv(){
    <div><div class="iv-nm">${p.i} ${p.n}</div><div class="iv-sub">${p.u} · ${zLabel(p.z||'reserve')}</div></div>
    <div class="iv-att">${fmtQ(att)}</div>
    <div><input class="iv-inp ${has?(gap?'bad':'ok'):''}" inputmode="decimal" data-c="${p.id}" value="${has?v:''}" placeholder="—">${frac}</div></div>`}).join('');
+
+ const ordreBar=invZone!=='all'?`<div class="zone-order-bar"><div class="zone-order-copy"><b>${zLabel(invZone)} · ${list.length} produit${list.length>1?'s':''}</b>
+  ${invOrderMode?'Glissez les produits ou utilisez les quatre boutons de déplacement.':'Personnalisez l’ordre de comptage de cette zone.'}</div>
+  <button class="btn btn-2 btn-sm" id="ivOrder">${invOrderMode?'✓ Terminer':'↕ Réorganiser'}</button></div>`:'';
 
  let conf=0,ec=0,done=0,ecVal=0;
  st.prods.forEach(p=>{const v=st.count[p.id];if(v===''||v===undefined)return;done++;
@@ -5030,16 +5131,16 @@ function renderInv(){
    <div class="inv-stat"><span>${t('ecarts')}</span><b style="color:${ec?'var(--red,#7E2F1B)':'var(--steel-d,#4A4436)'}">${ec}</b></div>
    <div class="inv-stat"><span>${t('ecartValeur')}</span><b style="color:${ecVal>0?'var(--red,#7E2F1B)':'var(--steel-d,#4A4436)'}">${fmt(ecVal)} €</b></div>
    <div class="inv-stat"><span>${t('valeurStock')}</span><b>${fmt(valStock)} €</b></div></div>
-  <div class="zone-chips">${chips}</div>
-  <div style="display:grid;grid-template-columns:1fr 54px 62px;gap:9px;padding-bottom:8px;
+  <div class="zone-chips">${chips}</div>${ordreBar}
+  ${invOrderMode&&invZone!=='all'?`<div class="zone-order-list">${rows||'<div class="zone-empty">Cette zone ne contient encore aucun produit.</div>'}</div>`:`<div style="display:grid;grid-template-columns:1fr 54px 62px;gap:9px;padding-bottom:8px;
    font-family:'Inter',sans-serif;font-size:9.5px;letter-spacing:1.1px;color:var(--steel-d,#4A4436);
    font-weight:700;border-bottom:1px solid var(--border,#C9B98D)">
    <span>${t('prod')}</span><span style="text-align:right">${t('attendu')}</span>
-   <span style="text-align:center">${t('compte')}</span></div>${rows}
-  <div class="inv-actions"><button class="btn" id="ivOk" ${done===0?'disabled':''}>${t('valid')}</button>
+   <span style="text-align:center">${t('compte')}</span></div>${rows||'<div class="zone-empty">Cette zone ne contient encore aucun produit.</div>'}`}
+  ${invOrderMode&&invZone!=='all'?'':`<div class="inv-actions"><button class="btn" id="ivOk" ${done===0?'disabled':''}>${t('valid')}</button>
    <button class="btn btn-2 btn-sm" id="ivClear">${t('clear')}</button></div>
   <div class="exp-row"><button class="btn btn-2 btn-sm" id="ivCsv">${t('exportCsv')}</button>
-   <button class="btn btn-2 btn-sm" id="ivPrint">${t('imprimer')}</button></div>`;
+   <button class="btn btn-2 btn-sm" id="ivPrint">${t('imprimer')}</button></div>`}`;
 
  document.querySelectorAll('[data-c]').forEach(inp=>{
   inp.oninput=e=>{st.count[e.target.dataset.c]=e.target.value;save()};
@@ -5049,11 +5150,20 @@ function renderInv(){
   const cur=st.count[id];const base=(cur===''||cur===undefined)?0:Math.floor(parseFloat(cur)||0);
   st.count[id]=String(base+add);save();renderInv()});
  document.querySelectorAll('[data-iz]').forEach(b=>b.onclick=()=>{invZone=b.dataset.iz;renderInv()});
+ const orderBtn=document.getElementById('ivOrder');if(orderBtn)orderBtn.onclick=()=>{invOrderMode=!invOrderMode;renderInv()};
+ document.querySelectorAll('[data-move]').forEach(b=>b.onclick=()=>deplacerProduitZone(b.dataset.id,b.dataset.move));
+ document.querySelectorAll('[data-order-id]').forEach(row=>{
+  row.ondragstart=e=>{draggedProductId=row.dataset.orderId;row.classList.add('dragging');e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',draggedProductId)};
+  row.ondragover=e=>{e.preventDefault();if(draggedProductId&&draggedProductId!==row.dataset.orderId)row.classList.add('drag-over')};
+  row.ondragleave=()=>row.classList.remove('drag-over');
+  row.ondrop=e=>{e.preventDefault();row.classList.remove('drag-over');const id=draggedProductId||e.dataTransfer.getData('text/plain');if(id)deplacerProduitZone(id,'before',row.dataset.orderId)};
+  row.ondragend=()=>{draggedProductId=null;document.querySelectorAll('.zone-order-row').forEach(x=>x.classList.remove('dragging','drag-over'))};
+ });
  document.querySelectorAll('[data-it]').forEach(b=>b.onclick=()=>{invTab=b.dataset.it;renderInv()});
- document.getElementById('ivOk').onclick=validerInv;
- document.getElementById('ivClear').onclick=async()=>{st.count={};await save();renderInv()};
- document.getElementById('ivCsv').onclick=exportInvCsv;
- document.getElementById('ivPrint').onclick=()=>window.print();
+ const ivOk=document.getElementById('ivOk');if(ivOk)ivOk.onclick=validerInv;
+ const ivClear=document.getElementById('ivClear');if(ivClear)ivClear.onclick=async()=>{st.count={};await save();renderInv()};
+ const ivCsv=document.getElementById('ivCsv');if(ivCsv)ivCsv.onclick=exportInvCsv;
+ const ivPrint=document.getElementById('ivPrint');if(ivPrint)ivPrint.onclick=()=>window.print();
 }
 
 async function validerInv(){
@@ -5333,47 +5443,107 @@ document.getElementById('bg2').onclick=e=>{if(e.target.id==='bg2')closeModal()};
 document.querySelectorAll('[data-w]').forEach(b=>b.onclick=async()=>{
 const p=POSTES.find(x=>x.id===b.dataset.w);st.whoId=p.id;st.who=p.n;await save();closeModal();renderAll()})}
 /* ═════ RÉGLAGES · COMPTE · MATÉRIEL CONNECTÉ ═════ */
+const roleEstAutorise=id=>{const p=POSTES.find(x=>x.id===id);return !!(p&&p.resp)};
+function utilisateursEtablissement(){
+ const tous=Object.values(auth.users||{}),etabId=session&&session.etabId;
+ return tous.filter(u=>!etabId||!u.etabId||u.etabId===etabId).sort((a,b)=>(a.nom||a.mail).localeCompare(b.nom||b.mail,'fr'));
+}
+function dateUtilisateur(ts){return ts?new Date(ts).toLocaleDateString('fr-FR'):'—'}
+function dessinerUtilisateurs(){
+ const autorise=estResp(),users=utilisateursEtablissement();
+ const cards=users.map(u=>{
+  const poste=POSTES.find(p=>p.id===(u.role||'gestion'))||POSTES[2],self=!!(session&&session.email===u.mail);
+  return `<div class="user-card"><div><div class="user-name">${escapeHTML(u.nom||u.mail)}${self?' · vous':''}</div>
+   <div class="user-mail">${escapeHTML(u.mail)}</div><div class="user-meta"><span class="user-status ${u.statut==='invite'?'invite':''}">${u.statut==='invite'?'Invitation':'Actif'}</span>
+   <span class="user-date">${u.derniereActivite?'Dernière activité '+dateUtilisateur(u.derniereActivite):'Ajouté le '+dateUtilisateur(u.cree)}</span></div></div>
+   <div class="user-actions">${autorise?`<select class="user-role" data-user-role="${escapeHTML(u.mail)}" aria-label="Rôle de ${escapeHTML(u.nom||u.mail)}">
+    ${POSTES.map(p=>`<option value="${p.id}" ${p.id===poste.id?'selected':''}>${p.n}</option>`).join('')}</select>
+    <button class="user-remove" data-user-remove="${escapeHTML(u.mail)}" title="Retirer" aria-label="Retirer ${escapeHTML(u.nom||u.mail)}">×</button>`:
+    `<span class="pill-etat on">${poste.n}</span>`}</div></div>`}).join('');
+ return `${autorise?'<button class="btn" id="addUser" style="margin-bottom:12px">+ Ajouter un utilisateur</button>':
+  '<div class="auth-msg info">Seuls les responsables et la direction peuvent gérer les utilisateurs.</div>'}
+  <div class="user-list">${cards||'<div class="zone-empty">Aucun utilisateur enregistré pour cet espace.</div>'}</div>
+  <div class="auth-msg info">Les comptes utilisent le registre d’accès INVO existant. En mode test, l’écran de connexion reste désactivé.</div>`;
+}
+async function changerRoleUtilisateur(mail,nouveauRole){
+ const u=auth.users[mail];if(!u||!estResp())return;
+ const admins=utilisateursEtablissement().filter(x=>roleEstAutorise(x.role||'gestion'));
+ if(roleEstAutorise(u.role||'gestion')&&!roleEstAutorise(nouveauRole)&&admins.length<=1){toast('Le dernier administrateur doit conserver un rôle autorisé.');openReglages('users');return}
+ u.role=nouveauRole;await saveAuth();toast('Rôle mis à jour.');openReglages('users');
+}
+async function retirerUtilisateur(mail){
+ const u=auth.users[mail];if(!u||!estResp())return;
+ if(session&&session.email===mail){toast('Vous ne pouvez pas retirer votre propre compte.');return}
+ const admins=utilisateursEtablissement().filter(x=>roleEstAutorise(x.role||'gestion'));
+ if(roleEstAutorise(u.role||'gestion')&&admins.length<=1){toast('Impossible de retirer le dernier administrateur.');return}
+ if(!confirm(`Êtes-vous sûr de vouloir retirer ${u.nom||u.mail} de INVO ? Il n’aura plus accès à l’espace.`))return;
+ delete auth.users[mail];await saveAuth();toast('Utilisateur retiré.');openReglages('users');
+}
+function openAjouterUtilisateur(){
+ if(!estResp())return;
+ userForm={nom:'',mail:'',role:'serveur'};
+ document.getElementById('modal').innerHTML=`<div class="sheet-bg" id="bgU"><div class="sheet">
+  <h3>Ajouter un utilisateur</h3><p class="sh-sub">Créez un accès dans le registre INVO existant.</p>
+  <div class="fld"><label>Nom et prénom</label><input id="uNom" autocomplete="name" placeholder="Camille Martin"></div>
+  <div class="fld"><label>Adresse e-mail</label><input id="uMail" type="email" inputmode="email" autocomplete="email" placeholder="camille@restaurant.fr"></div>
+  <div class="fld"><label>Rôle</label><select id="uRole">${POSTES.map(p=>`<option value="${p.id}" ${p.id==='serveur'?'selected':''}>${p.n}</option>`).join('')}</select></div>
+  <div class="auth-msg err" id="uErr" style="display:none"></div>
+  <div class="sh-actions"><button class="btn btn-2 btn-sm" id="uCancel">Annuler</button><button class="btn" id="uSave">Ajouter</button></div>
+ </div></div>`;
+ document.getElementById('bgU').onclick=e=>{if(e.target.id==='bgU')openReglages('users')};
+ document.getElementById('uCancel').onclick=()=>openReglages('users');
+ document.getElementById('uSave').onclick=ajouterUtilisateur;
+}
+async function ajouterUtilisateur(){
+ const nom=document.getElementById('uNom').value.trim(),mail=normMail(document.getElementById('uMail').value),role=document.getElementById('uRole').value;
+ const err=document.getElementById('uErr'),fail=msg=>{err.textContent=msg;err.style.display='block'};
+ if(!nom||!mail)return fail('Renseignez le nom et l’adresse e-mail.');
+ if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail))return fail('L’adresse e-mail n’est pas valide.');
+ if(auth.users[mail])return fail('Un utilisateur possède déjà cette adresse e-mail.');
+ if(!POSTES.some(p=>p.id===role))return fail('Sélectionnez un rôle valide.');
+ const salt=rnd(16),code=rnd(4)+'-'+rnd(4),etabId=(session&&session.etabId)||'local';
+ auth.users[mail]={mail,nom,role,etabId,etabNom:st.etabNom||'SP Wallace',salt,hash:await hashPwd(code,salt),
+  codeHash:await hashPwd(code,salt),cree:Date.now(),statut:'invite'};
+ await saveAuth();
+ document.getElementById('modal').innerHTML=`<div class="sheet-bg" id="bgUC"><div class="sheet"><h3>Utilisateur ajouté</h3>
+  <p class="sh-sub">L’accès de ${escapeHTML(nom)} est prêt. Transmettez-lui ce code temporaire par un canal sûr.</p>
+  <div class="code-box"><div class="code-val">${code}</div><div class="code-lab">Code temporaire · ${escapeHTML(mail)}</div></div>
+  <div class="sh-actions"><button class="btn" id="uDone">Terminer</button></div></div></div>`;
+ document.getElementById('uDone').onclick=()=>{toast('Utilisateur ajouté.');openReglages('users')};
+}
 function openReglages(){
+ settingsTab=arguments[0]||settingsTab||'general';
  const dos=st.doseurs||{actif:false,releves:{}};
- document.getElementById('modal').innerHTML=`<div class="sheet-bg" id="bgR"><div class="sheet">
- <h3>${t('reglages')}</h3><p class="sh-sub">${t('reglagesS')}</p>
-
+ const general=`
  <div class="set-sec">${t('etablissement')}</div>
  <div class="fld"><label>${t('nomEtab')}</label>
  <input id="rEtab" value="${(st.etabNom||'SP Wallace').replace(/"/g,'&quot;')}" placeholder="SP Wallace"></div>
-
  <div class="set-sec">${t('pilot')} / ${t('reset')}</div>
  <div class="auth-msg ${st.modePilote?'ok':'info'}">${st.modePilote?t('pilotOn'):t('pilotS')}</div>
- <div class="pilot-actions" style="margin:10px 0 18px">
-  ${st.modePilote?'':`<button class="btn btn-2 btn-sm" id="pilotStart">${t('pilotStart')}</button>`}
-  <button class="btn btn-2 btn-sm" id="resetDemo">${t('reset')}</button>
- </div>
- ${st.modePilote?'':`<div class="auth-msg info">${t('pilotDemoS')}</div>
- <div class="pilot-actions" style="margin:10px 0 18px"><button class="btn btn-2 btn-sm" id="pilotDemoLoad">${t('pilotDemoLoad')}</button></div>`}
- <div class="set-sec">${t('sauvegarde')}</div>
- <div class="auth-msg info">${t('sauvegardeS')}</div>
- <div class="sh-actions" style="margin:10px 0 18px">
-  <button class="btn btn-2 btn-sm" id="bkExport">${t('exportSauvegarde')}</button>
-  <button class="btn btn-2 btn-sm" id="bkImportBtn">${t('importSauvegarde')}</button>
-  <input id="bkImport" type="file" accept=".json,application/json" style="display:none">
- </div>
- <div class="auth-msg info">${t('importAide')}</div>
- <div class="set-sec">${t('materiel')}</div>
- <div class="auth-msg info">${t('materielS')}</div>
- <div class="set-row"><span class="set-lab">${t('doseurs')}<small>${t('doseursS')}</small></span>
- <span class="pill-etat ${dos.actif?'on':'off'}">${dos.actif?t('activeManuel'):t('nonConfig')}</span></div>
- <div class="seg" style="margin-top:10px">
-  <button class="${!dos.actif?'on':''}" data-dos="0">${t('sansDoseurs')}</button>
-  <button class="${dos.actif?'on':''}" data-dos="1">${t('avecDoseurs')}</button></div>
- <div class="set-row"><span class="set-lab">${t('futs')}<small>${t('futsS')}</small></span>
- <span class="pill-etat soon">${t('aVenir')}</span></div>
- <div class="set-row"><span class="set-lab">${t('balances')}<small>${t('balancesS')}</small></span>
- <span class="pill-etat soon">${t('aVenir')}</span></div>
-
+ <div class="pilot-actions" style="margin:10px 0 18px">${st.modePilote?'':`<button class="btn btn-2 btn-sm" id="pilotStart">${t('pilotStart')}</button>`}
+  <button class="btn btn-2 btn-sm" id="resetDemo">${t('reset')}</button></div>
+ ${st.modePilote?'':`<div class="auth-msg info">${t('pilotDemoS')}</div><div class="pilot-actions" style="margin:10px 0 18px"><button class="btn btn-2 btn-sm" id="pilotDemoLoad">${t('pilotDemoLoad')}</button></div>`}
+ <div class="set-sec">${t('sauvegarde')}</div><div class="auth-msg info">${t('sauvegardeS')}</div>
+ <div class="sh-actions" style="margin:10px 0 18px"><button class="btn btn-2 btn-sm" id="bkExport">${t('exportSauvegarde')}</button>
+  <button class="btn btn-2 btn-sm" id="bkImportBtn">${t('importSauvegarde')}</button><input id="bkImport" type="file" accept=".json,application/json" style="display:none"></div>
+ <div class="auth-msg info">${t('importAide')}</div><div class="set-sec">${t('materiel')}</div><div class="auth-msg info">${t('materielS')}</div>
+ <div class="set-row"><span class="set-lab">${t('doseurs')}<small>${t('doseursS')}</small></span><span class="pill-etat ${dos.actif?'on':'off'}">${dos.actif?t('activeManuel'):t('nonConfig')}</span></div>
+ <div class="seg" style="margin-top:10px"><button class="${!dos.actif?'on':''}" data-dos="0">${t('sansDoseurs')}</button><button class="${dos.actif?'on':''}" data-dos="1">${t('avecDoseurs')}</button></div>
+ <div class="set-row"><span class="set-lab">${t('futs')}<small>${t('futsS')}</small></span><span class="pill-etat soon">${t('aVenir')}</span></div>
+ <div class="set-row"><span class="set-lab">${t('balances')}<small>${t('balancesS')}</small></span><span class="pill-etat soon">${t('aVenir')}</span></div>`;
+ document.getElementById('modal').innerHTML=`<div class="sheet-bg" id="bgR"><div class="sheet">
+ <h3>${t('reglages')}</h3><p class="sh-sub">${t('reglagesS')}</p>
+ <div class="subtabs settings-tabs"><button class="${settingsTab==='general'?'on':''}" data-settings="general">Général</button>
+  <button class="${settingsTab==='users'?'on':''}" data-settings="users">Utilisateurs</button></div>
+ ${settingsTab==='general'?general:dessinerUtilisateurs()}
  <div class="sh-actions"><button class="btn" id="rFerm">${t('fermer')}</button></div>
  </div></div>`;
  document.getElementById('bgR').onclick=e=>{if(e.target.id==='bgR')closeModal()};
  document.getElementById('rFerm').onclick=closeModal;
+ document.querySelectorAll('[data-settings]').forEach(b=>b.onclick=()=>openReglages(b.dataset.settings));
+ const addUser=document.getElementById('addUser');if(addUser)addUser.onclick=openAjouterUtilisateur;
+ document.querySelectorAll('[data-user-role]').forEach(s=>s.onchange=()=>changerRoleUtilisateur(s.dataset.userRole,s.value));
+ document.querySelectorAll('[data-user-remove]').forEach(b=>b.onclick=()=>retirerUtilisateur(b.dataset.userRemove));
  const bkOut=document.getElementById('bkExport'),bkBtn=document.getElementById('bkImportBtn'),bkIn=document.getElementById('bkImport');
  if(bkOut)bkOut.onclick=async()=>{bkOut.disabled=true;try{await exporterSauvegarde();toast(t('backupOk'))}catch(e){toast(t('backupRead'))}bkOut.disabled=false};
  if(bkBtn&&bkIn)bkBtn.onclick=()=>bkIn.click();
@@ -5558,7 +5728,12 @@ document.getElementById('whoName').textContent=st.who.split(' ')[0];go()}
 async function bootApp(){
  document.body.classList.remove('locked');
  document.getElementById('auth').classList.remove('on');
+ await loadAuth();
  await load();
+ if(session&&auth.users[session.email]){
+  const u=auth.users[session.email],poste=POSTES.find(p=>p.id===(u.role||'gestion'));
+  if(poste){st.whoId=poste.id;st.who=u.nom||poste.n}
+ }
  const topBrandTpl=document.getElementById('invoLogo');
  if(topBrandTpl&&!document.getElementById('topBrand')){
    topBrandTpl.insertAdjacentHTML('afterend',`<div class="top-brand" id="topBrand">${topBrandTpl.innerHTML}</div>`);
