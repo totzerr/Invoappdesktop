@@ -1386,6 +1386,14 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
  .declare-reason .motifs{grid-template-columns:repeat(2,minmax(0,1fr))!important}
  .declare-reason .motif{min-height:66px!important}
 }
+
+#cartbar .cartbar-in:disabled{
+ background:var(--surface-2,#E6DEC7)!important;
+ color:var(--steel-d,#4A4436)!important;
+ box-shadow:none!important;
+ cursor:not-allowed!important;
+ opacity:1!important;
+}
 </style>
 </head>
 <body>
@@ -2843,12 +2851,16 @@ function compressPhoto(file){
  r.readAsDataURL(file);
 }
 
-function renderCartbar(){const el=document.getElementById('cartbar');
-if(screen!=='dec'||!panierCount()){el.innerHTML='';return}
-const n=panierCount(),pret=panierPret(),actifs=[...new Set(Object.keys(panier).map(id=>motifDuPanier(id)).filter(Boolean))];
-const libelle=pret?(actifs.length>1?'PLUSIEURS MODES':t(actifs[0]).toUpperCase()):t('choisirMotif').toUpperCase();
-el.innerHTML=`<div class="cartbar"><button type="button" class="cartbar-in" id="cbGo"><span class="cb-l">${n} ${n>1?t('articlesP'):t('articles')}<small>${libelle}</small></span><span class="cb-action">${pret?'Valider la sortie':'Choisir un mode'} <i>›</i></span></button></div>`;
-document.getElementById('cbGo').onclick=()=>{if(!pret)document.getElementById('motifBlock').scrollIntoView({behavior:'smooth',block:'center'});else valider()}}
+function renderCartbar(){
+ const el=document.getElementById('cartbar');
+ if(screen!=='dec'){el.innerHTML='';return}
+ const n=panierCount(),vide=!n,pret=!vide&&panierPret();
+ const actifs=[...new Set(Object.keys(panier).map(id=>motifDuPanier(id)).filter(Boolean))];
+ const libelle=vide?'AUCUNE SORTIE SÉLECTIONNÉE':pret?(actifs.length>1?'PLUSIEURS MODES':t(actifs[0]).toUpperCase()):t('choisirMotif').toUpperCase();
+ const action=vide?'Ajouter un produit':pret?'Valider la sortie':'Choisir un mode';
+ el.innerHTML=`<div class="cartbar"><button type="button" class="cartbar-in" id="cbGo" ${vide?'disabled':''}><span class="cb-l">${n} ${n>1?t('articlesP'):t('articles')}<small>${libelle}</small></span><span class="cb-action">${action} <i>›</i></span></button></div>`;
+ if(!vide)document.getElementById('cbGo').onclick=()=>{if(!pret)document.getElementById('motifBlock').scrollIntoView({behavior:'smooth',block:'center'});else valider()}
+}
 
 async function valider(){if(!panierCount()||!panierPret())return;
 const now=new Date().toISOString();
