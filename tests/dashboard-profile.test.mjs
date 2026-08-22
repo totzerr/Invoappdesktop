@@ -70,6 +70,21 @@ function createAdministrationCore(source){
  return context;
 }
 
+function createBeverageBottleCore(products=[],carte=[]){
+ const context={
+  Number,Object,Array,Math,isNaN,
+  UNITES:['ml','cl','L','g','kg','u','btl'],
+  st:{prods:products,carte,stock:{},count:{}},
+  num(value){const n=parseFloat(String(value).replace(',','.'));return Number.isNaN(n)?0:n},
+  prod(id){return context.st.prods.find(product=>product.id===id)}
+ };
+ const match=source.match(/\/\* BEVERAGE_BOTTLE_CORE_START[\s\S]*?\/\* BEVERAGE_BOTTLE_CORE_END \*\//);
+ assert.ok(match,'le noyau de conversion des bouteilles doit être présent');
+ vm.createContext(context);
+ vm.runInContext(match[0]+'\nthis.bottleCore={qteUnite,unitesFiche,uniteFiche,qteFicheEnStock,migrerUnitesBoissons};',context);
+ return context;
+}
+
 test('le noyau partagé des indicateurs est présent',()=>{
  assert.ok(extractCore(source));
 });
@@ -375,4 +390,47 @@ test(path+' prépare une relève email sécurisée sans simuler de connexion',()
  assert.match(source,/INVO ne demande et ne conserve jamais le mot de passe/);
  assert.match(source,/cfg\.status==='connected'&&Date\.now\(\)-derniere>15\*60\*1000/);
  assert.doesNotMatch(source,/id="aemPassword"|id="aemSecret"/);
+});
+
+test(path+' convertit les doses cl ou ml en fractions de bouteille pour les boissons seulement',()=>{
+ const context=createBeverageBottleCore([{id:'aperol',u:'btl',bottle:true,ct:100,ctu:'cl',px:14}]);
+ const drinkCl={k:'drink',fu:{aperol:'cl'}},drinkMl={k:'drink',fu:{aperol:'ml'}},food={k:'food',fu:{aperol:'btl'}};
+ assert.equal(context.bottleCore.qteFicheEnStock(drinkCl,'aperol',6),0.06);
+ assert.equal(context.bottleCore.qteFicheEnStock(drinkMl,'aperol',60),0.06);
+ assert.equal(context.bottleCore.qteFicheEnStock(drinkCl,'aperol',6)*10,0.6);
+ assert.equal(context.bottleCore.qteFicheEnStock(food,'aperol',1),1);
+ assert.deepEqual(Array.from(context.bottleCore.unitesFiche(drinkCl,context.st.prods[0])),['cl','ml']);
+ assert.deepEqual(Array.from(context.bottleCore.unitesFiche(food,context.st.prods[0])),['btl']);
+});
+
+test(path+' migre les stocks existants sans modifier les fiches cuisine ni les fûts',()=>{
+ const products=[
+  {id:'aperol',u:'cl',ct:100,pc:14,s:300,seuil:100,px:0.14,z:'bar'},
+  {id:'prosecco',u:'btl',s:24,seuil:10,px:7.4,z:'cave'},
+  {id:'pression',u:'L',ct:30,pc:72,s:120,seuil:40,px:2.4,z:'bar'}
+ ];
+ const carte=[
+  {id:'spritz',k:'drink',f:{aperol:6,prosecco:0.15}},
+  {id:'sauce',k:'food',f:{prosecco:0.1}}
+ ];
+ const context=createBeverageBottleCore(products,carte);
+ context.st.stock={aperol:250,prosecco:24,pression:120};context.st.count={aperol:50};
+ assert.equal(context.bottleCore.migrerUnitesBoissons(),true);
+ assert.equal(products[0].u,'btl');assert.equal(products[0].s,3);assert.equal(products[0].px,14);
+ assert.equal(context.st.stock.aperol,2.5);assert.equal(context.st.count.aperol,0.5);
+ assert.equal(products[1].ct,75);assert.equal(products[2].u,'L');
+ assert.equal(carte[0].f.aperol,6);assert.equal(carte[0].fu.aperol,'cl');
+ assert.equal(carte[0].f.prosecco,11.25);assert.equal(carte[0].fu.prosecco,'cl');
+ assert.equal(carte[1].f.prosecco,0.1);assert.equal(carte[1].fu,undefined);
+ assert.equal(context.bottleCore.migrerUnitesBoissons(),false);
+ assert.equal(carte[0].f.prosecco,11.25);
+});
+
+test(path+' expose le mode bouteille et réserve le sélecteur cl/ml aux fiches boissons',()=>{
+ assert.match(source,/data-mode="bottle">🍾 Bouteille/);
+ assert.match(source,/id="mCtU"[\s\S]*?<option \$\{fm\.ctu==='cl'/);
+ assert.match(source,/c&&c\.k==='drink'&&p&&p\.bottle\?\['cl','ml'\]/);
+ assert.match(source,/Chaque vente est automatiquement convertie en fraction de bouteille/);
+ assert.match(source,/if\(fm\.k==='drink'\)obj\.beverageUnitsVersion=1/);
+ assert.match(source,/function changerTypeFiche\(type\)/);
 });
