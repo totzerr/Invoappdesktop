@@ -1697,6 +1697,15 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .admin-modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.admin-modal-grid .wide{grid-column:1/-1}.admin-modal-hint{margin:-2px 0 12px;padding:9px 10px;border-radius:9px;background:#f6f2e9;color:#7b7060;font:550 9.5px/1.45 Inter,system-ui,sans-serif}
 @media(max-width:760px){.admin-head{align-items:flex-start;flex-direction:column}.admin-head .btn{width:100%}.admin-head h1{font-size:34px}.admin-summary{grid-template-columns:1fr 1fr}.admin-grid,.admin-deadlines{grid-template-columns:1fr}.admin-toolbar{align-items:stretch;flex-direction:column}.admin-filters{display:grid;grid-template-columns:1fr 1fr}.admin-toolbar>.btn{width:100%}.admin-list-head{display:none}.admin-row{grid-template-columns:minmax(0,1fr) auto;gap:8px}.admin-row>span{grid-column:1}.admin-row-actions{grid-column:2;grid-row:1/5;flex-direction:column}.admin-widget{grid-template-columns:1fr}.admin-widget .btn{width:100%}.admin-action{grid-template-columns:auto minmax(0,1fr)}.admin-action-meta{grid-column:2;align-items:flex-start;text-align:left}.admin-modal-grid{grid-template-columns:1fr}.admin-modal-grid .wide{grid-column:auto}}
 @media(max-width:480px){.admin-summary{grid-template-columns:1fr}.admin-filters{grid-template-columns:1fr}.admin-kpi{min-height:105px}.admin-upload{align-items:flex-start;flex-direction:column}.admin-upload .btn{width:100%}}
+.admin-subgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}.admin-data-card{padding:16px;border:1px solid #e1dacd;border-radius:15px;background:#fffdfa}.admin-data-card small{color:#877a67;font:800 8px Inter,system-ui,sans-serif;letter-spacing:.09em;text-transform:uppercase}.admin-data-card b{display:block;margin:9px 0 4px;color:#302b24;font:700 23px Fraunces,Georgia,serif}.admin-data-card span{display:block;color:#817565;font:550 10px/1.45 Inter,system-ui,sans-serif}
+.admin-timeline{display:grid;gap:0}.admin-timeline-row{display:grid;grid-template-columns:95px 11px minmax(0,1fr) auto;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid #eee8de}.admin-timeline-row:last-child{border-bottom:0}.admin-timeline-row time{color:#786e60;font:750 9px Inter,system-ui,sans-serif}.admin-timeline-row>i{width:9px;height:9px;border-radius:50%;background:#9b7431}.admin-timeline-row>i.out{background:#a4402a}.admin-timeline-row>i.in{background:#39704d}.admin-timeline-row b{font:700 11px Inter,system-ui,sans-serif}.admin-timeline-row small{display:block;margin-top:2px;color:#857969;font:550 9px Inter,system-ui,sans-serif}.admin-timeline-row strong{font:750 11px Inter,system-ui,sans-serif;font-variant-numeric:tabular-nums}.admin-timeline-row strong.out{color:#9a3c27}.admin-timeline-row strong.in{color:#2e6944}
+.admin-progress{height:7px;margin-top:10px;overflow:hidden;border-radius:99px;background:#e8e2d8}.admin-progress i{display:block;height:100%;border-radius:inherit;background:#9d7330}.admin-progress i.danger{background:#a4402a}.admin-progress i.ok{background:#39704d}
+.admin-config-list{display:grid;gap:8px}.admin-config-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px;border:1px solid #e6dfd3;border-radius:12px;background:#fbfaf7}.admin-config-row b{display:block;font:700 11px Inter,system-ui,sans-serif}.admin-config-row small{display:block;margin-top:2px;color:#847868;font:550 9px/1.4 Inter,system-ui,sans-serif}.admin-config-row .admin-row-actions{flex:none}
+.admin-calendar-list{display:grid;gap:8px}.admin-calendar-item{display:grid;grid-template-columns:58px minmax(0,1fr) auto;gap:11px;align-items:center;padding:12px;border:1px solid #e4ddd1;border-radius:13px;background:#fffdfa}.admin-calendar-date{padding:8px 5px;border-radius:10px;background:#f1ece3;text-align:center}.admin-calendar-date b{display:block;font:750 16px/1 Fraunces,Georgia,serif}.admin-calendar-date span{font:800 7px Inter,system-ui,sans-serif;text-transform:uppercase}.admin-calendar-item h3{font:750 11px Inter,system-ui,sans-serif}.admin-calendar-item p{margin-top:3px;color:#837767;font:550 9.5px/1.4 Inter,system-ui,sans-serif}
+.admin-pager{display:flex;align-items:center;justify-content:center;gap:9px;padding:12px;border-top:1px solid #eee8de}.admin-pager button{border:1px solid #ddd5c8;border-radius:8px;background:#fff;color:#655b4e;padding:6px 9px;font:750 9px Inter,system-ui,sans-serif;cursor:pointer}.admin-pager button:disabled{opacity:.35}.admin-pager span{color:#817565;font:650 9px Inter,system-ui,sans-serif}
+.admin-disclaimer{padding:12px 14px;border-left:3px solid #9e7934;border-radius:0 11px 11px 0;background:#f7f2e8;color:#665c4e;font:600 10px/1.5 Inter,system-ui,sans-serif}.admin-inline-actions{display:flex;gap:8px;flex-wrap:wrap}.admin-inline-actions .btn{width:auto;margin:0}
+@media(max-width:760px){.admin-subgrid{grid-template-columns:1fr 1fr}.admin-timeline-row{grid-template-columns:75px 9px minmax(0,1fr)}.admin-timeline-row strong{grid-column:3}.admin-calendar-item{grid-template-columns:52px minmax(0,1fr)}.admin-calendar-item>.admin-badge{grid-column:2}.admin-inline-actions .btn{flex:1}}
+@media(max-width:480px){.admin-subgrid{grid-template-columns:1fr}.admin-config-row{align-items:flex-start;flex-direction:column}.admin-config-row .admin-row-actions{width:100%}.admin-config-row .admin-row-actions button{flex:1}}
 
 </style>
 </head>
@@ -2425,7 +2434,8 @@ function administrationVierge(){return{
  version:1,documents:[],invoices:[],anomalies:[],auditLog:[],contracts:[],obligations:[],deadlines:[],
  approvalWorkflows:[],approvalRequests:[],expenseCategories:[],accountingCategories:[],cashFlowForecasts:[],
  settings:{taxRates:[5.5,10,20],contractAlertDays:[90,60,30,7],approvalRules:[],
-  integrations:{ocr:'not_configured',accounting:'not_configured',banking:'not_configured',electronicInvoicing:'not_configured'}}
+  currentCashBalance:null,cashBalanceUpdatedAt:null,cashWarningThreshold:0,priceIncreaseAlertPercent:10,vatCollectedSource:null,
+  integrations:{ocr:'not_configured',emailInbox:'not_configured',accounting:'not_configured',banking:'not_configured',electronicInvoicing:'not_configured',supplierImport:'not_configured'}}
 }}
 
 let st={lang:'fr',who:'Responsable de salle',whoId:'salle',profilMetier:'',stock:{},mv:[],count:{},live:false,modeCaisse:'manuel',modePilote:false,
@@ -2435,7 +2445,7 @@ let msgDec=null,forcerStock=false;   /* retours de validation sur l'écran Décl
 let cartePrix=false,prixEdit={},cartCat='tous';   /* édition groupée des prix de vente */
 let livTab='recep',invTab='count',invZone='all',invOrderMode=false,draggedProductId=null,zoneOrderSaveTimer=null,
 livForm=null,decPhoto=null,commandeFo='',fournisseurForm=null,settingsTab='general',userForm=null,
-adminTab='overview',adminFilters={search:'',supplier:'',status:'',type:''},adminRenderVersion=0;
+adminTab='overview',adminFilters={search:'',supplier:'',status:'',type:''},adminPages={inbox:1,invoices:1,documents:1,contracts:1,compliance:1},adminRenderVersion=0;
 
 const t=k=>(L[st.lang]&&L[st.lang][k])??L.fr[k];
 const prod=id=>st.prods.find(p=>p.id===id);
@@ -2630,7 +2640,9 @@ if(!st.administration||typeof st.administration!=='object')st.administration=adm
 else{
  const a=administrationVierge();
  Object.keys(a).forEach(function(k){if(st.administration[k]===undefined)st.administration[k]=a[k]});
+ if(!st.administration.settings||typeof st.administration.settings!=='object')st.administration.settings=a.settings;
  Object.keys(a.settings).forEach(function(k){if(st.administration.settings[k]===undefined)st.administration.settings[k]=a.settings[k]});
+ Object.keys(a.settings.integrations).forEach(function(k){if(st.administration.settings.integrations[k]===undefined)st.administration.settings.integrations[k]=a.settings.integrations[k]});
 }
 if(!st.docs)st.docs={};          /* documents scannés (bons de livraison) */
 if(!st.refFo)st.refFo={};        /* mémoire : référence fournisseur -> produit Invo */
@@ -3949,6 +3961,9 @@ const ADMIN_PROCESSING_STATUSES=[
  {id:'completed',label:'Traité'},{id:'error',label:'Erreur'},
  {id:'needs_review',label:'À vérifier'}
 ];
+const ADMIN_CONTRACT_STATUSES=[{id:'actif',label:'Actif'},{id:'a_renouveler',label:'À renouveler'},{id:'resilie',label:'Résilié'},{id:'expire',label:'Expiré'}];
+const ADMIN_OBLIGATION_STATUSES=[{id:'conforme',label:'Conforme'},{id:'a_renouveler',label:'À renouveler'},{id:'bientot_expire',label:'Bientôt expiré'},{id:'expire',label:'Expiré'},{id:'manquant',label:'Manquant'}];
+const ADMIN_APPROVAL_STATUSES=[{id:'pending',label:'En attente'},{id:'approved',label:'Approuvée'},{id:'rejected',label:'Rejetée'},{id:'cancelled',label:'Annulée'}];
 const ADMIN_MAX_FILE=15*1024*1024;
 const adminDateISO=function(date){const d=date||new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
 function adminDate(value){if(!value)return null;const d=value instanceof Date?new Date(value):new Date(String(value).slice(0,10)+'T12:00:00');return isNaN(d.getTime())?null:d}
@@ -3971,16 +3986,90 @@ function adminStatutFacture(facture,maintenant){
  return facture.dueDate&&adminDiffJours(facture.dueDate,maintenant)<0?'en_retard':statut;
 }
 function adminFactureOuverte(facture){const s=facture.status||'a_verifier';return s!=='payee'&&s!=='archivee'}
+function adminRegleApprobation(facture){
+ const montant=num(facture.amountTTC),etab=facture.establishmentId||adminEtablissementId();
+ const rules=(adminData().approvalWorkflows||[]).length?adminData().approvalWorkflows:(adminData().settings.approvalRules||[]);
+ return rules.slice().sort(function(a,b){return num(a.minAmount)-num(b.minAmount)}).find(function(r){
+  const max=r.maxAmount===null||r.maxAmount===''||r.maxAmount===undefined?Infinity:num(r.maxAmount);
+  return r.enabled!==false&&montant>=num(r.minAmount)&&montant<=max&&(!r.establishmentId||r.establishmentId==='all'||r.establishmentId===etab)&&(!r.documentType||r.documentType==='facture');
+ });
+}
+function adminCoutsContrat(contrat){
+ let mensuel=Math.max(0,num(contrat.costMonthly)),annuel=Math.max(0,num(contrat.costAnnual));
+ if(!annuel&&mensuel)annuel=mensuel*12;if(!mensuel&&annuel)mensuel=annuel/12;
+ return{monthly:mensuel,annual:annuel};
+}
+function adminStatutContrat(contrat,maintenant){
+ if(contrat.status==='resilie')return'resilie';
+ const jours=adminDiffJours(contrat.endDate,maintenant);
+ return jours!==null&&jours<0?'expire':jours!==null&&jours<=Math.max.apply(null,adminData().settings.contractAlertDays||[90])?'a_renouveler':(contrat.status||'actif');
+}
+function adminStatutObligation(obligation,maintenant){
+ if(obligation.status==='manquant')return'manquant';
+ const jours=adminDiffJours(obligation.nextDue,maintenant);
+ return jours!==null&&jours<0?'expire':jours!==null&&jours<=30?'bientot_expire':jours!==null&&jours<=90?'a_renouveler':(obligation.status||'conforme');
+}
+function adminAnomaliesDetectees(maintenant){
+ const factures=adminDansEtablissement(adminData().invoices),resultats=[],sauvees=adminData().anomalies||[];
+ const ajouter=function(a){const saved=sauvees.find(function(s){return s.key===a.key});resultats.push(Object.assign(a,{status:saved?saved.status:'detectee',resolution:saved?saved.resolution||'':'',detectedAt:saved?saved.detectedAt:new Date().toISOString()}))};
+ const doublons={};
+ factures.forEach(function(f){const n=String(f.invoiceNumber||'').trim().toLowerCase(),fo=String(f.supplier||'').trim().toLowerCase();if(n&&fo)(doublons[fo+'|'+n]||(doublons[fo+'|'+n]=[])).push(f)});
+ Object.entries(doublons).filter(function(x){return x[1].length>1}).forEach(function(x){const f=x[1][0];ajouter({key:'duplicate_'+x[0],type:'facture_dupliquee',severity:'high',description:(f.supplier||'Fournisseur')+' · facture n° '+f.invoiceNumber,entityType:'SupplierInvoice',entityId:f.id})});
+ factures.forEach(function(f){
+  if(!String(f.invoiceNumber||'').trim())ajouter({key:'missing_number_'+f.id,type:'information_manquante',severity:'medium',description:(f.supplier||'Fournisseur')+' · numéro de facture manquant',entityType:'SupplierInvoice',entityId:f.id});
+  const autres=factures.filter(function(x){return x.id!==f.id&&x.supplier===f.supplier&&num(x.amountTTC)>0});
+  if(autres.length>=3){const moyenne=autres.reduce(function(s,x){return s+num(x.amountTTC)},0)/autres.length;if(moyenne>0&&num(f.amountTTC)>moyenne*1.5)ajouter({key:'unusual_'+f.id,type:'montant_inhabituel',severity:'high',description:(f.supplier||'Fournisseur')+' · montant '+Math.round((num(f.amountTTC)/moyenne-1)*100)+' % supérieur à la moyenne',entityType:'SupplierInvoice',entityId:f.id})}
+  if(f.orderReference){const c=(st.commandes||[]).find(function(x){return x.id===f.orderReference});if(c){const attendu=(c.lines||[]).reduce(function(s,l){return s+num(l.q)*num(l.px)},0),ecart=Math.abs(attendu-num(f.amountHT));if(ecart>Math.max(1,attendu*.05))ajouter({key:'order_diff_'+f.id,type:'difference_commande_facture',severity:'high',description:(f.supplier||'Fournisseur')+' · écart commande/facture de '+fmt(ecart)+' €',entityType:'SupplierInvoice',entityId:f.id})}}
+  if(f.deliveryReference){const l=(st.liv||[]).find(function(x){return x.id===f.deliveryReference});if(l){const ecart=Math.abs(num(l.total)-num(f.amountHT));if(ecart>Math.max(1,num(l.total)*.05))ajouter({key:'delivery_diff_'+f.id,type:'difference_livraison_facture',severity:'high',description:(f.supplier||'Fournisseur')+' · écart livraison/facture de '+fmt(ecart)+' €',entityType:'SupplierInvoice',entityId:f.id})}}
+ });
+ const seuil=Math.max(0,num(adminData().settings.priceIncreaseAlertPercent||10));
+ (st.prods||[]).filter(function(p){return p.fo&&num(p.pxPrev)>0&&num(p.px)>num(p.pxPrev)}).forEach(function(p){const hausse=(num(p.px)/num(p.pxPrev)-1)*100;if(hausse>=seuil)ajouter({key:'supplier_price_'+p.id,type:'augmentation_prix',severity:hausse>=25?'high':'medium',description:(p.fo||'Fournisseur')+' · '+(p.n||p.id)+' en hausse de '+Math.round(hausse)+' %',entityType:'Supplier',entityId:p.fo})});
+ return resultats;
+}
+function adminCalendrier(maintenant){
+ const events=[];
+ adminDansEtablissement(adminData().invoices).filter(adminFactureOuverte).forEach(function(f){if(f.dueDate)events.push({id:'inv_'+f.id,date:f.dueDate,type:'facture',title:'Facture · '+(f.supplier||'Fournisseur'),detail:fmt(num(f.amountTTC))+' €',objectId:f.id,tab:'invoices'})});
+ adminDansEtablissement(adminData().contracts).forEach(function(c){if(c.endDate&&adminStatutContrat(c,maintenant)!=='resilie')events.push({id:'contract_'+c.id,date:c.endDate,type:'contrat',title:'Contrat · '+c.name,detail:c.supplier||'',objectId:c.id,tab:'contracts'})});
+ adminDansEtablissement(adminData().documents).forEach(function(d){if(d.expiryDate&&d.status!=='archive')events.push({id:'doc_'+d.id,date:d.expiryDate,type:'document',title:'Expiration · '+(d.title||d.fileName||'Document'),detail:d.supplier||'',objectId:d.id,tab:'documents'})});
+ adminDansEtablissement(adminData().obligations).forEach(function(o){if(o.nextDue)events.push({id:'obl_'+o.id,date:o.nextDue,type:'obligation',title:'Conformité · '+o.name,detail:o.responsible||'',objectId:o.id,tab:'compliance'})});
+ adminDansEtablissement(adminData().deadlines).filter(function(d){return d.status!=='completed'}).forEach(function(d){events.push({id:'deadline_'+d.id,date:d.date,type:d.type||'manuel',title:d.title,detail:d.notes||'',objectId:d.id,tab:'calendar'})});
+ return events.filter(function(e){return adminDate(e.date)}).sort(function(a,b){return String(a.date).localeCompare(String(b.date))});
+}
+function adminPrevisionTresorerie(maintenant){
+ const data=adminData(),solde=data.settings.currentCashBalance===null||data.settings.currentCashBalance===''||data.settings.currentCashBalance===undefined?null:num(data.settings.currentCashBalance),events=[];
+ adminDansEtablissement(data.invoices).filter(adminFactureOuverte).forEach(function(f){if(f.dueDate)events.push({id:'invoice_'+f.id,date:f.dueDate,title:'Fournisseur · '+(f.supplier||'Facture'),amount:-num(f.amountTTC),source:'invoice'})});
+ adminDansEtablissement(data.cashFlowForecasts).forEach(function(e){if(e.date)events.push({id:e.id,date:e.date,title:e.title||'Mouvement prévisionnel',amount:(e.direction==='in'?1:-1)*Math.abs(num(e.amount)),source:'manual'})});
+ events.sort(function(a,b){return String(a.date).localeCompare(String(b.date))});
+ let courant=solde,pointBas=solde,pointBasDate=null;
+ const projection=events.map(function(e){if(courant!==null){courant+=e.amount;if(pointBas===null||courant<pointBas){pointBas=courant;pointBasDate=e.date}}return Object.assign({},e,{balance:courant})});
+ return{status:solde===null?'missing':'ready',currentBalance:solde,events:projection,forecastBalance:courant,lowPoint:pointBas,lowPointDate:pointBasDate};
+}
+function adminTVA(maintenant){
+ const factures=adminDansEtablissement(adminData().invoices),rates=adminData().settings.taxRates||[5.5,10,20],parTaux={},parMois={};
+ rates.forEach(function(r){parTaux[String(num(r))]=0});
+ factures.forEach(function(f){
+  const k=String(num(f.taxRate));if(f.taxRate!==null&&f.taxRate!==undefined)parTaux[k]=(parTaux[k]||0)+num(f.taxAmount);
+  const mois=String(f.documentDate||'').slice(0,7);if(/^\d{4}-\d{2}$/.test(mois))parMois[mois]=(parMois[mois]||0)+num(f.taxAmount);
+ });
+ const deductible=factures.reduce(function(s,f){return s+num(f.taxAmount)},0),source=adminData().settings.vatCollectedSource;
+ const collected=source&&Number.isFinite(num(source.amount))?num(source.amount):null;
+ return{deductible,collected,estimated:collected===null?null:collected-deductible,byRate:parTaux,byMonth:Object.entries(parMois).sort(function(a,b){return a[0].localeCompare(b[0])}).slice(-12),rates};
+}
 function adminResume(maintenant){
  const data=adminData(),factures=adminDansEtablissement(data.invoices),documents=adminDansEtablissement(data.documents);
  const ouvertes=factures.filter(adminFactureOuverte),retard=ouvertes.filter(function(f){return adminStatutFacture(f,maintenant)==='en_retard'});
  const sous30=ouvertes.filter(function(f){const j=adminDiffJours(f.dueDate,maintenant);return j!==null&&j>=0&&j<=30});
  const documentsAction=documents.filter(function(d){const j=adminDiffJours(d.expiryDate,maintenant);return d.processingStatus==='needs_review'||d.processingStatus==='error'||(j!==null&&j<=30)});
+ const contrats=adminDansEtablissement(data.contracts),obligations=adminDansEtablissement(data.obligations),cash=adminPrevisionTresorerie(maintenant);
  return{
   invoicesToPay:ouvertes.length,totalToPay:ouvertes.reduce(function(s,f){return s+num(f.amountTTC)},0),
   overdueCount:retard.length,overdueAmount:retard.reduce(function(s,f){return s+num(f.amountTTC)},0),
-  deadlines30:sous30.length,contractsExpiring:documents.filter(function(d){const j=adminDiffJours(d.expiryDate,maintenant);return d.type==='contrat'&&j!==null&&j>=0&&j<=30}).length,
-  documentsAction:documentsAction.length,deductibleTax:factures.reduce(function(s,f){return s+num(f.taxAmount)},0)
+  deadlines30:sous30.length,contractsExpiring:contrats.filter(function(c){const j=adminDiffJours(c.endDate,maintenant);return j!==null&&j>=0&&j<=30}).length,
+  documentsAction:documentsAction.length,deductibleTax:factures.reduce(function(s,f){return s+num(f.taxAmount)},0),
+  contractAnnualCost:contrats.filter(function(c){return adminStatutContrat(c,maintenant)!=='resilie'}).reduce(function(s,c){return s+adminCoutsContrat(c).annual},0),
+  obligationsAction:obligations.filter(function(o){return['a_renouveler','bientot_expire','expire','manquant'].includes(adminStatutObligation(o,maintenant))}).length,
+  pendingApprovals:factures.filter(function(f){return f.approvalStatus==='pending'}).length,
+  currentCash:cash.currentBalance,forecastCash:cash.forecastBalance
  };
 }
 function adminAlertes(maintenant){
@@ -4008,16 +4097,13 @@ function adminAlertes(maintenant){
    amount:null,deadline:d.expiryDate,establishmentId:d.establishmentId,objectId:d.id,tab:'documents'
   });
  });
- const doublons={};
- factures.forEach(function(f){
-  const numero=String(f.invoiceNumber||'').trim().toLowerCase(),fo=String(f.supplier||'').trim().toLowerCase();
-  if(!numero||!fo)return;const cle=fo+'|'+numero;(doublons[cle]||(doublons[cle]=[])).push(f);
- });
- Object.values(doublons).filter(function(xs){return xs.length>1}).forEach(function(xs){
-  alertes.push({id:'duplicate_'+xs[0].id,priority:'high',category:'Anomalie',title:'Facture potentiellement dupliquée',
-   description:(xs[0].supplier||'Fournisseur')+' · n° '+xs[0].invoiceNumber,amount:num(xs[0].amountTTC),
-   deadline:null,establishmentId:xs[0].establishmentId,objectId:xs[0].id,tab:'invoices'});
- });
+ adminDansEtablissement(data.contracts).forEach(function(c){const jours=adminDiffJours(c.endDate,maintenant),delais=data.settings.contractAlertDays||[90,60,30,7];if(jours!==null&&jours<=Math.max.apply(null,delais)&&adminStatutContrat(c,maintenant)!=='resilie')alertes.push({id:'contract_due_'+c.id,priority:jours<0||jours<=7?'high':jours<=30?'medium':'info',category:'Contrat',title:jours<0?'Contrat expiré':'Contrat à renouveler',description:c.name+(c.supplier?' · '+c.supplier:''),amount:adminCoutsContrat(c).annual,deadline:c.endDate,establishmentId:c.establishmentId,objectId:c.id,tab:'contracts'})});
+ adminDansEtablissement(data.obligations).forEach(function(o){const statut=adminStatutObligation(o,maintenant),jours=adminDiffJours(o.nextDue,maintenant);if(statut!=='conforme')alertes.push({id:'obligation_'+o.id,priority:statut==='expire'||statut==='manquant'?'critical':jours!==null&&jours<=7?'high':'medium',category:'Conformité',title:statut==='manquant'?'Document obligatoire manquant':statut==='expire'?'Obligation expirée':'Obligation à renouveler',description:o.name,amount:null,deadline:o.nextDue,establishmentId:o.establishmentId,objectId:o.id,tab:'compliance'})});
+ adminDansEtablissement(data.deadlines).filter(function(d){const j=adminDiffJours(d.date,maintenant);return d.status!=='completed'&&j!==null&&j<=30}).forEach(function(d){const j=adminDiffJours(d.date,maintenant);alertes.push({id:'deadline_'+d.id,priority:j<0?'high':j<=7?'medium':'info',category:'Échéance',title:j<0?'Échéance dépassée':'Échéance administrative proche',description:d.title,amount:num(d.amount)||null,deadline:d.date,establishmentId:d.establishmentId,objectId:d.id,tab:'calendar'})});
+ factures.filter(function(f){return f.approvalStatus==='pending'}).forEach(function(f){alertes.push({id:'approval_'+f.id,priority:'high',category:'Validation',title:'Facture en attente de validation',description:(f.supplier||'Fournisseur')+' · '+fmt(num(f.amountTTC))+' €',amount:num(f.amountTTC),deadline:f.dueDate,establishmentId:f.establishmentId,objectId:f.id,tab:'invoices'})});
+ adminAnomaliesDetectees(maintenant).filter(function(a){return a.status!=='resolue'&&a.status!=='ignoree'}).forEach(function(a){alertes.push({id:'anomaly_'+a.key,priority:a.severity,category:'Anomalie',title:a.type==='facture_dupliquee'?'Facture potentiellement dupliquée':a.type==='montant_inhabituel'?'Montant inhabituel':a.type==='information_manquante'?'Information manquante':'Écart détecté',description:a.description,amount:null,deadline:null,establishmentId:adminEtablissementId(),objectId:a.key,tab:'anomalies'})});
+ const cash=adminPrevisionTresorerie(maintenant),seuil=num(data.settings.cashWarningThreshold);
+ if(cash.status==='ready'&&cash.lowPoint!==null&&cash.lowPoint<seuil)alertes.push({id:'cash_low',priority:cash.lowPoint<0?'critical':'high',category:'Trésorerie',title:'Trésorerie prévisionnelle trop faible',description:'Point bas prévu à '+fmt(cash.lowPoint)+' €'+(cash.lowPointDate?' le '+adminFormatDate(cash.lowPointDate):''),amount:cash.lowPoint,deadline:cash.lowPointDate,establishmentId:adminEtablissementId(),objectId:'cash',tab:'cashflow'});
  const ordre={critical:0,high:1,medium:2,info:3};
  return alertes.sort(function(a,b){return ordre[a.priority]-ordre[b.priority]||String(a.deadline||'9999').localeCompare(String(b.deadline||'9999'))});
 }
@@ -4027,7 +4113,9 @@ function adminAssistant(maintenant){
  if(r.deadlines30)phrases.push(r.deadlines30+' facture'+(r.deadlines30>1?'s arrivent':' arrive')+' à échéance sous 30 jours pour un total de '+fmt(adminDansEtablissement(adminData().invoices).filter(adminFactureOuverte).filter(function(f){const j=adminDiffJours(f.dueDate,maintenant);return j!==null&&j>=0&&j<=30}).reduce(function(s,f){return s+num(f.amountTTC)},0))+' €.');
  const expiration=alertes.find(function(a){return a.id.indexOf('document_expiry_')===0});
  if(expiration)phrases.push(expiration.description+' '+(adminDiffJours(expiration.deadline,maintenant)<0?'a expiré.':'arrive à échéance dans '+adminDiffJours(expiration.deadline,maintenant)+' jours.'));
- if(alertes.some(function(a){return a.id.indexOf('duplicate_')===0}))phrases.push('Une facture potentiellement dupliquée nécessite une vérification.');
+ const contrat=alertes.find(function(a){return a.id.indexOf('contract_due_')===0});if(contrat)phrases.push(contrat.description+' arrive à échéance '+(adminDiffJours(contrat.deadline,maintenant)<0?'et doit être régularisé.':'dans '+adminDiffJours(contrat.deadline,maintenant)+' jours.'));
+ if(alertes.some(function(a){return a.id.indexOf('anomaly_duplicate_')===0}))phrases.push('Une facture potentiellement dupliquée nécessite une vérification.');
+ const cash=adminPrevisionTresorerie(maintenant);if(cash.status==='ready'&&cash.lowPointDate)phrases.push('Le point bas de trésorerie prévu est de '+fmt(cash.lowPoint)+' € le '+adminFormatDate(cash.lowPointDate)+'.');
  if(!phrases.length)phrases.push('Aucune action administrative urgente n’est détectée avec les données présentes.');
  return phrases.slice(0,4);
 }
@@ -4040,16 +4128,29 @@ function adminConstruireFacture(input,existante,maintenant){
  const f=existante||{},date=(maintenant||new Date()).toISOString(),statuts=ADMIN_INVOICE_STATUSES.map(function(x){return x.id});
  const statut=statuts.includes(input.status)?input.status:'a_verifier',ht=Math.max(0,num(input.amountHT)),taxe=Math.max(0,num(input.taxAmount));
  const ttc=input.amountTTC===''||input.amountTTC===null||input.amountTTC===undefined?ht+taxe:Math.max(0,num(input.amountTTC));
+ const etab=f.establishmentId||input.establishmentId||adminEtablissementId(),regle=adminRegleApprobation({amountTTC:ttc,establishmentId:etab});
  return{
   id:f.id||uid('ainv'),documentId:input.documentId||null,invoiceNumber:String(input.invoiceNumber||'').trim(),
-  supplier:String(input.supplier||'').trim(),establishmentId:f.establishmentId||input.establishmentId||adminEtablissementId(),
+  supplier:String(input.supplier||'').trim(),establishmentId:etab,
   organizationId:f.organizationId===undefined?(input.organizationId===undefined?adminOrganisationId():input.organizationId):f.organizationId,
-  documentDate:input.documentDate||null,dueDate:input.dueDate||null,amountHT:ht,taxAmount:taxe,amountTTC:ttc,status:statut,
+  documentDate:input.documentDate||null,dueDate:input.dueDate||null,amountHT:ht,taxAmount:taxe,amountTTC:ttc,taxRate:input.taxRate===''?null:num(input.taxRate),status:statut,
   paymentDate:input.paymentDate||(statut==='payee'?adminDateISO(maintenant):null),paymentMethod:String(input.paymentMethod||'').trim(),
   orderReference:String(input.orderReference||'').trim(),deliveryReference:String(input.deliveryReference||'').trim(),
-  lines:Array.isArray(f.lines)?f.lines:[],categories:Array.isArray(f.categories)?f.categories:[],notes:String(input.notes||'').trim(),
+  lines:Array.isArray(input.lines)?input.lines:(Array.isArray(f.lines)?f.lines:[]),categories:Array.isArray(input.categories)?input.categories:(Array.isArray(f.categories)?f.categories:[]),
+  expenseCategoryId:input.expenseCategoryId||null,accountingCategoryId:input.accountingCategoryId||null,
+  approvalRuleId:regle?regle.id:null,approvalStatus:input.approvalStatus||f.approvalStatus||(regle?'pending':'approved'),
+  notes:String(input.notes||'').trim(),
   createdAt:f.createdAt||date,updatedAt:date,createdBy:f.createdBy||adminAuteur()
  };
+}
+function adminSynchroniserDemandeApprobation(facture,maintenant){
+ const data=adminData(),date=(maintenant||new Date()).toISOString(),demandes=data.approvalRequests||(data.approvalRequests=[]);
+ let demande=demandes.find(function(x){return x.invoiceId===facture.id&&x.status==='pending'});
+ if(facture.approvalStatus==='pending'){
+  if(!demande){demande={id:uid('arequest'),invoiceId:facture.id,documentType:'facture',documentId:facture.documentId||null,workflowId:facture.approvalRuleId||null,requestedRole:(adminRegleApprobation(facture)||{}).role||null,status:'pending',establishmentId:facture.establishmentId,organizationId:facture.organizationId,createdAt:date,updatedAt:date,createdBy:adminAuteur()};demandes.unshift(demande)}
+  else{demande.workflowId=facture.approvalRuleId||null;demande.updatedAt=date}
+ }else if(demande){demande.status=facture.approvalStatus||'cancelled';demande.updatedAt=date;demande.resolvedBy=adminAuteur();demande.resolvedAt=date}
+ return demande||null;
 }
 function adminAppliquerStatutFacture(facture,statut,maintenant){
  if(!facture||!ADMIN_INVOICE_STATUSES.some(function(x){return x.id===statut}))return false;
@@ -4078,8 +4179,16 @@ function lierWidgetAdministration(racine){
 }
 
 function adminTabs(){
- const tabs=[['overview','Vue d’ensemble'],['inbox','Inbox'],['invoices','Factures'],['deadlines','Échéancier'],['documents','Documents']];
+ const tabs=[['overview','Vue d’ensemble'],['inbox','Inbox'],['invoices','Factures'],['deadlines','Échéancier'],['cashflow','Trésorerie'],['vat','TVA'],['accounting','Pré-comptabilité'],['contracts','Contrats'],['documents','Documents'],['calendar','Calendrier'],['compliance','Conformité'],['anomalies','Anomalies'],['settings','Paramètres']];
  return '<nav class="admin-tabs" aria-label="Navigation Administration">'+tabs.map(function(x){return '<button class="'+(adminTab===x[0]?'on':'')+'" data-admin-tab="'+x[0]+'">'+x[1]+'</button>'}).join('')+'</nav>';
+}
+function adminPaginer(liste,cle){
+ const taille=20,totalPages=Math.max(1,Math.ceil(liste.length/taille));let page=Math.max(1,Math.min(totalPages,adminPages[cle]||1));adminPages[cle]=page;
+ return{items:liste.slice((page-1)*taille,page*taille),page,totalPages,total:liste.length};
+}
+function adminPagerHTML(p,cle){
+ if(p.totalPages<=1)return'';
+ return '<div class="admin-pager"><button data-admin-page="'+cle+'" data-page="'+(p.page-1)+'" '+(p.page<=1?'disabled':'')+'>Précédent</button><span>Page '+p.page+' / '+p.totalPages+' · '+p.total+' éléments</span><button data-admin-page="'+cle+'" data-page="'+(p.page+1)+'" '+(p.page>=p.totalPages?'disabled':'')+'>Suivant</button></div>';
 }
 function adminVide(icone,titre,texte,action){
  return '<div class="admin-empty"><i>'+icone+'</i><b>'+titre+'</b><span>'+texte+'</span>'+(action||'')+'</div>';
@@ -4099,8 +4208,9 @@ function adminVueOverview(){
   +'<article class="admin-kpi '+(r.overdueCount?'critical':'')+'"><small>EN RETARD</small><b>'+r.overdueCount+'</b><span>'+fmt(r.overdueAmount)+' € concernés</span></article>'
   +'<article class="admin-kpi"><small>ÉCHÉANCES · 30 JOURS</small><b>'+r.deadlines30+'</b><span>'+r.contractsExpiring+' contrat'+(r.contractsExpiring>1?'s':'')+' proche'+(r.contractsExpiring>1?'s':'')+'</span></article>'
   +'<article class="admin-kpi '+(r.documentsAction?'warn':'')+'"><small>DOCUMENTS À TRAITER</small><b>'+r.documentsAction+'</b><span>TVA déductible saisie · '+fmt(r.deductibleTax)+' €</span></article></section>'
+  +'<section class="admin-subgrid"><article class="admin-data-card"><small>COÛT ANNUEL DES CONTRATS</small><b>'+fmt(r.contractAnnualCost)+' €</b><span>Contrats actifs enregistrés</span></article><article class="admin-data-card"><small>CONFORMITÉ</small><b>'+r.obligationsAction+'</b><span>Obligation'+(r.obligationsAction>1?'s':'')+' nécessitant une action</span></article><article class="admin-data-card"><small>TRÉSORERIE PRÉVISIONNELLE</small><b>'+(r.forecastCash===null?'Non configurée':fmt(r.forecastCash)+' €')+'</b><span>'+(r.currentCash===null?'Renseignez un solde pour activer la projection':'Solde après mouvements enregistrés')+'</span></article></section>'
   +'<section class="admin-grid"><section class="admin-panel"><header class="admin-section-head"><div><small>PRIORITÉ</small><b>Actions requises</b></div><button class="admin-link-btn" data-admin-tab="deadlines">Voir l’échéancier</button></header>'+adminActionsHTML(alertes)+'</section>'
-  +'<aside class="admin-panel"><header class="admin-section-head"><div><small>ASSISTANT</small><b>Ce qu’il faut savoir</b></div></header><div class="admin-assistant">'+phrases.map(function(p){return '<p class="admin-insight">'+escapeHTML(p)+'</p>'}).join('')+'</div><p class="admin-source-note">Analyse déterministe des données enregistrées. Trésorerie, banque et TVA collectée ne sont pas affichées car aucune source n’est connectée.</p></aside></section>'
+  +'<aside class="admin-panel"><header class="admin-section-head"><div><small>ASSISTANT</small><b>Ce qu’il faut savoir</b></div></header><div class="admin-assistant">'+phrases.map(function(p){return '<p class="admin-insight">'+escapeHTML(p)+'</p>'}).join('')+'</div><p class="admin-source-note">Analyse déterministe des données enregistrées. Les sources non connectées sont signalées et ne sont jamais remplacées par des valeurs fictives.</p></aside></section>'
   +'<section class="admin-panel"><header class="admin-section-head"><div><small>TRAÇABILITÉ LOCALE</small><b>Dernières actions</b></div></header>'+(journal.length?'<div class="admin-actions">'+journal.map(function(l){return '<div class="admin-action"><i class="admin-priority info"></i><div class="admin-action-copy"><b>'+escapeHTML(l.action)+'</b><span>'+escapeHTML((l.details||l.entityType)+' · '+l.createdBy)+' · '+new Date(l.createdAt).toLocaleString('fr-FR')+'</span></div></div>'}).join('')+'</div>':adminVide('⌁','Aucune action journalisée','Les créations, modifications et paiements apparaîtront ici.',''))+'</section>';
 }
 function adminFournisseurs(){
@@ -4112,26 +4222,26 @@ function adminFournisseurs(){
 }
 function adminVueInbox(){
  const docs=adminDansEtablissement(adminData().documents).slice().sort(function(a,b){return String(b.createdAt).localeCompare(String(a.createdAt))});
- const lignes=docs.map(function(d){
+ const p=adminPaginer(docs,'inbox'),lignes=p.items.map(function(d){
   const ps=ADMIN_PROCESSING_STATUSES.find(function(s){return s.id===d.processingStatus});
   return '<div class="admin-row"><div class="admin-cell-main"><b>'+escapeHTML(d.title||d.fileName||'Document')+'</b><small>'+escapeHTML(d.fileName||'Sans fichier')+'</small></div><span>'+escapeHTML((ADMIN_DOCUMENT_TYPES.find(function(x){return x.id===d.type})||{}).label||d.type)+'</span><span>'+adminFormatDate(d.documentDate||d.createdAt)+'</span><span><i class="admin-badge '+(d.processingStatus==='error'?'critical':d.processingStatus==='completed'?'ok':'warn')+'">'+escapeHTML(ps?ps.label:d.processingStatus)+'</i></span><div class="admin-row-actions">'+(d.fileKey?'<button data-admin-view-doc="'+d.id+'">Voir</button>':'')+'<button class="primary" data-admin-edit-doc="'+d.id+'">Modifier</button></div></div>';
  }).join('');
  return '<section class="admin-upload"><div><b>Centralisez un document entrant</b><span>PDF ou image, 15 Mo maximum. Les fichiers restent dans le stockage local du navigateur actuel.</span></div><button class="btn btn-sm" data-admin-new-doc>Importer un document</button></section>'
-  +'<section class="admin-list-panel"><div class="admin-list-head"><span>Document</span><span>Type</span><span>Date</span><span>Traitement</span><span>Actions</span></div>'+(lignes||adminVide('⇧','Inbox vide','Importez votre première facture ou pièce administrative pour commencer le suivi.','<button class="btn btn-sm" data-admin-new-doc>Importer</button>'))+'</section>';
+  +'<section class="admin-list-panel"><div class="admin-list-head"><span>Document</span><span>Type</span><span>Date</span><span>Traitement</span><span>Actions</span></div>'+(lignes||adminVide('⇧','Inbox vide','Importez votre première facture ou pièce administrative pour commencer le suivi.','<button class="btn btn-sm" data-admin-new-doc>Importer</button>'))+adminPagerHTML(p,'inbox')+'</section>';
 }
 function adminVueFactures(){
  const fs=adminFilters,fo=adminFournisseurs();
  const factures=adminDansEtablissement(adminData().invoices).filter(function(f){
   const q=(fs.search||'').toLowerCase(),texte=(f.supplier+' '+(f.invoiceNumber||'')+' '+(f.notes||'')).toLowerCase();
-  const statut=adminStatutFacture(f,new Date());
+ const statut=adminStatutFacture(f,new Date());
   return(!q||texte.indexOf(q)>=0)&&(!fs.supplier||f.supplier===fs.supplier)&&(!fs.status||statut===fs.status);
  }).sort(function(a,b){return String(a.dueDate||'9999').localeCompare(String(b.dueDate||'9999'))});
- const lignes=factures.map(function(f){
+ const p=adminPaginer(factures,'invoices'),lignes=p.items.map(function(f){
   const statut=adminStatutFacture(f,new Date());
-  return '<div class="admin-row"><div class="admin-cell-main"><b>'+escapeHTML(f.supplier||'Fournisseur à renseigner')+'</b><small>N° '+escapeHTML(f.invoiceNumber||'à vérifier')+'</small></div><span>HT '+fmt(num(f.amountHT))+' €<br>TVA '+fmt(num(f.taxAmount))+' €</span><span class="admin-amount">'+fmt(num(f.amountTTC))+' €</span><span><i class="admin-badge '+adminClasseStatut(statut)+'">'+adminLibelleStatut(statut)+'</i><br>'+adminFormatDate(f.dueDate)+'</span><div class="admin-row-actions">'+(f.documentId?'<button data-admin-invoice-doc="'+f.documentId+'">Pièce</button>':'')+(adminFactureOuverte(f)?'<button data-admin-paid="'+f.id+'">Payée</button>':'')+'<button class="primary" data-admin-edit-invoice="'+f.id+'">Modifier</button></div></div>';
+  return '<div class="admin-row"><div class="admin-cell-main"><b>'+escapeHTML(f.supplier||'Fournisseur à renseigner')+'</b><small>N° '+escapeHTML(f.invoiceNumber||'à vérifier')+(f.approvalStatus==='pending'?' · validation requise':'')+'</small></div><span>HT '+fmt(num(f.amountHT))+' €<br>TVA '+fmt(num(f.taxAmount))+' €</span><span class="admin-amount">'+fmt(num(f.amountTTC))+' €</span><span><i class="admin-badge '+adminClasseStatut(statut)+'">'+adminLibelleStatut(statut)+'</i><br>'+adminFormatDate(f.dueDate)+'</span><div class="admin-row-actions">'+(f.documentId?'<button data-admin-invoice-doc="'+f.documentId+'">Pièce</button>':'')+(f.approvalStatus==='pending'?'<button data-admin-approval="'+f.id+'" data-status="approved">Valider</button><button data-admin-approval="'+f.id+'" data-status="rejected">Rejeter</button>':'')+(adminFactureOuverte(f)&&f.approvalStatus!=='rejected'?'<button data-admin-paid="'+f.id+'">Payée</button>':'')+'<button class="primary" data-admin-edit-invoice="'+f.id+'">Modifier</button></div></div>';
  }).join('');
  return '<section class="admin-toolbar"><div class="admin-filters"><div class="admin-filter"><label>Rechercher</label><input id="adminInvoiceSearch" value="'+escapeHTML(fs.search)+'" placeholder="Fournisseur, numéro…"></div><div class="admin-filter"><label>Fournisseur</label><select id="adminInvoiceSupplier"><option value="">Tous</option>'+fo.map(function(n){return '<option '+(fs.supplier===n?'selected':'')+'>'+escapeHTML(n)+'</option>'}).join('')+'</select></div><div class="admin-filter"><label>Statut</label><select id="adminInvoiceStatus"><option value="">Tous</option>'+ADMIN_INVOICE_STATUSES.concat([{id:'en_retard',label:'En retard'}]).map(function(s){return '<option value="'+s.id+'" '+(fs.status===s.id?'selected':'')+'>'+s.label+'</option>'}).join('')+'</select></div></div><button class="btn btn-sm" data-admin-new-invoice>Nouvelle facture</button></section>'
-  +'<section class="admin-list-panel"><div class="admin-list-head"><span>Fournisseur</span><span>Montants</span><span>TTC</span><span>Échéance</span><span>Actions</span></div>'+(lignes||adminVide('□','Aucune facture','Créez une facture ou importez un PDF dans l’Inbox.','<button class="btn btn-sm" data-admin-new-invoice>Créer une facture</button>'))+'</section>';
+  +'<section class="admin-list-panel"><div class="admin-list-head"><span>Fournisseur</span><span>Montants</span><span>TTC</span><span>Échéance</span><span>Actions</span></div>'+(lignes||adminVide('□','Aucune facture','Créez une facture ou importez un PDF dans l’Inbox.','<button class="btn btn-sm" data-admin-new-invoice>Créer une facture</button>'))+adminPagerHTML(p,'invoices')+'</section>';
 }
 function adminVueEcheances(){
  const factures=adminDansEtablissement(adminData().invoices).filter(adminFactureOuverte);
@@ -4149,9 +4259,61 @@ function adminVueEcheances(){
 function adminVueDocuments(){
  const fs=adminFilters,q=(fs.search||'').toLowerCase();
  const docs=adminDansEtablissement(adminData().documents).filter(function(d){const txt=((d.title||'')+' '+(d.supplier||'')+' '+(d.notes||'')).toLowerCase();return(!q||txt.indexOf(q)>=0)&&(!fs.type||d.type===fs.type)}).sort(function(a,b){return String(a.expiryDate||'9999').localeCompare(String(b.expiryDate||'9999'))});
- const lignes=docs.map(function(d){const j=adminDiffJours(d.expiryDate,new Date()),expire=j!==null&&j<0,proche=j!==null&&j>=0&&j<=30;return '<div class="admin-row"><div class="admin-cell-main"><b>'+escapeHTML(d.title||d.fileName||'Document')+'</b><small>'+escapeHTML(d.supplier||'Sans organisme')+'</small></div><span>'+escapeHTML((ADMIN_DOCUMENT_TYPES.find(function(x){return x.id===d.type})||{}).label||d.type)+'</span><span>'+adminFormatDate(d.documentDate)+'</span><span>'+(d.expiryDate?'<i class="admin-badge '+(expire?'critical':proche?'warn':'ok')+'">'+(expire?'Expiré':proche?'Expire bientôt':adminFormatDate(d.expiryDate))+'</i>':'—')+'</span><div class="admin-row-actions">'+(d.fileKey?'<button data-admin-view-doc="'+d.id+'">Voir</button>':'')+'<button class="primary" data-admin-edit-doc="'+d.id+'">Modifier</button></div></div>'}).join('');
+ const p=adminPaginer(docs,'documents'),lignes=p.items.map(function(d){const j=adminDiffJours(d.expiryDate,new Date()),expire=j!==null&&j<0,proche=j!==null&&j>=0&&j<=30;return '<div class="admin-row"><div class="admin-cell-main"><b>'+escapeHTML(d.title||d.fileName||'Document')+'</b><small>'+escapeHTML(d.supplier||'Sans organisme')+'</small></div><span>'+escapeHTML((ADMIN_DOCUMENT_TYPES.find(function(x){return x.id===d.type})||{}).label||d.type)+'</span><span>'+adminFormatDate(d.documentDate)+'</span><span>'+(d.expiryDate?'<i class="admin-badge '+(expire?'critical':proche?'warn':'ok')+'">'+(expire?'Expiré':proche?'Expire bientôt':adminFormatDate(d.expiryDate))+'</i>':'—')+'</span><div class="admin-row-actions">'+(d.fileKey?'<button data-admin-view-doc="'+d.id+'">Voir</button>':'')+'<button class="primary" data-admin-edit-doc="'+d.id+'">Modifier</button></div></div>'}).join('');
  return '<section class="admin-toolbar"><div class="admin-filters"><div class="admin-filter"><label>Rechercher</label><input id="adminDocumentSearch" value="'+escapeHTML(fs.search)+'" placeholder="Titre, fournisseur…"></div><div class="admin-filter"><label>Catégorie</label><select id="adminDocumentType"><option value="">Toutes</option>'+ADMIN_DOCUMENT_TYPES.map(function(x){return '<option value="'+x.id+'" '+(fs.type===x.id?'selected':'')+'>'+x.label+'</option>'}).join('')+'</select></div></div><button class="btn btn-sm" data-admin-new-doc>Ajouter un document</button></section>'
-  +'<section class="admin-list-panel"><div class="admin-list-head"><span>Document</span><span>Catégorie</span><span>Date</span><span>Expiration</span><span>Actions</span></div>'+(lignes||adminVide('◇','Aucun document','Ajoutez une pièce pour constituer le coffre-fort administratif.','<button class="btn btn-sm" data-admin-new-doc>Ajouter</button>'))+'</section>';
+  +'<section class="admin-list-panel"><div class="admin-list-head"><span>Document</span><span>Catégorie</span><span>Date</span><span>Expiration</span><span>Actions</span></div>'+(lignes||adminVide('◇','Aucun document','Ajoutez une pièce pour constituer le coffre-fort administratif.','<button class="btn btn-sm" data-admin-new-doc>Ajouter</button>'))+adminPagerHTML(p,'documents')+'</section>';
+}
+function adminVueTresorerie(){
+ const cash=adminPrevisionTresorerie(new Date()),manuels=adminDansEtablissement(adminData().cashFlowForecasts);
+ const timeline=cash.events.map(function(e){return '<div class="admin-timeline-row"><time>'+adminFormatDate(e.date)+'</time><i class="'+(e.amount<0?'out':'in')+'"></i><div><b>'+escapeHTML(e.title)+'</b><small>'+(e.source==='invoice'?'Facture fournisseur':'Prévision saisie manuellement')+(e.balance!==null?' · solde '+fmt(e.balance)+' €':'')+'</small></div><strong class="'+(e.amount<0?'out':'in')+'">'+(e.amount>0?'+':'')+fmt(e.amount)+' €</strong></div>'}).join('');
+ return '<section class="admin-disclaimer">Projection indicative fondée sur le solde et les mouvements enregistrés. Aucune donnée bancaire n’est connectée automatiquement.</section>'
+  +'<section class="admin-subgrid"><article class="admin-data-card"><small>SOLDE ACTUEL</small><b>'+(cash.currentBalance===null?'À renseigner':fmt(cash.currentBalance)+' €')+'</b><span>'+(adminData().settings.cashBalanceUpdatedAt?'Mis à jour le '+adminFormatDate(adminData().settings.cashBalanceUpdatedAt):'Source bancaire non connectée')+'</span></article><article class="admin-data-card"><small>SOLDE PRÉVISIONNEL</small><b>'+(cash.forecastBalance===null?'Indisponible':fmt(cash.forecastBalance)+' €')+'</b><span>'+cash.events.length+' mouvement'+(cash.events.length>1?'s':'')+' futur'+(cash.events.length>1?'s':'')+'</span></article><article class="admin-data-card"><small>POINT BAS</small><b>'+(cash.lowPoint===null?'Indisponible':fmt(cash.lowPoint)+' €')+'</b><span>'+(cash.lowPointDate?'Prévu le '+adminFormatDate(cash.lowPointDate):'Aucune projection datée')+'</span></article></section>'
+  +'<section class="admin-toolbar"><div><b>Projection de trésorerie</b><small style="display:block;color:#817565">Factures ouvertes + mouvements prévisionnels saisis.</small></div><div class="admin-inline-actions"><button class="btn btn-2 btn-sm" data-admin-cash-settings>Configurer le solde</button><button class="btn btn-sm" data-admin-new-cash>Ajouter un mouvement</button></div></section>'
+  +'<section class="admin-panel">'+(timeline?'<div class="admin-timeline">'+timeline+'</div>':adminVide('↝','Aucun mouvement prévisionnel','Ajoutez une charge, un encaissement ou une facture avec échéance.','<button class="btn btn-sm" data-admin-new-cash>Ajouter un mouvement</button>'))+(manuels.length?'<p class="admin-source-note">'+manuels.length+' mouvement'+(manuels.length>1?'s':'')+' saisi'+(manuels.length>1?'s':'')+' manuellement.</p>':'')+'</section>';
+}
+function adminVueTVA(){
+ const v=adminTVA(new Date()),ventilation=Object.entries(v.byRate).map(function(x){const total=v.deductible||1,pct=Math.min(100,num(x[1])/total*100);return '<article class="admin-data-card"><small>TAUX '+escapeHTML(x[0])+' %</small><b>'+fmt(num(x[1]))+' €</b><span>TVA déductible associée</span><div class="admin-progress"><i style="width:'+pct+'%"></i></div></article>'}).join('');
+ const maxMois=Math.max.apply(null,v.byMonth.map(function(x){return num(x[1])}).concat([1])),evolution=v.byMonth.map(function(x){const d=adminDate(x[0]+'-01'),label=d?d.toLocaleDateString('fr-FR',{month:'short',year:'numeric'}):x[0],pct=Math.max(3,num(x[1])/maxMois*100);return '<div class="admin-timeline-row"><time>'+escapeHTML(label)+'</time><i class="in"></i><div><b>TVA déductible</b><div class="admin-progress"><i style="width:'+pct+'%"></i></div></div><strong>'+fmt(num(x[1]))+' €</strong></div>'}).join('');
+ return '<section class="admin-disclaimer">Estimation indicative basée sur les données présentes dans le logiciel. Elle ne constitue pas une déclaration fiscale officielle.</section>'
+  +'<section class="admin-subgrid"><article class="admin-data-card"><small>TVA COLLECTÉE</small><b>'+(v.collected===null?'Non disponible':fmt(v.collected)+' €')+'</b><span>Source caisse ou saisie manuelle</span></article><article class="admin-data-card"><small>TVA DÉDUCTIBLE</small><b>'+fmt(v.deductible)+' €</b><span>Issue des factures fournisseurs</span></article><article class="admin-data-card"><small>TVA ESTIMÉE</small><b>'+(v.estimated===null?'Non calculable':fmt(v.estimated)+' €')+'</b><span>Collectée moins déductible</span></article></section>'
+  +'<section class="admin-toolbar"><div><b>Ventilation par taux</b><small style="display:block;color:#817565">Taux configurables, appliqués aux factures renseignées.</small></div><button class="btn btn-sm" data-admin-vat-settings>Configurer la TVA</button></section>'
+  +(ventilation?'<section class="admin-subgrid">'+ventilation+'</section>':adminVide('%','Aucun taux configuré','Ajoutez au moins un taux de TVA dans les paramètres.',''))
+  +'<section class="admin-panel"><header class="admin-section-head"><div><small>12 DERNIERS MOIS</small><b>Évolution de la TVA déductible</b></div></header>'+(evolution?'<div class="admin-timeline">'+evolution+'</div>':adminVide('↗','Historique indisponible','Renseignez la date et la TVA des factures pour obtenir cette évolution.',''))+'</section>';
+}
+function adminVuePreCompta(){
+ const factures=adminDansEtablissement(adminData().invoices),cat=adminData().expenseCategories||[],comptes=adminData().accountingCategories||[];
+ const categorisees=factures.filter(function(f){return f.expenseCategoryId||f.accountingCategoryId}).length;
+ const lignes=factures.slice(0,50).map(function(f){const c=cat.find(function(x){return x.id===f.expenseCategoryId}),a=comptes.find(function(x){return x.id===f.accountingCategoryId});return '<div class="admin-row"><div class="admin-cell-main"><b>'+escapeHTML(f.supplier||'Fournisseur')+'</b><small>'+escapeHTML(f.invoiceNumber||'Sans numéro')+'</small></div><span>'+escapeHTML(c?c.name:'Non catégorisée')+'</span><span>'+escapeHTML(a?(a.code? a.code+' · ':'')+a.name:'Compte non affecté')+'</span><span class="admin-amount">'+fmt(num(f.amountTTC))+' €</span><div class="admin-row-actions"><button class="primary" data-admin-edit-invoice="'+f.id+'">Affecter</button></div></div>'}).join('');
+ return '<section class="admin-disclaimer">La pré-comptabilité prépare les pièces et affectations. Elle ne remplace pas un logiciel de comptabilité générale.</section>'
+  +'<section class="admin-subgrid"><article class="admin-data-card"><small>PIÈCES</small><b>'+factures.length+'</b><span>Factures disponibles</span></article><article class="admin-data-card"><small>CATÉGORISÉES</small><b>'+categorisees+'</b><span>'+Math.max(0,factures.length-categorisees)+' restent à affecter</span></article><article class="admin-data-card"><small>EXPORT</small><b>CSV</b><span>Format générique, aucune intégration simulée</span></article></section>'
+  +'<section class="admin-toolbar"><div><b>Affectations comptables</b><small style="display:block;color:#817565">Catégories de dépenses, comptes et TVA.</small></div><div class="admin-inline-actions"><button class="btn btn-2 btn-sm" data-admin-category-settings>Configurer</button><button class="btn btn-sm" data-admin-export-accounting>Exporter</button></div></section>'
+  +'<section class="admin-list-panel"><div class="admin-list-head"><span>Facture</span><span>Dépense</span><span>Compte</span><span>TTC</span><span>Action</span></div>'+(lignes||adminVide('≡','Aucune pièce','Les factures enregistrées apparaîtront ici.',''))+'</section>';
+}
+function adminVueContrats(){
+ const contrats=adminDansEtablissement(adminData().contracts).sort(function(a,b){return String(a.endDate||'9999').localeCompare(String(b.endDate||'9999'))}),p=adminPaginer(contrats,'contracts');
+ const lignes=p.items.map(function(c){const cout=adminCoutsContrat(c),statut=adminStatutContrat(c,new Date()),jours=adminDiffJours(c.endDate,new Date());return '<div class="admin-row"><div class="admin-cell-main"><b>'+escapeHTML(c.name||'Contrat')+'</b><small>'+escapeHTML(c.supplier||'Sans fournisseur')+' · '+escapeHTML(c.category||'Autre')+'</small></div><span>'+fmt(cout.monthly)+' €/mois<br>'+fmt(cout.annual)+' €/an</span><span>'+adminFormatDate(c.endDate)+'</span><span><i class="admin-badge '+(statut==='expire'?'critical':statut==='a_renouveler'?'warn':'ok')+'">'+escapeHTML((ADMIN_CONTRACT_STATUSES.find(function(x){return x.id===statut})||{}).label||statut)+'</i>'+(jours!==null&&jours>=0?'<br>'+jours+' jours':'')+'</span><div class="admin-row-actions"><button class="primary" data-admin-edit-contract="'+c.id+'">Modifier</button></div></div>'}).join('');
+ return '<section class="admin-toolbar"><div><b>Contrats et abonnements</b><small style="display:block;color:#817565">Coûts, renouvellements et préavis.</small></div><button class="btn btn-sm" data-admin-new-contract>Nouveau contrat</button></section><section class="admin-list-panel"><div class="admin-list-head"><span>Contrat</span><span>Coût</span><span>Fin</span><span>Statut</span><span>Action</span></div>'+(lignes||adminVide('⌘','Aucun contrat','Enregistrez un contrat pour suivre ses coûts et renouvellements.','<button class="btn btn-sm" data-admin-new-contract>Créer</button>'))+adminPagerHTML(p,'contracts')+'</section>';
+}
+function adminVueCalendrier(){
+ const events=adminCalendrier(new Date()),prochains=events.filter(function(e){const j=adminDiffJours(e.date,new Date());return j!==null&&j>=0}).slice(0,80);
+ const lignes=prochains.map(function(e){const d=adminDate(e.date),mois=d.toLocaleDateString('fr-FR',{month:'short'}).replace('.','');return '<article class="admin-calendar-item"><div class="admin-calendar-date"><b>'+d.getDate()+'</b><span>'+escapeHTML(mois)+'</span></div><div><h3>'+escapeHTML(e.title)+'</h3><p>'+escapeHTML(e.detail||'Échéance administrative')+' · '+adminFormatDate(e.date)+'</p></div>'+(e.id.indexOf('deadline_')===0?'<button class="admin-link-btn" data-admin-complete-deadline="'+e.objectId+'">Marquer faite</button>':'<button class="admin-link-btn" data-admin-action="'+e.tab+'">Voir</button>')+'</article>'}).join('');
+ return '<section class="admin-toolbar"><div><b>Prochaines échéances</b><small style="display:block;color:#817565">Factures, contrats, documents, conformité et événements manuels.</small></div><button class="btn btn-sm" data-admin-new-deadline>Ajouter une échéance</button></section><section class="admin-panel">'+(lignes?'<div class="admin-calendar-list">'+lignes+'</div>':adminVide('◫','Calendrier vide','Ajoutez une échéance ou renseignez les dates de vos documents.','<button class="btn btn-sm" data-admin-new-deadline>Ajouter</button>'))+'</section>';
+}
+function adminVueConformite(){
+ const obligations=adminDansEtablissement(adminData().obligations).sort(function(a,b){return String(a.nextDue||'9999').localeCompare(String(b.nextDue||'9999'))}),p=adminPaginer(obligations,'compliance');
+ const lignes=p.items.map(function(o){const statut=adminStatutObligation(o,new Date()),lab=(ADMIN_OBLIGATION_STATUSES.find(function(x){return x.id===statut})||{}).label||statut;return '<div class="admin-row"><div class="admin-cell-main"><b>'+escapeHTML(o.name||'Obligation')+'</b><small>'+escapeHTML(o.category||'Autre')+'</small></div><span>'+escapeHTML(o.responsible||'Non attribué')+'</span><span>'+adminFormatDate(o.lastValidation)+'</span><span><i class="admin-badge '+(statut==='expire'||statut==='manquant'?'critical':statut==='conforme'?'ok':'warn')+'">'+escapeHTML(lab)+'</i><br>'+adminFormatDate(o.nextDue)+'</span><div class="admin-row-actions"><button class="primary" data-admin-edit-obligation="'+o.id+'">Modifier</button></div></div>'}).join('');
+ return '<section class="admin-disclaimer">La liste des obligations est configurable par l’établissement. Aucune liste réglementaire exhaustive n’est codée en dur.</section><section class="admin-toolbar"><div><b>Obligations et conformité</b><small style="display:block;color:#817565">Permis, licences, assurances et contrôles périodiques.</small></div><button class="btn btn-sm" data-admin-new-obligation>Nouvelle obligation</button></section><section class="admin-list-panel"><div class="admin-list-head"><span>Obligation</span><span>Responsable</span><span>Dernière validation</span><span>Prochaine échéance</span><span>Action</span></div>'+(lignes||adminVide('✓','Aucune obligation','Créez les obligations adaptées à votre établissement.','<button class="btn btn-sm" data-admin-new-obligation>Créer</button>'))+adminPagerHTML(p,'compliance')+'</section>';
+}
+function adminVueAnomalies(){
+ const anomalies=adminAnomaliesDetectees(new Date());
+ const lignes=anomalies.map(function(a){const statut=a.status||'detectee';return '<article class="admin-action"><i class="admin-priority '+a.severity+'"></i><div class="admin-action-copy"><b>'+escapeHTML(a.type.replaceAll('_',' '))+'</b><span>'+escapeHTML(a.description)+' · '+escapeHTML(statut.replaceAll('_',' '))+'</span></div><div class="admin-action-meta"><button data-admin-anomaly="'+escapeHTML(a.key)+'" data-status="ignoree">Ignorer</button><button data-admin-anomaly="'+escapeHTML(a.key)+'" data-status="resolue">Résoudre</button></div></article>'}).join('');
+ return '<section class="admin-disclaimer">Détection déterministe : doublons, montants inhabituels, informations manquantes et écarts avec commandes ou livraisons lorsqu’une référence existe.</section><section class="admin-panel"><header class="admin-section-head"><div><small>CONTRÔLES</small><b>Anomalies détectées</b></div></header>'+(lignes?'<div class="admin-actions">'+lignes+'</div>':adminVide('✓','Aucune anomalie','Aucun contrôle automatique ne nécessite votre attention.',''))+'</section>';
+}
+function adminVueParametres(){
+ const s=adminData().settings,rates=(s.taxRates||[]).join(' · '),delais=(s.contractAlertDays||[]).join(' · '),rules=(adminData().approvalWorkflows||[]).length?adminData().approvalWorkflows:(s.approvalRules||[]);
+ const integrations=Object.entries(s.integrations||{}).map(function(x){const labels={ocr:'OCR / IA',emailInbox:'Réception par email',accounting:'Comptabilité',banking:'Banque',electronicInvoicing:'Facturation électronique',supplierImport:'Fournisseurs / EDI'};return '<div class="admin-config-row"><div><b>'+escapeHTML(labels[x[0]]||x[0])+'</b><small>Aucun connecteur fictif : adaptateur prêt à être remplacé par une API.</small></div><i class="admin-badge info">'+escapeHTML(x[1]==='not_configured'?'Non configuré':x[1])+'</i></div>'}).join('');
+ const ruleRows=rules.map(function(r){return '<div class="admin-config-row"><div><b>'+fmt(num(r.minAmount))+' € à '+(r.maxAmount===null||r.maxAmount===''?'∞':fmt(num(r.maxAmount))+' €')+'</b><small>'+escapeHTML(r.role||'Rôle à définir')+' · '+escapeHTML(r.documentType||'facture')+'</small></div><div class="admin-row-actions"><button data-admin-edit-rule="'+r.id+'">Modifier</button></div></div>'}).join('');
+ return '<section class="admin-grid"><section class="admin-panel"><header class="admin-section-head"><div><small>RÈGLES MÉTIER</small><b>Configuration</b></div></header><div class="admin-config-list"><div class="admin-config-row"><div><b>Taux de TVA</b><small>'+escapeHTML(rates||'Aucun')+' %</small></div><button class="admin-link-btn" data-admin-vat-settings>Modifier</button></div><div class="admin-config-row"><div><b>Alertes contrats</b><small>'+escapeHTML(delais||'Aucun')+' jours avant échéance</small></div><button class="admin-link-btn" data-admin-contract-settings>Modifier</button></div><div class="admin-config-row"><div><b>Hausse tarifaire</b><small>Alerte à partir de '+fmt(num(s.priceIncreaseAlertPercent||10))+' %</small></div><button class="admin-link-btn" data-admin-anomaly-settings>Modifier</button></div><div class="admin-config-row"><div><b>Seuil de trésorerie</b><small>'+fmt(num(s.cashWarningThreshold))+' €</small></div><button class="admin-link-btn" data-admin-cash-settings>Modifier</button></div><div class="admin-config-row"><div><b>Catégories comptables</b><small>'+(adminData().expenseCategories.length+adminData().accountingCategories.length)+' configuration'+((adminData().expenseCategories.length+adminData().accountingCategories.length)>1?'s':'')+'</small></div><button class="admin-link-btn" data-admin-category-settings>Modifier</button></div></div></section><section class="admin-panel"><header class="admin-section-head"><div><small>INTÉGRATIONS</small><b>Connecteurs futurs</b></div></header><div class="admin-config-list">'+integrations+'</div></section></section><section class="admin-panel"><header class="admin-section-head"><div><small>VALIDATION</small><b>Workflows d’approbation</b></div><button class="admin-link-btn" data-admin-new-rule>Ajouter une règle</button></header><div class="admin-config-list">'+(ruleRows||adminVide('↳','Aucune règle','Sans règle, les factures ne nécessitent pas d’approbation supplémentaire.',''))+'</div></section>';
 }
 function renderAdministration(){
  const racine=document.getElementById('s-admin'),version=++adminRenderVersion;
@@ -4159,7 +4321,10 @@ function renderAdministration(){
  Promise.resolve().then(function(){
   if(version!==adminRenderVersion||screen!=='admin')return;
   try{
-   const vues={overview:adminVueOverview,inbox:adminVueInbox,invoices:adminVueFactures,deadlines:adminVueEcheances,documents:adminVueDocuments};
+   const vues={overview:adminVueOverview,inbox:adminVueInbox,invoices:adminVueFactures,deadlines:adminVueEcheances,
+    cashflow:adminVueTresorerie,vat:adminVueTVA,accounting:adminVuePreCompta,contracts:adminVueContrats,
+    documents:adminVueDocuments,calendar:adminVueCalendrier,compliance:adminVueConformite,
+    anomalies:adminVueAnomalies,settings:adminVueParametres};
    const contenu=(vues[adminTab]||adminVueOverview)();
    racine.innerHTML='<div class="admin-shell"><header class="admin-head"><div><small>CENTRE DE CONTRÔLE</small><h1>Administration</h1><p>Les actions et anomalies sont présentées avant les documents bruts. Toutes les données affichées proviennent de vos saisies.</p></div>'+(adminTab==='overview'?'<button class="btn btn-sm" data-admin-new-doc>Importer un document</button>':'')+'</header>'+adminTabs()+contenu+'</div>';
    lierAdministration(racine);
@@ -4178,8 +4343,26 @@ function lierAdministration(racine){
  racine.querySelectorAll('[data-admin-new-invoice]').forEach(function(b){b.onclick=function(){openAdminInvoice()}});
  racine.querySelectorAll('[data-admin-edit-invoice]').forEach(function(b){b.onclick=function(){openAdminInvoice(b.dataset.adminEditInvoice)}});
  racine.querySelectorAll('[data-admin-paid]').forEach(function(b){b.onclick=function(){adminMarquerPayee(b.dataset.adminPaid)}});
+ racine.querySelectorAll('[data-admin-approval]').forEach(function(b){b.onclick=function(){adminSetApproval(b.dataset.adminApproval,b.dataset.status)}});
  racine.querySelectorAll('[data-admin-invoice-doc]').forEach(function(b){b.onclick=function(){adminVoirDocument(b.dataset.adminInvoiceDoc)}});
  racine.querySelectorAll('[data-admin-action]').forEach(function(b){b.onclick=function(){adminTab=b.dataset.adminAction;renderAdministration()}});
+ racine.querySelectorAll('[data-admin-page]').forEach(function(b){b.onclick=function(){adminPages[b.dataset.adminPage]=num(b.dataset.page);renderAdministration()}});
+ racine.querySelectorAll('[data-admin-new-contract]').forEach(function(b){b.onclick=function(){openAdminContract()}});
+ racine.querySelectorAll('[data-admin-edit-contract]').forEach(function(b){b.onclick=function(){openAdminContract(b.dataset.adminEditContract)}});
+ racine.querySelectorAll('[data-admin-new-obligation]').forEach(function(b){b.onclick=function(){openAdminObligation()}});
+ racine.querySelectorAll('[data-admin-edit-obligation]').forEach(function(b){b.onclick=function(){openAdminObligation(b.dataset.adminEditObligation)}});
+ racine.querySelectorAll('[data-admin-new-deadline]').forEach(function(b){b.onclick=function(){openAdminDeadline()}});
+ racine.querySelectorAll('[data-admin-complete-deadline]').forEach(function(b){b.onclick=function(){adminCompleteDeadline(b.dataset.adminCompleteDeadline)}});
+ racine.querySelectorAll('[data-admin-new-cash]').forEach(function(b){b.onclick=function(){openAdminCash()}});
+ racine.querySelectorAll('[data-admin-cash-settings]').forEach(function(b){b.onclick=openAdminCashSettings});
+ racine.querySelectorAll('[data-admin-vat-settings]').forEach(function(b){b.onclick=openAdminVatSettings});
+ racine.querySelectorAll('[data-admin-category-settings]').forEach(function(b){b.onclick=openAdminCategorySettings});
+ racine.querySelectorAll('[data-admin-contract-settings]').forEach(function(b){b.onclick=openAdminContractSettings});
+ racine.querySelectorAll('[data-admin-anomaly-settings]').forEach(function(b){b.onclick=openAdminAnomalySettings});
+ racine.querySelectorAll('[data-admin-new-rule]').forEach(function(b){b.onclick=function(){openAdminApprovalRule()}});
+ racine.querySelectorAll('[data-admin-edit-rule]').forEach(function(b){b.onclick=function(){openAdminApprovalRule(b.dataset.adminEditRule)}});
+ racine.querySelectorAll('[data-admin-anomaly]').forEach(function(b){b.onclick=function(){adminSetAnomalyStatus(b.dataset.adminAnomaly,b.dataset.status)}});
+ const exp=racine.querySelector('[data-admin-export-accounting]');if(exp)exp.onclick=adminExportAccounting;
  const is=racine.querySelector('#adminInvoiceSearch'),ifo=racine.querySelector('#adminInvoiceSupplier'),ist=racine.querySelector('#adminInvoiceStatus');
  if(is)is.onchange=function(){adminFilters.search=is.value.trim();renderAdministration()};
  if(ifo)ifo.onchange=function(){adminFilters.supplier=ifo.value;renderAdministration()};
@@ -4228,11 +4411,11 @@ function openAdminDocument(id){
    };
    if(existant)Object.assign(existant,record);else adminData().documents.unshift(record);
    if(!existant&&type==='facture'){
-    adminData().invoices.unshift({id:uid('ainv'),documentId:record.id,invoiceNumber:'',supplier:record.supplier,
+    const facture=adminConstruireFacture({documentId:record.id,invoiceNumber:'',supplier:record.supplier,
      establishmentId:record.establishmentId,organizationId:record.organizationId,documentDate:record.documentDate,dueDate:record.dueDate,
-     amountHT:0,taxAmount:0,amountTTC:0,status:'a_verifier',paymentDate:null,paymentMethod:'',orderReference:'',
-     deliveryReference:'',lines:[],categories:[],notes:'Créée depuis l’Inbox · informations à vérifier',
-     createdAt:maintenant,updatedAt:maintenant,createdBy:adminAuteur()});
+     amountHT:0,taxAmount:0,amountTTC:0,taxRate:'',status:'a_verifier',paymentDate:null,paymentMethod:'',orderReference:'',
+     deliveryReference:'',expenseCategoryId:null,accountingCategoryId:null,notes:'Créée depuis l’Inbox · informations à vérifier'},null,new Date());
+    adminData().invoices.unshift(facture);adminSynchroniserDemandeApprobation(facture,new Date());
    }
    adminJournaliser(existant?'Document modifié':'Document importé','AdministrativeDocument',record.id,record.title);
    await save();if(fichier&&ancienFileKey&&ancienFileKey!==fileKey)await Docs.del(ancienFileKey);
@@ -4241,7 +4424,7 @@ function openAdminDocument(id){
  };
 }
 function openAdminInvoice(id){
- const existant=id?adminData().invoices.find(function(f){return f.id===id}):null,f=existant||{},docs=adminDansEtablissement(adminData().documents).filter(function(d){return d.type==='facture'});
+ const existant=id?adminData().invoices.find(function(f){return f.id===id}):null,f=existant||{},data=adminData(),docs=adminDansEtablissement(data.documents).filter(function(d){return d.type==='facture'}),rates=data.settings.taxRates||[5.5,10,20],expenses=data.expenseCategories||[],accounts=data.accountingCategories||[],orders=st.commandes||[],deliveries=st.liv||[];
  const dans30=new Date();dans30.setDate(dans30.getDate()+30);
  document.getElementById('modal').innerHTML='<div class="sheet-bg" id="adminInvBg"><div class="sheet"><h3>'+(existant?'Modifier la facture':'Nouvelle facture')+'</h3><p class="sh-sub">Les montants et l’échéance alimentent automatiquement le résumé administratif.</p><div class="admin-modal-grid">'
   +'<div class="fld wide"><label>Pièce associée</label><select id="aiDocument"><option value="">Aucune pièce</option>'+docs.map(function(d){return '<option value="'+d.id+'" '+(f.documentId===d.id?'selected':'')+'>'+escapeHTML(d.title||d.fileName||'Document')+'</option>'}).join('')+'</select></div>'
@@ -4250,13 +4433,18 @@ function openAdminInvoice(id){
   +'<div class="fld"><label>Date du document *</label><input id="aiDate" type="date" value="'+escapeHTML(f.documentDate||adminDateISO())+'"></div>'
   +'<div class="fld"><label>Échéance *</label><input id="aiDue" type="date" value="'+escapeHTML(f.dueDate||adminDateISO(dans30))+'"></div>'
   +'<div class="fld"><label>Montant HT</label><input id="aiHT" inputmode="decimal" value="'+escapeHTML(f.amountHT??'')+'" placeholder="0,00"></div>'
+  +'<div class="fld"><label>Taux de TVA</label><select id="aiTaxRate"><option value="">Non ventilé</option>'+rates.map(function(r){return '<option value="'+r+'" '+(num(f.taxRate)===num(r)&&f.taxRate!==null&&f.taxRate!==undefined?'selected':'')+'>'+fmt(num(r))+' %</option>'}).join('')+'</select></div>'
   +'<div class="fld"><label>TVA</label><input id="aiTax" inputmode="decimal" value="'+escapeHTML(f.taxAmount??'')+'" placeholder="0,00"></div>'
   +'<div class="fld"><label>Montant TTC</label><input id="aiTTC" inputmode="decimal" value="'+escapeHTML(f.amountTTC??'')+'" placeholder="0,00"></div>'
   +'<div class="fld"><label>Statut</label><select id="aiStatus">'+adminOptions(ADMIN_INVOICE_STATUSES,f.status||'a_verifier')+'</select></div>'
-  +'<div class="fld"><label>Référence commande</label><input id="aiOrder" value="'+escapeHTML(f.orderReference||'')+'"></div>'
-  +'<div class="fld"><label>Référence livraison</label><input id="aiDelivery" value="'+escapeHTML(f.deliveryReference||'')+'"></div>'
+  +'<div class="fld"><label>Catégorie de dépense</label><select id="aiExpense"><option value="">Non catégorisée</option>'+expenses.map(function(x){return '<option value="'+x.id+'" '+(f.expenseCategoryId===x.id?'selected':'')+'>'+escapeHTML(x.name)+'</option>'}).join('')+'</select></div>'
+  +'<div class="fld"><label>Compte comptable</label><select id="aiAccounting"><option value="">Non affecté</option>'+accounts.map(function(x){return '<option value="'+x.id+'" '+(f.accountingCategoryId===x.id?'selected':'')+'>'+escapeHTML((x.code?x.code+' · ':'')+x.name)+'</option>'}).join('')+'</select></div>'
+  +'<div class="fld"><label>Référence commande</label><select id="aiOrder"><option value="">Aucune</option>'+orders.map(function(x){return '<option value="'+x.id+'" '+(String(f.orderReference||'')===String(x.id)?'selected':'')+'>'+escapeHTML((x.fournisseur||'Commande')+' · '+(x.dateLiv||x.cree||x.id))+'</option>'}).join('')+'</select></div>'
+  +'<div class="fld"><label>Référence livraison</label><select id="aiDelivery"><option value="">Aucune</option>'+deliveries.map(function(x){return '<option value="'+x.id+'" '+(String(f.deliveryReference||'')===String(x.id)?'selected':'')+'>'+escapeHTML((x.fo||'Livraison')+' · '+String(x.ts||x.id).slice(0,10))+'</option>'}).join('')+'</select></div>'
   +'<div class="fld"><label>Date de paiement</label><input id="aiPaidDate" type="date" value="'+escapeHTML(f.paymentDate||'')+'"></div>'
   +'<div class="fld"><label>Moyen de paiement</label><input id="aiMethod" value="'+escapeHTML(f.paymentMethod||'')+'" placeholder="Virement, carte…"></div>'
+  +(f.approvalStatus?'<div class="fld wide"><label>Validation</label><div class="admin-modal-hint">Statut : '+escapeHTML((ADMIN_APPROVAL_STATUSES.find(function(x){return x.id===f.approvalStatus})||{}).label||f.approvalStatus)+(f.approvalRuleId?' · règle automatique appliquée':'')+'</div></div>':'')
+  +'<div class="fld wide"><label>Lignes de facture</label><textarea id="aiLines" rows="4" placeholder="Description | quantité | prix unitaire HT | taux TVA">'+escapeHTML((f.lines||[]).map(function(l){return[l.description||'',l.quantity||1,l.unitPriceHT||0,l.taxRate??''].join(' | ')}).join('\n'))+'</textarea><small>Une ligne par article ou service. Les montants peuvent être calculés automatiquement si les champs ci-dessus restent vides.</small></div>'
   +'<div class="fld wide"><label>Notes</label><textarea id="aiNotes" rows="3">'+escapeHTML(f.notes||'')+'</textarea></div></div>'
   +'<button class="btn" id="aiSave">'+(existant?'Enregistrer les modifications':'Créer la facture')+'</button><button class="btn btn-2" id="aiCancel">Annuler</button></div></div>';
  document.getElementById('aiCancel').onclick=closeModal;
@@ -4264,21 +4452,24 @@ function openAdminInvoice(id){
  document.getElementById('aiSave').onclick=async function(){
   const fournisseur=adminValeur('aiSupplier'),date=adminValeur('aiDate'),echeance=adminValeur('aiDue');
   if(!fournisseur||!date||!echeance){toast('Renseignez le fournisseur et les dates.');return}
-  const montantHT=num(adminValeur('aiHT')),tva=num(adminValeur('aiTax')),saisieTTC=adminValeur('aiTTC'),montantTTC=saisieTTC?num(saisieTTC):montantHT+tva;
+  const lignes=adminValeur('aiLines').split('\n').map(function(line){const p=line.split('|').map(function(x){return x.trim()});if(!p[0])return null;const quantity=Math.max(0,num(p[1]||1)),unitPriceHT=Math.max(0,num(p[2])),taxRate=p[3]===''||p[3]===undefined?null:num(p[3]);return{id:uid('ailine'),description:p[0],quantity,unitPriceHT,taxRate,amountHT:quantity*unitPriceHT,taxAmount:taxRate===null?0:quantity*unitPriceHT*taxRate/100}}).filter(Boolean);
+  const saisieHT=adminValeur('aiHT'),saisieTax=adminValeur('aiTax'),tauxGlobal=adminValeur('aiTaxRate'),montantHT=saisieHT===''?lignes.reduce(function(s,l){return s+l.amountHT},0):num(saisieHT),tva=saisieTax===''?(lignes.length?lignes.reduce(function(s,l){return s+l.taxAmount},0):(tauxGlobal===''?0:montantHT*num(tauxGlobal)/100)):num(saisieTax),saisieTTC=adminValeur('aiTTC'),montantTTC=saisieTTC?num(saisieTTC):montantHT+tva;
   if(montantHT<0||tva<0||montantTTC<0){toast('Les montants doivent être positifs.');return}
   const record=adminConstruireFacture({
    documentId:adminValeur('aiDocument')||null,invoiceNumber:adminValeur('aiNumber'),supplier:fournisseur,
-   documentDate:date,dueDate:echeance,amountHT:montantHT,taxAmount:tva,amountTTC:montantTTC,status:adminValeur('aiStatus'),
+   documentDate:date,dueDate:echeance,amountHT:montantHT,taxAmount:tva,amountTTC:montantTTC,taxRate:adminValeur('aiTaxRate'),status:adminValeur('aiStatus'),
    paymentDate:adminValeur('aiPaidDate')||null,paymentMethod:adminValeur('aiMethod'),
-   orderReference:adminValeur('aiOrder'),deliveryReference:adminValeur('aiDelivery'),notes:adminValeur('aiNotes')
+   orderReference:adminValeur('aiOrder'),deliveryReference:adminValeur('aiDelivery'),expenseCategoryId:adminValeur('aiExpense')||null,accountingCategoryId:adminValeur('aiAccounting')||null,lines:lignes,notes:adminValeur('aiNotes')
   },existant||null,new Date());
   if(existant)Object.assign(existant,record);else adminData().invoices.unshift(record);
+  adminSynchroniserDemandeApprobation(record,new Date());
   adminJournaliser(existant?'Facture modifiée':'Facture créée','SupplierInvoice',record.id,record.supplier+' · '+fmt(record.amountTTC)+' €');
   await save();closeModal();renderAdministration();toast(existant?'Facture mise à jour.':'Facture créée.');
  };
 }
 async function adminMarquerPayee(id){
  const f=adminData().invoices.find(function(x){return x.id===id});if(!f)return;
+ if(f.approvalStatus==='pending'||f.approvalStatus==='rejected'){toast('Cette facture doit être validée avant d’être marquée comme payée.');return}
  adminAppliquerStatutFacture(f,'payee',new Date());
  adminJournaliser('Facture marquée payée','SupplierInvoice',f.id,(f.supplier||'Fournisseur')+' · '+fmt(num(f.amountTTC))+' €');
  await save();renderAdministration();toast('Facture marquée comme payée.');
@@ -4289,6 +4480,58 @@ async function adminVoirDocument(id){
  const contenu=Docs.get(d.fileKey)||await Docs.getAsync(d.fileKey);
  if(!contenu){if(popup)popup.close();toast('Le fichier est indisponible sur cet appareil.');return}
  if(popup){popup.opener=null;popup.location.href=contenu}else toast('Autorisez l’ouverture d’un nouvel onglet pour voir le fichier.');
+}
+function openAdminContract(id){
+ const existant=id?adminData().contracts.find(function(x){return x.id===id}):null,c=existant||{},docs=adminDansEtablissement(adminData().documents);
+ document.getElementById('modal').innerHTML='<div class="sheet-bg" id="adminContractBg"><div class="sheet"><h3>'+(existant?'Modifier le contrat':'Nouveau contrat')+'</h3><p class="sh-sub">Les coûts et échéances alimentent automatiquement le dashboard.</p><div class="admin-modal-grid">'
+  +'<div class="fld wide"><label>Nom *</label><input id="acName" value="'+escapeHTML(c.name||'')+'" placeholder="Ex. Assurance multirisque"></div><div class="fld"><label>Fournisseur *</label><input id="acSupplier" value="'+escapeHTML(c.supplier||'')+'"></div><div class="fld"><label>Catégorie</label><input id="acCategory" value="'+escapeHTML(c.category||'')+'" placeholder="Énergie, assurance, logiciel…"></div><div class="fld"><label>Coût mensuel</label><input id="acMonthly" inputmode="decimal" value="'+escapeHTML(c.costMonthly??'')+'"></div><div class="fld"><label>Coût annuel</label><input id="acAnnual" inputmode="decimal" value="'+escapeHTML(c.costAnnual??'')+'"></div><div class="fld"><label>Date de début</label><input id="acStart" type="date" value="'+escapeHTML(c.startDate||'')+'"></div><div class="fld"><label>Date de fin *</label><input id="acEnd" type="date" value="'+escapeHTML(c.endDate||'')+'"></div><div class="fld"><label>Préavis (jours)</label><input id="acNotice" type="number" min="0" value="'+escapeHTML(c.noticeDays??30)+'"></div><div class="fld"><label>Statut</label><select id="acStatus">'+adminOptions(ADMIN_CONTRACT_STATUSES,c.status||'actif')+'</select></div><div class="fld"><label>Reconduction automatique</label><select id="acRenew"><option value="non" '+(!c.autoRenewal?'selected':'')+'>Non</option><option value="oui" '+(c.autoRenewal?'selected':'')+'>Oui</option></select></div><div class="fld"><label>Document associé</label><select id="acDocument"><option value="">Aucun</option>'+docs.map(function(d){return '<option value="'+d.id+'" '+(c.documentId===d.id?'selected':'')+'>'+escapeHTML(d.title||d.fileName||'Document')+'</option>'}).join('')+'</select></div><div class="fld wide"><label>Notes</label><textarea id="acNotes" rows="3">'+escapeHTML(c.notes||'')+'</textarea></div></div><button class="btn" id="acSave">Enregistrer</button><button class="btn btn-2" id="acCancel">Annuler</button></div></div>';
+ document.getElementById('acCancel').onclick=closeModal;document.getElementById('adminContractBg').onclick=function(e){if(e.target.id==='adminContractBg')closeModal()};
+ document.getElementById('acSave').onclick=async function(){const name=adminValeur('acName'),supplier=adminValeur('acSupplier'),end=adminValeur('acEnd');if(!name||!supplier||!end){toast('Renseignez le nom, le fournisseur et la date de fin.');return}const now=new Date().toISOString(),cost=adminCoutsContrat({costMonthly:adminValeur('acMonthly'),costAnnual:adminValeur('acAnnual')}),start=adminValeur('acStart');const record={id:c.id||uid('acontract'),name,supplier,category:adminValeur('acCategory'),establishmentId:c.establishmentId||adminEtablissementId(),organizationId:c.organizationId===undefined?adminOrganisationId():c.organizationId,costMonthly:cost.monthly,costAnnual:cost.annual,startDate:start||null,endDate:end,durationMonths:start?Math.max(0,Math.round((adminDate(end)-adminDate(start))/2629800000)):null,autoRenewal:adminValeur('acRenew')==='oui',noticeDays:Math.max(0,num(adminValeur('acNotice'))),documentId:adminValeur('acDocument')||null,status:adminValeur('acStatus'),notes:adminValeur('acNotes'),createdAt:c.createdAt||now,updatedAt:now,createdBy:c.createdBy||adminAuteur()};if(existant)Object.assign(existant,record);else adminData().contracts.unshift(record);adminJournaliser(existant?'Contrat modifié':'Contrat créé','AdministrativeContract',record.id,record.name);await save();closeModal();renderAdministration();toast('Contrat enregistré.');};
+}
+function openAdminObligation(id){
+ const existant=id?adminData().obligations.find(function(x){return x.id===id}):null,o=existant||{},docs=adminDansEtablissement(adminData().documents);
+ document.getElementById('modal').innerHTML='<div class="sheet-bg" id="adminObligationBg"><div class="sheet"><h3>'+(existant?'Modifier l’obligation':'Nouvelle obligation')+'</h3><p class="sh-sub">Créez uniquement les obligations adaptées à votre établissement.</p><div class="admin-modal-grid"><div class="fld wide"><label>Nom *</label><input id="aoName" value="'+escapeHTML(o.name||'')+'"></div><div class="fld"><label>Catégorie</label><input id="aoCategory" value="'+escapeHTML(o.category||'')+'" placeholder="Licence, sécurité…"></div><div class="fld"><label>Responsable</label><input id="aoResponsible" value="'+escapeHTML(o.responsible||'')+'"></div><div class="fld"><label>Dernière validation</label><input id="aoLast" type="date" value="'+escapeHTML(o.lastValidation||'')+'"></div><div class="fld"><label>Prochaine échéance</label><input id="aoNext" type="date" value="'+escapeHTML(o.nextDue||'')+'"></div><div class="fld"><label>Fréquence</label><input id="aoFrequency" value="'+escapeHTML(o.frequency||'')+'" placeholder="Annuelle, trimestrielle…"></div><div class="fld"><label>Statut</label><select id="aoStatus">'+adminOptions(ADMIN_OBLIGATION_STATUSES,o.status||'conforme')+'</select></div><div class="fld"><label>Document associé</label><select id="aoDocument"><option value="">Aucun</option>'+docs.map(function(d){return '<option value="'+d.id+'" '+(o.documentId===d.id?'selected':'')+'>'+escapeHTML(d.title||d.fileName||'Document')+'</option>'}).join('')+'</select></div><div class="fld wide"><label>Notes</label><textarea id="aoNotes" rows="3">'+escapeHTML(o.notes||'')+'</textarea></div></div><button class="btn" id="aoSave">Enregistrer</button><button class="btn btn-2" id="aoCancel">Annuler</button></div></div>';
+ document.getElementById('aoCancel').onclick=closeModal;document.getElementById('adminObligationBg').onclick=function(e){if(e.target.id==='adminObligationBg')closeModal()};
+ document.getElementById('aoSave').onclick=async function(){const name=adminValeur('aoName');if(!name){toast('Renseignez le nom de l’obligation.');return}const now=new Date().toISOString(),record={id:o.id||uid('aobl'),name,category:adminValeur('aoCategory'),establishmentId:o.establishmentId||adminEtablissementId(),organizationId:o.organizationId===undefined?adminOrganisationId():o.organizationId,lastValidation:adminValeur('aoLast')||null,nextDue:adminValeur('aoNext')||null,frequency:adminValeur('aoFrequency'),responsible:adminValeur('aoResponsible'),documentId:adminValeur('aoDocument')||null,status:adminValeur('aoStatus'),notes:adminValeur('aoNotes'),createdAt:o.createdAt||now,updatedAt:now,createdBy:o.createdBy||adminAuteur()};if(existant)Object.assign(existant,record);else adminData().obligations.unshift(record);adminJournaliser(existant?'Obligation modifiée':'Obligation créée','AdministrativeObligation',record.id,record.name);await save();closeModal();renderAdministration();toast('Obligation enregistrée.');};
+}
+function openAdminDeadline(){
+ document.getElementById('modal').innerHTML='<div class="sheet-bg" id="adminDeadlineBg"><div class="sheet"><h3>Nouvelle échéance</h3><p class="sh-sub">Ajoutez un événement administratif propre à votre établissement.</p><div class="admin-modal-grid"><div class="fld wide"><label>Titre *</label><input id="adeTitle"></div><div class="fld"><label>Date *</label><input id="adeDate" type="date"></div><div class="fld"><label>Type</label><input id="adeType" value="administratif"></div><div class="fld"><label>Montant éventuel</label><input id="adeAmount" inputmode="decimal"></div><div class="fld wide"><label>Notes</label><textarea id="adeNotes" rows="3"></textarea></div></div><button class="btn" id="adeSave">Ajouter</button><button class="btn btn-2" id="adeCancel">Annuler</button></div></div>';document.getElementById('adeCancel').onclick=closeModal;document.getElementById('adminDeadlineBg').onclick=function(e){if(e.target.id==='adminDeadlineBg')closeModal()};document.getElementById('adeSave').onclick=async function(){const title=adminValeur('adeTitle'),date=adminValeur('adeDate');if(!title||!date){toast('Renseignez le titre et la date.');return}const now=new Date().toISOString();adminData().deadlines.unshift({id:uid('adeadline'),title,date,type:adminValeur('adeType')||'administratif',amount:num(adminValeur('adeAmount')),notes:adminValeur('adeNotes'),status:'pending',establishmentId:adminEtablissementId(),organizationId:adminOrganisationId(),createdAt:now,updatedAt:now,createdBy:adminAuteur()});adminJournaliser('Échéance créée','AdministrativeDeadline',adminData().deadlines[0].id,title);await save();closeModal();renderAdministration();toast('Échéance ajoutée.');};
+}
+async function adminCompleteDeadline(id){
+ const d=adminData().deadlines.find(function(x){return x.id===id});if(!d)return;
+ d.status='completed';d.completedAt=new Date().toISOString();d.completedBy=adminAuteur();d.updatedAt=d.completedAt;
+ adminJournaliser('Échéance terminée','AdministrativeDeadline',d.id,d.title);await save();renderAdministration();toast('Échéance marquée comme terminée.');
+}
+function openAdminCash(){
+ document.getElementById('modal').innerHTML='<div class="sheet-bg" id="adminCashBg"><div class="sheet"><h3>Mouvement prévisionnel</h3><p class="sh-sub">Saisie manuelle clairement séparée des factures fournisseurs.</p><div class="admin-modal-grid"><div class="fld wide"><label>Libellé *</label><input id="acfTitle"></div><div class="fld"><label>Date *</label><input id="acfDate" type="date"></div><div class="fld"><label>Sens</label><select id="acfDirection"><option value="out">Décaissement</option><option value="in">Encaissement</option></select></div><div class="fld"><label>Montant *</label><input id="acfAmount" inputmode="decimal"></div><div class="fld"><label>Catégorie</label><input id="acfCategory" placeholder="Loyer, salaires…"></div></div><button class="btn" id="acfSave">Ajouter</button><button class="btn btn-2" id="acfCancel">Annuler</button></div></div>';document.getElementById('acfCancel').onclick=closeModal;document.getElementById('adminCashBg').onclick=function(e){if(e.target.id==='adminCashBg')closeModal()};document.getElementById('acfSave').onclick=async function(){const title=adminValeur('acfTitle'),date=adminValeur('acfDate'),amount=num(adminValeur('acfAmount'));if(!title||!date||!(amount>0)){toast('Renseignez le libellé, la date et un montant positif.');return}const now=new Date().toISOString();adminData().cashFlowForecasts.unshift({id:uid('acash'),title,date,direction:adminValeur('acfDirection'),amount,category:adminValeur('acfCategory'),establishmentId:adminEtablissementId(),organizationId:adminOrganisationId(),createdAt:now,updatedAt:now,createdBy:adminAuteur()});adminJournaliser('Prévision de trésorerie créée','CashFlowForecast',adminData().cashFlowForecasts[0].id,title);await save();closeModal();renderAdministration();toast('Mouvement ajouté.');};
+}
+function openAdminCashSettings(){
+ const s=adminData().settings;document.getElementById('modal').innerHTML='<div class="sheet-bg" id="adminCashSettingsBg"><div class="sheet"><h3>Paramètres de trésorerie</h3><p class="sh-sub">Ces valeurs sont saisies manuellement tant qu’aucune banque n’est connectée.</p><div class="fld"><label>Solde actuel</label><input id="acsBalance" inputmode="decimal" value="'+escapeHTML(s.currentCashBalance??'')+'" placeholder="Laisser vide si inconnu"></div><div class="fld"><label>Seuil d’alerte</label><input id="acsThreshold" inputmode="decimal" value="'+escapeHTML(s.cashWarningThreshold??0)+'"></div><button class="btn" id="acsSave">Enregistrer</button><button class="btn btn-2" id="acsCancel">Annuler</button></div></div>';document.getElementById('acsCancel').onclick=closeModal;document.getElementById('adminCashSettingsBg').onclick=function(e){if(e.target.id==='adminCashSettingsBg')closeModal()};document.getElementById('acsSave').onclick=async function(){const balance=adminValeur('acsBalance');s.currentCashBalance=balance===''?null:num(balance);s.cashWarningThreshold=num(adminValeur('acsThreshold'));s.cashBalanceUpdatedAt=s.currentCashBalance===null?null:adminDateISO();adminJournaliser('Trésorerie configurée','CashFlowForecast','settings','Solde et seuil mis à jour');await save();closeModal();renderAdministration();toast('Trésorerie configurée.');};
+}
+function openAdminVatSettings(){
+ const s=adminData().settings,source=s.vatCollectedSource||{};document.getElementById('modal').innerHTML='<div class="sheet-bg" id="adminVatBg"><div class="sheet"><h3>Paramètres TVA</h3><p class="sh-sub">Les taux restent configurables et les montants sont indicatifs.</p><div class="fld"><label>Taux séparés par des virgules</label><input id="avsRates" value="'+escapeHTML((s.taxRates||[]).join(', '))+'"></div><div class="fld"><label>TVA collectée disponible</label><input id="avsCollected" inputmode="decimal" value="'+escapeHTML(source.amount??'')+'" placeholder="Laisser vide si la source n’existe pas"></div><div class="fld"><label>Période de la source</label><input id="avsPeriod" type="month" value="'+escapeHTML(source.period||'')+'"></div><button class="btn" id="avsSave">Enregistrer</button><button class="btn btn-2" id="avsCancel">Annuler</button></div></div>';document.getElementById('avsCancel').onclick=closeModal;document.getElementById('adminVatBg').onclick=function(e){if(e.target.id==='adminVatBg')closeModal()};document.getElementById('avsSave').onclick=async function(){const rates=adminValeur('avsRates').split(/[,;]/).map(num).filter(function(x){return x>0&&x<=100});if(!rates.length){toast('Renseignez au moins un taux valide.');return}s.taxRates=[...new Set(rates)];const amount=adminValeur('avsCollected');s.vatCollectedSource=amount===''?null:{amount:num(amount),period:adminValeur('avsPeriod')||null,source:'manual'};adminJournaliser('TVA configurée','TaxRate','settings',s.taxRates.join(', ')+' %');await save();closeModal();renderAdministration();toast('TVA configurée.');};
+}
+function openAdminContractSettings(){
+ const s=adminData().settings;document.getElementById('modal').innerHTML='<div class="sheet-bg" id="adminContractSettingsBg"><div class="sheet"><h3>Alertes contrats</h3><p class="sh-sub">Délais en jours avant l’échéance.</p><div class="fld"><label>Délais séparés par des virgules</label><input id="actDays" value="'+escapeHTML((s.contractAlertDays||[]).join(', '))+'"></div><button class="btn" id="actSave">Enregistrer</button><button class="btn btn-2" id="actCancel">Annuler</button></div></div>';document.getElementById('actCancel').onclick=closeModal;document.getElementById('adminContractSettingsBg').onclick=function(e){if(e.target.id==='adminContractSettingsBg')closeModal()};document.getElementById('actSave').onclick=async function(){const days=adminValeur('actDays').split(/[,;]/).map(num).filter(function(x){return x>=0}).sort(function(a,b){return b-a});if(!days.length){toast('Renseignez au moins un délai.');return}s.contractAlertDays=[...new Set(days)];await save();closeModal();renderAdministration();toast('Délais enregistrés.');};
+}
+function openAdminAnomalySettings(){
+ const s=adminData().settings;document.getElementById('modal').innerHTML='<div class="sheet-bg" id="adminAnomalySettingsBg"><div class="sheet"><h3>Détection des hausses tarifaires</h3><p class="sh-sub">Le contrôle compare le prix fournisseur courant au prix précédent déjà conservé par l’application.</p><div class="fld"><label>Seuil d’alerte en pourcentage</label><input id="aasThreshold" type="number" min="0" step="0.1" value="'+escapeHTML(s.priceIncreaseAlertPercent??10)+'"></div><button class="btn" id="aasSave">Enregistrer</button><button class="btn btn-2" id="aasCancel">Annuler</button></div></div>';document.getElementById('aasCancel').onclick=closeModal;document.getElementById('adminAnomalySettingsBg').onclick=function(e){if(e.target.id==='adminAnomalySettingsBg')closeModal()};document.getElementById('aasSave').onclick=async function(){s.priceIncreaseAlertPercent=Math.max(0,num(adminValeur('aasThreshold')));adminJournaliser('Seuil tarifaire configuré','AdministrativeAnomaly','settings',fmt(s.priceIncreaseAlertPercent)+' %');await save();closeModal();renderAdministration();toast('Seuil enregistré.');};
+}
+function openAdminCategorySettings(){
+ const data=adminData();document.getElementById('modal').innerHTML='<div class="sheet-bg" id="adminCategoryBg"><div class="sheet"><h3>Catégories de pré-comptabilité</h3><p class="sh-sub">Une ligne par catégorie. Pour les comptes : code puis nom, séparés par « : ».</p><div class="fld"><label>Catégories de dépenses</label><textarea id="apcExpenses" rows="6">'+escapeHTML((data.expenseCategories||[]).map(function(x){return x.name}).join('\n'))+'</textarea></div><div class="fld"><label>Comptes comptables</label><textarea id="apcAccounts" rows="6">'+escapeHTML((data.accountingCategories||[]).map(function(x){return(x.code?x.code+': ':'')+x.name}).join('\n'))+'</textarea></div><button class="btn" id="apcSave">Enregistrer</button><button class="btn btn-2" id="apcCancel">Annuler</button></div></div>';document.getElementById('apcCancel').onclick=closeModal;document.getElementById('adminCategoryBg').onclick=function(e){if(e.target.id==='adminCategoryBg')closeModal()};document.getElementById('apcSave').onclick=async function(){const oldE=data.expenseCategories||[],oldA=data.accountingCategories||[];data.expenseCategories=adminValeur('apcExpenses').split('\n').map(function(x){return x.trim()}).filter(Boolean).map(function(name){const old=oldE.find(function(x){return x.name===name});return{id:old?old.id:uid('expense'),name}});data.accountingCategories=adminValeur('apcAccounts').split('\n').map(function(x){return x.trim()}).filter(Boolean).map(function(line){const p=line.split(':'),code=p.length>1?p.shift().trim():'',name=p.join(':').trim()||code,old=oldA.find(function(x){return x.code===code&&x.name===name});return{id:old?old.id:uid('account'),code,name}});adminJournaliser('Catégories comptables configurées','AccountingCategory','settings',data.expenseCategories.length+' dépenses · '+data.accountingCategories.length+' comptes');await save();closeModal();renderAdministration();toast('Catégories enregistrées.');};
+}
+function openAdminApprovalRule(id){
+ const data=adminData(),s=data.settings;let workflows=data.approvalWorkflows||(data.approvalWorkflows=[]);if(!workflows.length&&(s.approvalRules||[]).length){workflows=s.approvalRules.slice();data.approvalWorkflows=workflows}const rules=workflows,r=id?rules.find(function(x){return x.id===id}):null,x=r||{};
+ document.getElementById('modal').innerHTML='<div class="sheet-bg" id="adminRuleBg"><div class="sheet"><h3>'+(r?'Modifier la règle':'Nouvelle règle de validation')+'</h3><p class="sh-sub">Les seuils ne sont jamais figés dans l’interface.</p><div class="admin-modal-grid"><div class="fld"><label>Montant minimum</label><input id="arMin" inputmode="decimal" value="'+escapeHTML(x.minAmount??0)+'"></div><div class="fld"><label>Montant maximum</label><input id="arMax" inputmode="decimal" value="'+escapeHTML(x.maxAmount??'')+'" placeholder="Vide = sans limite"></div><div class="fld"><label>Rôle validateur</label><select id="arRole">'+POSTES.filter(function(p){return p.resp}).map(function(p){return '<option value="'+p.id+'" '+(x.role===p.id?'selected':'')+'>'+escapeHTML(p.n)+'</option>'}).join('')+'</select></div><div class="fld"><label>Type de document</label><select id="arType"><option value="facture">Facture</option></select></div></div><button class="btn" id="arSave">Enregistrer</button><button class="btn btn-2" id="arCancel">Annuler</button></div></div>';document.getElementById('arCancel').onclick=closeModal;document.getElementById('adminRuleBg').onclick=function(e){if(e.target.id==='adminRuleBg')closeModal()};document.getElementById('arSave').onclick=async function(){const min=Math.max(0,num(adminValeur('arMin'))),max=adminValeur('arMax')===''?null:Math.max(0,num(adminValeur('arMax')));if(max!==null&&max<min){toast('Le maximum doit être supérieur au minimum.');return}const record={id:x.id||uid('arule'),minAmount:min,maxAmount:max,role:adminValeur('arRole'),establishmentId:adminEtablissementId(),documentType:'facture',required:true,enabled:true};if(r)Object.assign(r,record);else workflows.push(record);s.approvalRules=workflows;adminJournaliser(r?'Règle de validation modifiée':'Règle de validation créée','ApprovalWorkflow',record.id,fmt(min)+' € à '+(max===null?'∞':fmt(max)+' €'));await save();closeModal();renderAdministration();toast('Règle enregistrée.');};
+}
+async function adminSetApproval(id,status){
+ const f=adminData().invoices.find(function(x){return x.id===id});if(!f||!ADMIN_APPROVAL_STATUSES.some(function(x){return x.id===status}))return;f.approvalStatus=status;f.updatedAt=new Date().toISOString();f.approvedBy=status==='approved'?adminAuteur():null;f.approvedAt=status==='approved'?f.updatedAt:null;adminSynchroniserDemandeApprobation(f,new Date());adminJournaliser(status==='approved'?'Facture validée':'Facture rejetée','ApprovalRequest',f.id,f.supplier+' · '+fmt(num(f.amountTTC))+' €');await save();renderAdministration();toast(status==='approved'?'Facture validée.':'Facture rejetée.');}
+async function adminSetAnomalyStatus(key,status){
+ const data=adminData(),found=(data.anomalies||[]).find(function(x){return x.key===key}),now=new Date().toISOString();if(found){found.status=status;found.updatedAt=now}else data.anomalies.push({id:uid('aanomaly'),key,status,detectedAt:now,updatedAt:now,resolution:status==='resolue'?'Résolue manuellement':''});adminJournaliser(status==='resolue'?'Anomalie résolue':'Anomalie ignorée','AdministrativeAnomaly',key,key);await save();renderAdministration();toast('Anomalie mise à jour.');}
+function adminExportAccounting(){
+ const expenses=adminData().expenseCategories||[],accounts=adminData().accountingCategories||[],rows=[['Date','Fournisseur','Numero','HT','TVA','TTC','Taux TVA','Categorie depense','Compte','Statut','Piece']];
+ adminDansEtablissement(adminData().invoices).forEach(function(f){const e=expenses.find(function(x){return x.id===f.expenseCategoryId}),a=accounts.find(function(x){return x.id===f.accountingCategoryId});rows.push([f.documentDate||'',f.supplier||'',f.invoiceNumber||'',num(f.amountHT),num(f.taxAmount),num(f.amountTTC),f.taxRate??'',e?e.name:'',a?(a.code? a.code+' ':'')+a.name:'',f.status||'',f.documentId?'oui':'non'])});
+ dlCsv(rows,'pre-comptabilite_'+adminDateISO()+'.csv');adminJournaliser('Pré-comptabilité exportée','AccountingExport','csv',rows.length-1+' factures');save();
 }
 
 /* ═══════ PRÉPARATION DE L'IMAGE ═══════
