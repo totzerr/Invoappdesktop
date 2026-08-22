@@ -339,3 +339,34 @@ test(path+' expose toutes les vues Administration et leurs états responsives',(
  assert.match(source,/Estimation indicative basée sur les données présentes dans le logiciel/);
  assert.match(source,/Aucun connecteur fictif/);
 });
+
+test(path+' réserve les quantités attendues et écarts d’inventaire aux seuls profils autorisés',()=>{
+ assert.match(source,/const peutVoirEcartsInventaire=\(\)=>\['gestion','salle'\]\.includes\(st\.whoId\)/);
+ const inventory=source.match(/function renderInv\(\)\{[\s\S]*?\n\}\n\nasync function validerInv/)?.[0]||'';
+ const history=source.match(/function renderInvHist\(sub\)\{[\s\S]*?\n\}\n\nfunction openHist/)?.[0]||'';
+ const detail=source.match(/function openHist\(ix\)\{[\s\S]*?\n\}\n\nfunction dlCsv/)?.[0]||'';
+ const exportCsv=source.match(/function exportInvCsv\(\)\{[\s\S]*?\n\}/)?.[0]||'';
+ assert.ok(inventory&&history&&detail&&exportCsv);
+ assert.match(inventory,/const voirEcarts=peutVoirEcartsInventaire\(\)/);
+ assert.match(inventory,/voirEcarts\?`<div class="iv-att">/);
+ assert.match(inventory,/classList\.toggle\('inventory-limited',!voirEcarts\)/);
+ assert.match(history,/voirEcarts&&rec\.length/);
+ assert.match(detail,/voirEcarts\?\[\['Produit','Unite','Attendu','Compte','Ecart'/);
+ assert.match(exportCsv,/const voirEcarts=peutVoirEcartsInventaire\(\)/);
+ assert.match(source,/peutVoirEcartsInventaire\(\)\?`<div class="kpi \$\{ecInv/);
+ assert.match(source,/if\(peutVoirEcartsInventaire\(\)&&rep\.length\)/);
+});
+
+test(path+' prépare une relève email sécurisée sans simuler de connexion',()=>{
+ assert.match(source,/const ADMIN_EMAIL_PROVIDERS=\[\{id:'gmail'/);
+ assert.match(source,/mailInbox:\{provider:'',address:'',status:'not_configured'/);
+ assert.match(source,/function adminImporterMessagesEmail\(messages\)/);
+ assert.match(source,/sourceMessageId:messageId/);
+ assert.match(source,/processingStatus:'needs_review',source:'email'/);
+ assert.match(source,/journal\.some\(function\(x\)\{return x\.messageId===messageId\}\)/);
+ assert.match(source,/function adminEmailAdapter\(provider\)\{return\(window\.INVO_ADMIN_EMAIL_ADAPTERS/);
+ assert.match(source,/Un backend OAuth sécurisé doit être connecté à INVO/);
+ assert.match(source,/INVO ne demande et ne conserve jamais le mot de passe/);
+ assert.match(source,/cfg\.status==='connected'&&Date\.now\(\)-derniere>15\*60\*1000/);
+ assert.doesNotMatch(source,/id="aemPassword"|id="aemSecret"/);
+});
