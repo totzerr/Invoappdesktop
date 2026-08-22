@@ -1296,6 +1296,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 
 /* INVO · SORTIES, INVENTAIRE & RÉGLAGES */
 :root{--inv-grid:minmax(0,1fr) 88px 96px}.inv-line,.inv-table-head{display:grid!important;grid-template-columns:var(--inv-grid)!important;gap:12px!important;align-items:center}.inv-table-head{padding:0 0 10px!important;font:800 9.5px Inter,sans-serif!important;letter-spacing:.11em!important;color:#766F65!important;border-bottom:1px solid #E3DED4!important}.inv-table-head span:nth-child(2){text-align:right}.inv-table-head span:nth-child(3){text-align:center}.iv-att{padding-right:4px!important;font-variant-numeric:tabular-nums!important}.iv-inp{min-height:42px!important}.inv-actions{position:sticky;bottom:0;z-index:8;padding:12px 0 calc(10px + env(safe-area-inset-bottom));margin:16px 0 0!important;background:linear-gradient(180deg,rgba(246,245,242,0),#F6F5F2 25%)}
+.inventory-limited .inv-line,.inventory-limited .inv-table-head{grid-template-columns:minmax(0,1fr) 96px!important}.inventory-limited .inv-table-head span:last-child{text-align:center}.inventory-limited .inv-head{border-left:3px solid #315cf6!important}
 .cartbar{z-index:90!important}.cartbar-in{width:100%!important;border:0!important;text-align:left!important;font:inherit!important}.cb-action{display:flex;align-items:center;gap:7px;padding:8px 11px;border-radius:9px;background:rgba(255,255,255,.16);font:800 11px Inter,sans-serif;white-space:nowrap}.cb-action i{font-style:normal;font-size:17px}.pk-motif-field{display:flex;align-items:center;gap:8px;margin-top:8px}.pk-motif-field small{flex:0 0 auto;color:var(--steel-d,#6C6861);font:800 9px Inter,sans-serif;letter-spacing:.07em;text-transform:uppercase}.pk-motif{width:100%;min-width:0;padding:7px 24px 7px 9px;border:1px solid var(--border,#E1DDD5);border-radius:8px;background:#fff;color:var(--ink,#171614);font:600 11px Inter,sans-serif}
 .ing-row{grid-template-columns:minmax(0,1fr) 74px 58px 32px!important}.ing-row .ing-equivalent{grid-column:2/4;color:var(--steel-d,#6C6861);font:600 9px Inter,sans-serif;margin-top:-5px}.ing-unit{min-width:0!important;padding:8px 4px!important;font-size:11px!important}
 #bgR .sheet{max-width:720px!important}.settings-tabs{gap:8px!important;padding:0!important;background:transparent!important;display:grid!important;grid-template-columns:1fr 1fr!important}.settings-tabs button{min-height:74px!important;align-items:flex-start!important;justify-content:center!important;flex-direction:column!important;padding:14px 15px!important;border:1px solid #E3DED4!important;border-radius:15px!important;background:#FBFAF8!important;color:#5A554D!important;box-shadow:none!important}.settings-tabs button:before{display:block;font-size:18px;line-height:1;margin-bottom:5px}.settings-tabs button[data-settings="general"]:before{content:"◌"}.settings-tabs button[data-settings="users"]:before{content:"◫"}.settings-tabs button.on{background:#171614!important;border-color:#171614!important;color:#fff!important;box-shadow:0 8px 20px rgba(23,22,20,.12)!important}.settings-tabs button.on:after{content:"Établissement, données et matériel";font:500 9px Inter,sans-serif;opacity:.68}.settings-tabs button[data-settings="users"].on:after{content:"Accès et rôles de l’équipe"}#bgR .set-sec{display:flex;align-items:center;gap:9px;margin-top:22px!important;padding:0!important;background:transparent!important;color:#6F675B!important;font:800 10px Inter,sans-serif!important;letter-spacing:.12em!important}#bgR .set-sec:before{content:"";width:7px;height:7px;border-radius:50%;background:#B28A3C}#bgR .set-row,#bgR .auth-msg{border-radius:13px!important}
@@ -1693,9 +1694,10 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .admin-empty{padding:42px 20px;text-align:center;color:#817565}.admin-empty i{display:block;margin-bottom:9px;font-style:normal;font-size:28px;opacity:.55}.admin-empty b{display:block;color:#453e35;font:700 15px Fraunces,Georgia,serif}.admin-empty span{display:block;max-width:430px;margin:5px auto 15px;font:550 11px/1.5 Inter,system-ui,sans-serif}
 .admin-deadlines{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.admin-deadline{padding:15px;border:1px solid #e2dbcf;border-radius:15px;background:#fffdfa}.admin-deadline h3{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;color:#373129;font:700 15px Fraunces,Georgia,serif}.admin-deadline h3 span{border-radius:99px;background:#f0ece4;padding:3px 7px;font:800 9px Inter,system-ui,sans-serif}.admin-deadline-line{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px;padding:9px 0;border-bottom:1px solid #eee8de}.admin-deadline-line:last-child{border:0}.admin-deadline-line b{font:700 11px Inter,system-ui,sans-serif}.admin-deadline-line strong{font:750 11px Inter,system-ui,sans-serif}.admin-deadline-line small{grid-column:1/-1;color:#867a69;font:550 9px Inter,system-ui,sans-serif}
 .admin-upload{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:18px;border:1px dashed #cfbea0;border-radius:16px;background:#fbf7ee}.admin-upload b{display:block;color:#373129;font:700 15px Fraunces,Georgia,serif}.admin-upload span{display:block;margin-top:4px;color:#817565;font:550 10px/1.45 Inter,system-ui,sans-serif}
+.admin-email-card{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:13px;align-items:center;margin-bottom:11px;padding:16px;border:1px solid #dce4ec;border-radius:16px;background:#f8fbfd}.admin-email-icon{display:grid;width:40px;height:40px;place-items:center;border-radius:12px;background:#e7eff6;color:#315d78;font-size:19px}.admin-email-copy b{display:block;color:#373129;font:750 13px Inter,system-ui,sans-serif}.admin-email-copy span{display:block;margin-top:3px;color:#718092;font:550 10px/1.45 Inter,system-ui,sans-serif}.admin-email-actions{display:flex;gap:7px;align-items:center}.admin-email-actions .btn{width:auto;margin:0;white-space:nowrap}
 .admin-widget{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;padding:18px;margin-top:3px}.admin-widget small{color:#8a6b34;font:850 8px Inter,system-ui,sans-serif;letter-spacing:.11em;text-transform:uppercase}.admin-widget h2{margin:4px 0;color:#312c25;font:700 20px Fraunces,Georgia,serif}.admin-widget-stats{display:flex;gap:11px;flex-wrap:wrap;color:#7c7161;font:650 10px Inter,system-ui,sans-serif}.admin-widget-stats b{color:#433b31}.admin-widget .btn{width:auto;margin:0;white-space:nowrap}
 .admin-modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.admin-modal-grid .wide{grid-column:1/-1}.admin-modal-hint{margin:-2px 0 12px;padding:9px 10px;border-radius:9px;background:#f6f2e9;color:#7b7060;font:550 9.5px/1.45 Inter,system-ui,sans-serif}
-@media(max-width:760px){.admin-head{align-items:flex-start;flex-direction:column}.admin-head .btn{width:100%}.admin-head h1{font-size:34px}.admin-summary{grid-template-columns:1fr 1fr}.admin-grid,.admin-deadlines{grid-template-columns:1fr}.admin-toolbar{align-items:stretch;flex-direction:column}.admin-filters{display:grid;grid-template-columns:1fr 1fr}.admin-toolbar>.btn{width:100%}.admin-list-head{display:none}.admin-row{grid-template-columns:minmax(0,1fr) auto;gap:8px}.admin-row>span{grid-column:1}.admin-row-actions{grid-column:2;grid-row:1/5;flex-direction:column}.admin-widget{grid-template-columns:1fr}.admin-widget .btn{width:100%}.admin-action{grid-template-columns:auto minmax(0,1fr)}.admin-action-meta{grid-column:2;align-items:flex-start;text-align:left}.admin-modal-grid{grid-template-columns:1fr}.admin-modal-grid .wide{grid-column:auto}}
+@media(max-width:760px){.admin-head{align-items:flex-start;flex-direction:column}.admin-head .btn{width:100%}.admin-head h1{font-size:34px}.admin-summary{grid-template-columns:1fr 1fr}.admin-grid,.admin-deadlines{grid-template-columns:1fr}.admin-toolbar{align-items:stretch;flex-direction:column}.admin-filters{display:grid;grid-template-columns:1fr 1fr}.admin-toolbar>.btn{width:100%}.admin-list-head{display:none}.admin-row{grid-template-columns:minmax(0,1fr) auto;gap:8px}.admin-row>span{grid-column:1}.admin-row-actions{grid-column:2;grid-row:1/5;flex-direction:column}.admin-widget{grid-template-columns:1fr}.admin-widget .btn{width:100%}.admin-email-card{grid-template-columns:auto minmax(0,1fr)}.admin-email-actions{grid-column:1/-1}.admin-email-actions .btn{flex:1}.admin-action{grid-template-columns:auto minmax(0,1fr)}.admin-action-meta{grid-column:2;align-items:flex-start;text-align:left}.admin-modal-grid{grid-template-columns:1fr}.admin-modal-grid .wide{grid-column:auto}}
 @media(max-width:480px){.admin-summary{grid-template-columns:1fr}.admin-filters{grid-template-columns:1fr}.admin-kpi{min-height:105px}.admin-upload{align-items:flex-start;flex-direction:column}.admin-upload .btn{width:100%}}
 .admin-subgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}.admin-data-card{padding:16px;border:1px solid #e1dacd;border-radius:15px;background:#fffdfa}.admin-data-card small{color:#877a67;font:800 8px Inter,system-ui,sans-serif;letter-spacing:.09em;text-transform:uppercase}.admin-data-card b{display:block;margin:9px 0 4px;color:#302b24;font:700 23px Fraunces,Georgia,serif}.admin-data-card span{display:block;color:#817565;font:550 10px/1.45 Inter,system-ui,sans-serif}
 .admin-timeline{display:grid;gap:0}.admin-timeline-row{display:grid;grid-template-columns:95px 11px minmax(0,1fr) auto;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid #eee8de}.admin-timeline-row:last-child{border-bottom:0}.admin-timeline-row time{color:#786e60;font:750 9px Inter,system-ui,sans-serif}.admin-timeline-row>i{width:9px;height:9px;border-radius:50%;background:#9b7431}.admin-timeline-row>i.out{background:#a4402a}.admin-timeline-row>i.in{background:#39704d}.admin-timeline-row b{font:700 11px Inter,system-ui,sans-serif}.admin-timeline-row small{display:block;margin-top:2px;color:#857969;font:550 9px Inter,system-ui,sans-serif}.admin-timeline-row strong{font:750 11px Inter,system-ui,sans-serif;font-variant-numeric:tabular-nums}.admin-timeline-row strong.out{color:#9a3c27}.admin-timeline-row strong.in{color:#2e6944}
@@ -2428,13 +2430,16 @@ const PROFILS_METIER=[
 const PROFILS_METIER_IDS=PROFILS_METIER.map(function(p){return p.id});
 /* Droits : les responsables voient tout. L'équipe voit Déclarer, Livraisons, Inventaire, Stock (sans prix). */
 const estResp=()=>{const p=POSTES.find(x=>x.id===st.whoId);return p?!!p.resp:true};
+/* Les quantités théoriques et écarts d'inventaire sont réservés à la direction et à la salle. */
+const peutVoirEcartsInventaire=()=>['gestion','salle'].includes(st.whoId);
 const ONGLETS_RESP=['caisse','bil','admin'];
 
 function administrationVierge(){return{
- version:1,documents:[],invoices:[],anomalies:[],auditLog:[],contracts:[],obligations:[],deadlines:[],
+ version:1,documents:[],invoices:[],anomalies:[],auditLog:[],contracts:[],obligations:[],deadlines:[],emailMessages:[],
  approvalWorkflows:[],approvalRequests:[],expenseCategories:[],accountingCategories:[],cashFlowForecasts:[],
  settings:{taxRates:[5.5,10,20],contractAlertDays:[90,60,30,7],approvalRules:[],
   currentCashBalance:null,cashBalanceUpdatedAt:null,cashWarningThreshold:0,priceIncreaseAlertPercent:10,vatCollectedSource:null,
+  mailInbox:{provider:'',address:'',status:'not_configured',autoImport:true,unreadOnly:true,lastSync:null,lastError:''},
   integrations:{ocr:'not_configured',emailInbox:'not_configured',accounting:'not_configured',banking:'not_configured',electronicInvoicing:'not_configured',supplierImport:'not_configured'}}
 }}
 
@@ -3964,6 +3969,7 @@ const ADMIN_PROCESSING_STATUSES=[
 const ADMIN_CONTRACT_STATUSES=[{id:'actif',label:'Actif'},{id:'a_renouveler',label:'À renouveler'},{id:'resilie',label:'Résilié'},{id:'expire',label:'Expiré'}];
 const ADMIN_OBLIGATION_STATUSES=[{id:'conforme',label:'Conforme'},{id:'a_renouveler',label:'À renouveler'},{id:'bientot_expire',label:'Bientôt expiré'},{id:'expire',label:'Expiré'},{id:'manquant',label:'Manquant'}];
 const ADMIN_APPROVAL_STATUSES=[{id:'pending',label:'En attente'},{id:'approved',label:'Approuvée'},{id:'rejected',label:'Rejetée'},{id:'cancelled',label:'Annulée'}];
+const ADMIN_EMAIL_PROVIDERS=[{id:'gmail',label:'Google Gmail / Workspace'},{id:'microsoft',label:'Microsoft Outlook / 365'},{id:'imap',label:'Autre messagerie (passerelle IMAP)'}];
 const ADMIN_MAX_FILE=15*1024*1024;
 const adminDateISO=function(date){const d=date||new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
 function adminDate(value){if(!value)return null;const d=value instanceof Date?new Date(value):new Date(String(value).slice(0,10)+'T12:00:00');return isNaN(d.getTime())?null:d}
@@ -4168,6 +4174,52 @@ function adminClasseStatut(statut){
  return statut==='en_retard'?'critical':statut==='payee'?'ok':statut==='a_payer'||statut==='a_valider'?'warn':statut==='a_verifier'?'info':'';
 }
 function adminFormatDate(date){const d=adminDate(date);return d?d.toLocaleDateString('fr-FR'):'—'}
+function adminMailConfig(){
+ const s=adminData().settings;if(!s.mailInbox)s.mailInbox={provider:'',address:'',status:'not_configured',autoImport:true,unreadOnly:true,lastSync:null,lastError:''};return s.mailInbox;
+}
+function adminMailStatusLabel(status){return status==='connected'?'Connectée':status==='syncing'?'Synchronisation…':status==='error'?'Erreur':status==='needs_configuration'?'Connexion à finaliser':'Non configurée'}
+function adminEmailAdapter(provider){return(window.INVO_ADMIN_EMAIL_ADAPTERS||{})[provider]||null}
+function adminEmailExpediteur(message){
+ const from=message&&message.from;if(typeof from==='string')return{name:from.split('@')[0]||'',address:from};return{name:String((from&&from.name)||''),address:String((from&&from.address)||'')};
+}
+function adminEmailPieceValide(piece){
+ if(!piece||!piece.dataUrl)return false;const type=String(piece.type||'').toLowerCase(),nom=String(piece.name||'').toLowerCase();
+ const accepte=type==='application/pdf'||type.startsWith('image/')||/\.(pdf|png|jpe?g|webp|heic)$/.test(nom),taille=num(piece.size)||Math.floor(String(piece.dataUrl).split(',').pop().length*.75);return accepte&&taille>0&&taille<=ADMIN_MAX_FILE;
+}
+async function adminImporterMessagesEmail(messages){
+ const data=adminData(),journal=data.emailMessages||(data.emailMessages=[]);let documents=0,factures=0,ignores=0;
+ for(const message of(Array.isArray(messages)?messages:[])){
+  const messageId=String(message.id||message.messageId||'').trim();if(!messageId||journal.some(function(x){return x.messageId===messageId})){ignores++;continue}
+  const expediteur=adminEmailExpediteur(message),pieces=(message.attachments||[]).filter(adminEmailPieceValide);let importees=0;
+  for(const piece of pieces){
+   const sourceKey=messageId+'|'+String(piece.id||piece.name||importees);if(data.documents.some(function(d){return d.sourceKey===sourceKey})){ignores++;continue}
+   const now=new Date().toISOString(),extrait=Object.assign({},message.extracted||{},piece.extracted||{}),fileKey=await Docs.put(String(piece.dataUrl)),dateDoc=extrait.documentDate||String(message.receivedAt||now).slice(0,10),record={
+    id:uid('adoc'),title:String(message.subject||piece.name||'Facture reçue par email'),type:'facture',supplier:String(extrait.supplier||expediteur.name||expediteur.address||''),establishmentId:adminEtablissementId(),organizationId:adminOrganisationId(),documentDate:dateDoc,dueDate:extrait.dueDate||null,expiryDate:extrait.dueDate||null,status:'actif',notes:'Importée automatiquement depuis la messagerie configurée.',fileKey,fileName:String(piece.name||'facture'),fileType:String(piece.type||''),fileSize:num(piece.size),processingStatus:'needs_review',source:'email',sourceKey,sourceMessageId:messageId,receivedAt:message.receivedAt||now,createdAt:now,updatedAt:now,createdBy:'Connecteur email'
+   };data.documents.unshift(record);documents++;importees++;
+   const facture=adminConstruireFacture({documentId:record.id,invoiceNumber:extrait.invoiceNumber||'',supplier:record.supplier,establishmentId:record.establishmentId,organizationId:record.organizationId,documentDate:record.documentDate,dueDate:record.dueDate,amountHT:extrait.amountHT??0,taxAmount:extrait.taxAmount??0,amountTTC:extrait.amountTTC??0,taxRate:extrait.taxRate??'',status:'a_verifier',paymentDate:null,paymentMethod:'',orderReference:extrait.orderReference||'',deliveryReference:extrait.deliveryReference||'',expenseCategoryId:null,accountingCategoryId:null,notes:'Créée depuis un email · informations à vérifier'},null,new Date());
+   facture.source='email';facture.sourceMessageId=messageId;data.invoices.unshift(facture);adminSynchroniserDemandeApprobation(facture,new Date());factures++;
+  }
+  journal.unshift({id:uid('aemail'),messageId,subject:String(message.subject||''),from:expediteur.address,receivedAt:message.receivedAt||null,status:importees?'imported':'no_supported_attachment',documentCount:importees,createdAt:new Date().toISOString(),establishmentId:adminEtablissementId(),organizationId:adminOrganisationId()});
+ }
+ if(documents)adminJournaliser('Factures importées depuis la messagerie','AdministrativeEmailInbox','sync',documents+' document'+(documents>1?'s':'')+' · '+factures+' facture'+(factures>1?'s':''));
+ return{documents,factures,ignored:ignores};
+}
+async function adminSynchroniserMessagerie(options){
+ const silencieux=!!(options&&options.silent),cfg=adminMailConfig(),adapter=adminEmailAdapter(cfg.provider);
+ if(!cfg.address||!cfg.provider)return{status:'not_configured',documents:0};
+ if(!adapter||typeof adapter.listInvoices!=='function'){
+  cfg.status='needs_configuration';cfg.lastError='Un backend OAuth sécurisé doit être connecté à INVO avant la première relève.';adminData().settings.integrations.emailInbox='needs_configuration';await save();if(screen==='admin')renderAdministration();if(!silencieux)toast('La connexion email nécessite encore le service OAuth côté serveur.');return{status:cfg.status,documents:0};
+ }
+ try{
+  cfg.status='syncing';cfg.lastError='';if(screen==='admin')renderAdministration();
+  if(typeof adapter.connect==='function'&&adapter.isConnected&&!(await adapter.isConnected()))await adapter.connect({address:cfg.address});
+  const messages=await adapter.listInvoices({address:cfg.address,since:cfg.lastSync,unreadOnly:cfg.unreadOnly!==false,attachmentTypes:['application/pdf','image/*']});
+  const resultat=await adminImporterMessagesEmail(messages);cfg.status='connected';cfg.lastSync=new Date().toISOString();adminData().settings.integrations.emailInbox='connected';await save();if(screen==='admin')renderAdministration();if(!silencieux)toast(resultat.documents?resultat.documents+' facture'+(resultat.documents>1?'s':'')+' importée'+(resultat.documents>1?'s':'')+'.':'Aucune nouvelle facture trouvée.');return Object.assign({status:'connected'},resultat);
+ }catch(e){console.error('Synchronisation email impossible',e);cfg.status='error';cfg.lastError='La relève a échoué. Vérifiez la connexion du fournisseur de messagerie.';adminData().settings.integrations.emailInbox='error';await save();if(screen==='admin')renderAdministration();if(!silencieux)toast('Impossible de relever la messagerie.');return{status:'error',documents:0}}
+}
+function adminSynchronisationAutomatique(){
+ const cfg=adminMailConfig(),derniere=cfg.lastSync?new Date(cfg.lastSync).getTime():0;if(cfg.autoImport&&cfg.status==='connected'&&Date.now()-derniere>15*60*1000)adminSynchroniserMessagerie({silent:true});
+}
 function adminWidgetAccueil(){
  if(!estResp())return'';
  const r=adminResume(new Date()),urgentes=adminAlertes(new Date()).filter(function(a){return a.priority==='critical'||a.priority==='high'}).length;
@@ -4221,12 +4273,14 @@ function adminFournisseurs(){
  return[...new Set(noms)].sort(function(a,b){return a.localeCompare(b,'fr')});
 }
 function adminVueInbox(){
- const docs=adminDansEtablissement(adminData().documents).slice().sort(function(a,b){return String(b.createdAt).localeCompare(String(a.createdAt))});
+ const cfg=adminMailConfig(),provider=ADMIN_EMAIL_PROVIDERS.find(function(x){return x.id===cfg.provider}),docs=adminDansEtablissement(adminData().documents).slice().sort(function(a,b){return String(b.createdAt).localeCompare(String(a.createdAt))});
  const p=adminPaginer(docs,'inbox'),lignes=p.items.map(function(d){
   const ps=ADMIN_PROCESSING_STATUSES.find(function(s){return s.id===d.processingStatus});
   return '<div class="admin-row"><div class="admin-cell-main"><b>'+escapeHTML(d.title||d.fileName||'Document')+'</b><small>'+escapeHTML(d.fileName||'Sans fichier')+'</small></div><span>'+escapeHTML((ADMIN_DOCUMENT_TYPES.find(function(x){return x.id===d.type})||{}).label||d.type)+'</span><span>'+adminFormatDate(d.documentDate||d.createdAt)+'</span><span><i class="admin-badge '+(d.processingStatus==='error'?'critical':d.processingStatus==='completed'?'ok':'warn')+'">'+escapeHTML(ps?ps.label:d.processingStatus)+'</i></span><div class="admin-row-actions">'+(d.fileKey?'<button data-admin-view-doc="'+d.id+'">Voir</button>':'')+'<button class="primary" data-admin-edit-doc="'+d.id+'">Modifier</button></div></div>';
  }).join('');
- return '<section class="admin-upload"><div><b>Centralisez un document entrant</b><span>PDF ou image, 15 Mo maximum. Les fichiers restent dans le stockage local du navigateur actuel.</span></div><button class="btn btn-sm" data-admin-new-doc>Importer un document</button></section>'
+ const detail=cfg.address?(escapeHTML(cfg.address)+' · '+escapeHTML(provider?provider.label:'Messagerie')+(cfg.lastSync?' · dernière relève '+adminFormatDate(cfg.lastSync):'')+(cfg.lastError?' · '+escapeHTML(cfg.lastError):'')):'Aucune adresse de facturation configurée.';
+ return '<section class="admin-email-card"><div class="admin-email-icon" aria-hidden="true">✉</div><div class="admin-email-copy"><b>Réception automatique des factures · '+escapeHTML(adminMailStatusLabel(cfg.status))+'</b><span>'+detail+'</span></div><div class="admin-email-actions"><button class="btn btn-2 btn-sm" data-admin-email-settings>Configurer</button>'+(cfg.address?'<button class="btn btn-sm" data-admin-email-sync>'+(cfg.status==='connected'?'Relever maintenant':'Finaliser la connexion')+'</button>':'')+'</div></section>'
+  +'<section class="admin-upload"><div><b>Centralisez un document entrant</b><span>PDF ou image, 15 Mo maximum. Les fichiers restent dans le stockage local du navigateur actuel.</span></div><button class="btn btn-sm" data-admin-new-doc>Importer un document</button></section>'
   +'<section class="admin-list-panel"><div class="admin-list-head"><span>Document</span><span>Type</span><span>Date</span><span>Traitement</span><span>Actions</span></div>'+(lignes||adminVide('⇧','Inbox vide','Importez votre première facture ou pièce administrative pour commencer le suivi.','<button class="btn btn-sm" data-admin-new-doc>Importer</button>'))+adminPagerHTML(p,'inbox')+'</section>';
 }
 function adminVueFactures(){
@@ -4338,6 +4392,8 @@ function renderAdministration(){
 function lierAdministration(racine){
  racine.querySelectorAll('[data-admin-tab]').forEach(function(b){b.onclick=function(){adminTab=b.dataset.adminTab;adminFilters={search:'',supplier:'',status:'',type:''};renderAdministration()}});
  racine.querySelectorAll('[data-admin-new-doc]').forEach(function(b){b.onclick=function(){openAdminDocument()}});
+ racine.querySelectorAll('[data-admin-email-settings]').forEach(function(b){b.onclick=openAdminEmailSettings});
+ racine.querySelectorAll('[data-admin-email-sync]').forEach(function(b){b.onclick=function(){adminSynchroniserMessagerie()}});
  racine.querySelectorAll('[data-admin-edit-doc]').forEach(function(b){b.onclick=function(){openAdminDocument(b.dataset.adminEditDoc)}});
  racine.querySelectorAll('[data-admin-view-doc]').forEach(function(b){b.onclick=function(){adminVoirDocument(b.dataset.adminViewDoc)}});
  racine.querySelectorAll('[data-admin-new-invoice]').forEach(function(b){b.onclick=function(){openAdminInvoice()}});
@@ -4377,6 +4433,12 @@ function lireFichierAdmin(fichier){
 }
 function adminValeur(id){const e=document.getElementById(id);return e?e.value.trim():''}
 function adminOptions(liste,valeur){return liste.map(function(x){return '<option value="'+x.id+'" '+(valeur===x.id?'selected':'')+'>'+x.label+'</option>'}).join('')}
+function openAdminEmailSettings(){
+ const cfg=adminMailConfig();
+ document.getElementById('modal').innerHTML='<div class="sheet-bg" id="adminEmailBg"><div class="sheet"><h3>Messagerie de facturation</h3><p class="sh-sub">Préparez la relève des factures reçues par email. INVO ne demande et ne conserve jamais le mot de passe de la boîte.</p><div class="admin-modal-hint">La version GitHub Pages nécessite un service OAuth sécurisé côté serveur pour terminer la connexion Gmail ou Microsoft. Tant que ce service n’est pas branché, aucune relève n’est simulée.</div><div class="admin-modal-grid"><div class="fld"><label>Fournisseur *</label><select id="aemProvider"><option value="">Sélectionner</option>'+adminOptions(ADMIN_EMAIL_PROVIDERS,cfg.provider)+'</select></div><div class="fld"><label>Adresse recevant les factures *</label><input id="aemAddress" type="email" inputmode="email" value="'+escapeHTML(cfg.address||'')+'" placeholder="factures@restaurant.fr"></div><div class="fld wide"><label><input id="aemAuto" type="checkbox" '+(cfg.autoImport!==false?'checked':'')+'> Relever automatiquement à l’ouverture d’INVO</label></div><div class="fld wide"><label><input id="aemUnread" type="checkbox" '+(cfg.unreadOnly!==false?'checked':'')+'> Importer uniquement les nouveaux messages non traités</label></div></div><button class="btn" id="aemSave">Enregistrer la configuration</button><button class="btn btn-2" id="aemCancel">Annuler</button></div></div>';
+ document.getElementById('aemCancel').onclick=closeModal;document.getElementById('adminEmailBg').onclick=function(e){if(e.target.id==='adminEmailBg')closeModal()};
+ document.getElementById('aemSave').onclick=async function(){const provider=adminValeur('aemProvider'),address=adminValeur('aemAddress').toLowerCase();if(!provider||!/^\S+@\S+\.\S+$/.test(address)){toast('Sélectionnez un fournisseur et renseignez une adresse email valide.');return}const change=provider!==cfg.provider||address!==cfg.address;cfg.provider=provider;cfg.address=address;cfg.autoImport=document.getElementById('aemAuto').checked;cfg.unreadOnly=document.getElementById('aemUnread').checked;if(change){cfg.status='needs_configuration';cfg.lastSync=null;cfg.lastError='Un backend OAuth sécurisé doit être connecté à INVO avant la première relève.'}adminData().settings.integrations.emailInbox=cfg.status==='connected'?'connected':'needs_configuration';adminJournaliser('Messagerie de facturation configurée','AdministrativeEmailInbox','settings',address+' · '+provider);await save();closeModal();renderAdministration();toast('Configuration email enregistrée.');};
+}
 function openAdminDocument(id){
  const existant=id?adminData().documents.find(function(d){return d.id===id}):null,d=existant||{},fournisseurs=adminFournisseurs();
  document.getElementById('modal').innerHTML='<div class="sheet-bg" id="adminDocBg"><div class="sheet"><h3>'+(existant?'Modifier le document':'Importer un document')+'</h3><p class="sh-sub">Le fichier original et ses métadonnées alimentent les échéances et alertes.</p><div class="admin-modal-hint">PDF ou image uniquement · 15 Mo maximum. Une facture importée crée automatiquement une fiche « À vérifier ».</div><div class="admin-modal-grid">'
@@ -6326,6 +6388,7 @@ await save();closeModal();renderStock();toast(t('carteDel'))}
 
 /* ═════ INVENTAIRE ═════ */
 function renderInv(){
+ const voirEcarts=peutVoirEcartsInventaire();
  const sub=`<div class="subtabs">
   <button class="${invTab==='count'?'on':''}" data-it="count">📋 ${t('tabCount')}</button>
   <button class="${invTab==='hist'?'on':''}" data-it="hist">🕘 ${t('tabHist')}</button></div>`;
@@ -6349,14 +6412,14 @@ function renderInv(){
    <button data-move="last" data-id="${p.id}" ${index===list.length-1?'disabled':''} title="Dernière position" aria-label="Placer ${escapeHTML(p.n)} en dernière position">⇥</button>
   </span></div>`).join(''):list.map(p=>{
   const att=st.stock[p.id]??0;const v=st.count[p.id];
-  const has=v!==undefined&&v!=='';const gap=has&&Math.abs(parseFloat(v)-att)>0.001;
+  const has=v!==undefined&&v!=='';const gap=voirEcarts&&has&&Math.abs(parseFloat(v)-att)>0.001;
   const frac=(p.u==='btl'||p.u==='u')?`<div class="frac">
    <button data-fr="${p.id}" data-fv="0.25">¼</button>
    <button data-fr="${p.id}" data-fv="0.5">½</button>
    <button data-fr="${p.id}" data-fv="0.75">¾</button></div>`:'';
   return `<div class="inv-line ${has&&!gap?'done':''} ${gap?'gap':''}">
    <div><div class="iv-nm">${p.i} ${p.n}</div><div class="iv-sub">${p.u} · ${zLabel(p.z||'reserve')}</div></div>
-   <div class="iv-att">${fmtQ(att)}</div>
+   ${voirEcarts?`<div class="iv-att">${fmtQ(att)}</div>`:''}
    <div><input class="iv-inp ${has?(gap?'bad':'ok'):''}" inputmode="decimal" data-c="${p.id}" value="${has?v:''}" placeholder="—">${frac}</div></div>`}).join('');
 
  const ordreBar=invZone!=='all'?`<div class="zone-order-bar"><div class="zone-order-copy"><b>${zLabel(invZone)} · ${list.length} produit${list.length>1?'s':''}</b>
@@ -6369,21 +6432,22 @@ function renderInv(){
   if(Math.abs(d)>0.001){ec++;ecVal+=Math.abs(d)*(p.px||0)}else conf++});
  const valStock=st.prods.reduce((s,p)=>s+(st.stock[p.id]??0)*(p.px||0),0);
 
+ document.getElementById('s-inv').classList.toggle('inventory-limited',!voirEcarts);
  document.getElementById('s-inv').innerHTML=`
   <div class="h-title">${t('invT')}</div><div class="h-sub">${t('invS')}</div>${sub}
   <div class="inv-head">
    <div class="inv-stat"><span>${t('lignes')}</span><b>${done} / ${st.prods.length}</b></div>
-   <div class="inv-stat"><span>${t('conf')}</span><b style="color:var(--green,#235A34)">${conf}</b></div>
+   ${voirEcarts?`<div class="inv-stat"><span>${t('conf')}</span><b style="color:var(--green,#235A34)">${conf}</b></div>
    <div class="inv-stat"><span>${t('ecarts')}</span><b style="color:${ec?'var(--red,#7E2F1B)':'var(--steel-d,#4A4436)'}">${ec}</b></div>
    <div class="inv-stat"><span>${t('ecartValeur')}</span><b style="color:${ecVal>0?'var(--red,#7E2F1B)':'var(--steel-d,#4A4436)'}">${fmt(ecVal)} €</b></div>
-   <div class="inv-stat"><span>${t('valeurStock')}</span><b>${fmt(valStock)} €</b></div></div>
+   <div class="inv-stat"><span>${t('valeurStock')}</span><b>${fmt(valStock)} €</b></div>`:''}</div>
   <div class="zone-chips">${chips}</div>${ordreBar}
   ${invOrderMode&&invZone!=='all'?`<div class="zone-order-list">${rows||'<div class="zone-empty">Cette zone ne contient encore aucun produit.</div>'}</div>`:`<div class="inv-table-head">
-   <span>${t('prod')}</span><span style="text-align:right">${t('attendu')}</span>
+   <span>${t('prod')}</span>${voirEcarts?`<span style="text-align:right">${t('attendu')}</span>`:''}
    <span style="text-align:center">${t('compte')}</span></div>${rows||'<div class="zone-empty">Cette zone ne contient encore aucun produit.</div>'}`}
   ${invOrderMode&&invZone!=='all'?'':`<div class="inv-actions"><button class="btn" id="ivOk" ${done===0?'disabled':''}>${t('valid')}</button>
    <button class="btn btn-2 btn-sm" id="ivClear">${t('clear')}</button></div>
-  <div class="exp-row"><button class="btn btn-2 btn-sm" id="ivCsv">${t('exportCsv')}</button>
+  <div class="exp-row">${voirEcarts?`<button class="btn btn-2 btn-sm" id="ivCsv">${t('exportCsv')}</button>`:''}
    <button class="btn btn-2 btn-sm" id="ivPrint">${t('imprimer')}</button></div>`}`;
 
  document.querySelectorAll('[data-c]').forEach(inp=>{
@@ -6428,6 +6492,7 @@ async function validerInv(){
 }
 
 function renderInvHist(sub){
+ const voirEcarts=peutVoirEcartsInventaire();
  const derive={};
  st.invHist.slice(0,3).forEach(h=>h.lignes.forEach(l=>{
   if(Math.abs(l.d)>0.001){derive[l.id]=derive[l.id]||{n:l.n,c:0};derive[l.id].c++}}));
@@ -6437,12 +6502,13 @@ function renderInvHist(sub){
   const jj=d.getDate().toString().padStart(2,'0')+'/'+(d.getMonth()+1).toString().padStart(2,'0')+'/'+d.getFullYear();
   return `<button class="hist-card" data-hi="${ix}"><div class="hist-top">
    <div><div class="hist-d">${t('inventaireDu')} ${jj}</div>
-   <div class="hist-s">${h.nb} ${t('lignes').toLowerCase()} · ${fmt(h.valEcart)} € ${t('ecartValeur').toLowerCase()}</div></div>
-   <span class="hist-badge ${h.nbEcart?'ko':'ok'}">${h.nbEcart} ${t('lignesEcart')}</span></div></button>`}).join('')
+   <div class="hist-s">${h.nb} ${t('lignes').toLowerCase()}${voirEcarts?' · '+fmt(h.valEcart)+' € '+t('ecartValeur').toLowerCase():''}</div></div>
+   ${voirEcarts?`<span class="hist-badge ${h.nbEcart?'ko':'ok'}">${h.nbEcart} ${t('lignesEcart')}</span>`:''}</div></button>`}).join('')
   :`<div class="empty"><div class="e-ico">🕘</div><p>${t('noHist')}</p></div>`;
+ document.getElementById('s-inv').classList.toggle('inventory-limited',!voirEcarts);
  document.getElementById('s-inv').innerHTML=`
   <div class="h-title">${t('histT')}</div><div class="h-sub">${t('invS')}</div>${sub}
-  ${rec.length?`<div class="banner amber"><b>${t('derive')}</b> — ${t('deriveS')}<br>
+  ${voirEcarts&&rec.length?`<div class="banner amber"><b>${t('derive')}</b> — ${t('deriveS')}<br>
    ${rec.map(x=>'• '+x.n+' ('+x.c+'×)').join('<br>')}</div>`:''}
   ${cards}`;
  document.querySelectorAll('[data-it]').forEach(b=>b.onclick=()=>{invTab=b.dataset.it;renderInv()});
@@ -6451,24 +6517,26 @@ function renderInvHist(sub){
 
 function openHist(ix){
  const h=st.invHist[ix];if(!h)return;
+ const voirEcarts=peutVoirEcartsInventaire();
  const d=new Date(h.ts);
  const jj=d.getDate().toString().padStart(2,'0')+'/'+(d.getMonth()+1).toString().padStart(2,'0')+'/'+d.getFullYear();
  const ecarts=h.lignes.filter(l=>Math.abs(l.d)>0.001);
- const rows=(ecarts.length?ecarts:h.lignes.slice(0,20)).map(l=>`
+ const lignesAffichees=voirEcarts?(ecarts.length?ecarts:h.lignes.slice(0,20)):h.lignes.slice(0,50);
+ const rows=lignesAffichees.map(l=>`
   <div class="alert-row"><span class="alert-b"><div class="alert-n">${l.n}</div>
-  <div class="alert-m">${t('attendu').toLowerCase()} ${fmtQ(l.att)} · ${t('compte').toLowerCase()} ${fmtQ(l.cpt)} ${l.u}</div></span>
-  <span class="alert-v ${l.d<0?'up':'down'}">${l.d>0?'+':''}${fmtQ(l.d)}</span></div>`).join('');
+  <div class="alert-m">${voirEcarts?t('attendu').toLowerCase()+' '+fmtQ(l.att)+' · ':''}${t('compte').toLowerCase()} ${fmtQ(l.cpt)} ${l.u}</div></span>
+  ${voirEcarts?`<span class="alert-v ${l.d<0?'up':'down'}">${l.d>0?'+':''}${fmtQ(l.d)}</span>`:''}</div>`).join('');
  document.getElementById('modal').innerHTML=`<div class="sheet-bg" id="bgH"><div class="sheet">
   <h3>${t('inventaireDu')} ${jj}</h3>
-  <p class="sh-sub">${h.nb} ${t('lignes').toLowerCase()} · ${h.nbEcart} ${t('lignesEcart')} · ${fmt(h.valEcart)} €</p>
+  <p class="sh-sub">${h.nb} ${t('lignes').toLowerCase()}${voirEcarts?' · '+h.nbEcart+' '+t('lignesEcart')+' · '+fmt(h.valEcart)+' €':''}</p>
   ${rows||'<p class="sh-sub">—</p>'}
   <div class="sh-actions"><button class="btn btn-2 btn-sm" id="hCsv">${t('exportCsv')}</button>
    <button class="btn" id="hClose">${t('cancel')}</button></div></div></div>`;
  document.getElementById('bgH').onclick=e=>{if(e.target.id==='bgH')closeModal()};
  document.getElementById('hClose').onclick=closeModal;
  document.getElementById('hCsv').onclick=()=>{
-  const rows=[['Produit','Unite','Attendu','Compte','Ecart','Valeur ecart EUR']];
-  h.lignes.forEach(l=>rows.push([l.n,l.u,l.att,l.cpt,l.d,(Math.round(l.val*100)/100)]));
+  const rows=voirEcarts?[['Produit','Unite','Attendu','Compte','Ecart','Valeur ecart EUR']]:[['Produit','Unite','Compte']];
+  h.lignes.forEach(l=>rows.push(voirEcarts?[l.n,l.u,l.att,l.cpt,l.d,(Math.round(l.val*100)/100)]:[l.n,l.u,l.cpt]));
   dlCsv(rows,'inventaire_'+jj.replace(/\//g,'-')+'.csv')};
 }
 
@@ -6482,11 +6550,11 @@ function dlCsv(rows,name){
 }
 
 function exportInvCsv(){
- const rows=[['Produit','Unite','Zone','Attendu','Compte','Ecart','Prix unitaire EUR','Valeur ecart EUR']];
+ const voirEcarts=peutVoirEcartsInventaire(),rows=voirEcarts?[['Produit','Unite','Zone','Attendu','Compte','Ecart','Prix unitaire EUR','Valeur ecart EUR']]:[['Produit','Unite','Zone','Compte']];
  st.prods.forEach(p=>{const v=st.count[p.id];const att=st.stock[p.id]??0;
   const cpt=(v===''||v===undefined)?'':(parseFloat(v)||0);
   const d=cpt===''?'':(cpt-att);
-  rows.push([p.n,p.u,zLabel(p.z||'reserve'),att,cpt,d,p.px,d===''?'':(Math.round(d*p.px*100)/100)])});
+  rows.push(voirEcarts?[p.n,p.u,zLabel(p.z||'reserve'),att,cpt,d,p.px,d===''?'':(Math.round(d*p.px*100)/100)]:[p.n,p.u,zLabel(p.z||'reserve'),cpt])});
  dlCsv(rows,'inventaire_'+new Date().toISOString().slice(0,10)+'.csv');
 }
 
@@ -6553,7 +6621,7 @@ ${x.d?`<div class="ano-d">${x.d}</div>`:''}</div>`).join('')}</div>`
 <div class="ano-d">${t('rasD')}</div></div>`;
 
 let blocDos='';
-if(st.doseurs&&st.doseurs.actif){
+if(peutVoirEcartsInventaire()&&st.doseurs&&st.doseurs.actif){
  const th=consoTheorique();
  const bouteilles=st.prods.filter(p=>p.u==='cl'&&(th[p.id]||0)>0)
   .sort((a,b)=>(th[b.id]||0)-(th[a.id]||0)).slice(0,12);
@@ -6579,7 +6647,7 @@ ${blocAno}
 <div class="kpi green"><div class="kpi-v">${fmt(ca)} €</div><div class="kpi-l">${t('kCA')}</div></div>
 <div class="kpi amber"><div class="kpi-v">${fmt(totalNV)} €</div><div class="kpi-l">${t('kNonVendu')}</div></div>
 <div class="kpi ${ratio>34?'red':'green'}"><div class="kpi-v">${ratio.toFixed(1).replace('.',',')} %</div><div class="kpi-l">${t('kRatio')}</div></div>
-<div class="kpi ${ecInv?'red':'green'}"><div class="kpi-v">${ecInv}</div><div class="kpi-l">${t('kEcart')}</div></div></div>
+${peutVoirEcartsInventaire()?`<div class="kpi ${ecInv?'red':'green'}"><div class="kpi-v">${ecInv}</div><div class="kpi-l">${t('kEcart')}</div></div>`:''}</div>
 <div class="eyebrow">${t('origine')}</div>
 <div class="split">
 <div class="split-cell"><div class="sp-lab a">${t('auto')}</div>
@@ -6945,7 +7013,7 @@ function anomalies(){
  (st.invHist||[]).slice(0,3).forEach(x=>(x.lignes||[]).forEach(l=>{
   if(Math.abs(l.d)>0.001){der[l.id]=der[l.id]||{n:l.n,c:0};der[l.id].c++}}));
  const rep=Object.values(der).filter(x=>x.c>=2);
- if(rep.length)a.push({n:'ambre',t:t('anoDerive').replace('%s',rep.length),
+ if(peutVoirEcartsInventaire()&&rep.length)a.push({n:'ambre',t:t('anoDerive').replace('%s',rep.length),
   d:rep.slice(0,4).map(x=>x.n).join(', ')});
 
  /* Hausse du prix d'achat */
@@ -6965,7 +7033,7 @@ function anomalies(){
   d:t('anoOffertsD').replace('%s',(off/ca*100).toFixed(1).replace('.',','))});
 
  /* Écarts doseurs (si activé et relevés saisis) */
- if(st.doseurs&&st.doseurs.actif){
+ if(peutVoirEcartsInventaire()&&st.doseurs&&st.doseurs.actif){
   const th=consoTheorique();
   Object.entries(st.doseurs.releves||{}).forEach(([pid,v])=>{
    const reel=num(v),theo=th[pid]||0;
@@ -7001,7 +7069,7 @@ async function bootApp(){
  document.getElementById('gearBtn').onclick=openReglages;
  document.getElementById('burgerBtn').onclick=basculerMenu;
  document.getElementById('drBg').onclick=fermerMenu;
- renderAll();startFeed();setTimeout(()=>{if(st.live)posEvent()},1200);
+ renderAll();startFeed();setTimeout(()=>{if(st.live)posEvent();adminSynchronisationAutomatique()},1200);
 }
 /* Connexion désactivée pour la phase de test.
    Le code des comptes reste présent (creerCompte, connecter, showAuth…)
