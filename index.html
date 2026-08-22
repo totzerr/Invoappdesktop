@@ -2403,7 +2403,7 @@ const loadAuth=async()=>{
  if(!auth.users||typeof auth.users!=='object')auth.users={};
  let changed=false;
  Object.values(auth.users).forEach(u=>{
- if(!u.role){u.role='gestion';changed=true}
+  if(!u.role){u.role='gestion';changed=true}
   if(u.profilMetier&&!PROFILS_METIER_IDS.includes(u.profilMetier)){u.profilMetier='';changed=true}
   if(!u.statut){u.statut=u.hash?'actif':'invite';changed=true}
   if(!u.cree){u.cree=Date.now();changed=true}
