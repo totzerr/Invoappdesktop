@@ -2459,12 +2459,55 @@ const prod=id=>st.prods.find(p=>p.id===id);
 const item=id=>st.carte.find(x=>x.id===id);
 const fmt=n=>(Math.round(n*100)/100).toFixed(2).replace('.',',');
 const fmtQ=n=>(Math.round(n*1000)/1000).toString().replace('.',',');
+/* BEVERAGE_BOTTLE_CORE_START */
 /* Les recettes peuvent être saisies dans une unité compatible ; le stock conserve l’unité du produit. */
 const UNIT_BASE={ml:{f:'vol',n:1},cl:{f:'vol',n:10},L:{f:'vol',n:1000},g:{f:'mass',n:1},kg:{f:'mass',n:1000}};
 function qteUnite(v,de,vers){const q=num(v),a=UNIT_BASE[de],b=UNIT_BASE[vers];return !a||!b||a.f!==b.f?q:q*a.n/b.n}
 function unitesCompatibles(u){const a=UNIT_BASE[u];return a?UNITES.filter(x=>UNIT_BASE[x]&&UNIT_BASE[x].f===a.f):[u]}
-function uniteFiche(c,pid){return(c&&c.fu&&c.fu[pid])||(prod(pid)?.u)||''}
-function qteFicheEnStock(c,pid,q){return qteUnite(q,uniteFiche(c,pid),prod(pid)?.u||'')}
+function unitesFiche(c,p){return c&&c.k==='drink'&&p&&p.bottle?['cl','ml']:unitesCompatibles(p?.u||'')}
+function uniteFiche(c,pid){const p=prod(pid);return(c&&c.fu&&c.fu[pid])||(c&&c.k==='drink'&&p&&p.bottle?(p.ctu||'cl'):(p?.u||''))}
+function qteFicheEnStock(c,pid,q){
+ const p=prod(pid),u=uniteFiche(c,pid);
+ if(c&&c.k==='drink'&&p&&p.bottle&&(u==='cl'||u==='ml')){
+  const contenuMl=qteUnite(p.ct,p.ctu||'cl','ml');
+  return contenuMl>0?qteUnite(q,u,'ml')/contenuMl:0;
+ }
+ return qteUnite(q,u,p?.u||'');
+}
+function migrerUnitesBoissons(){
+ let change=false;
+ const utiliseEnBoisson=pid=>(st.carte||[]).some(c=>c.k==='drink'&&c.f&&c.f[pid]!==undefined);
+ st.prods.forEach(p=>{
+  if(p.bottleVersion===1)return;
+  const ancienCl=p.u==='cl'&&num(p.ct)>0&&((p.z||'')==='bar'||(p.z||'')==='cave'||utiliseEnBoisson(p.id));
+  const ancienneBouteille=p.u==='btl';
+  if(!ancienCl&&!ancienneBouteille)return;
+  p.bottle=true;p.bottleVersion=1;p.bottleRecipeLegacyUnit=ancienCl?'cl':'btl';
+  p.ct=num(p.ct)||(ancienneBouteille?75:0);p.ctu=p.ctu||'cl';p.pc=num(p.pc)||num(p.px);
+  if(ancienCl){
+   const contenance=num(p.ct)||1;
+   p.s=num(p.s)/contenance;p.seuil=num(p.seuil)/contenance;
+   if(Object.prototype.hasOwnProperty.call(st.stock,p.id))st.stock[p.id]=num(st.stock[p.id])/contenance;
+   if(Object.prototype.hasOwnProperty.call(st.count,p.id)&&st.count[p.id]!==''&&st.count[p.id]!==undefined)st.count[p.id]=num(st.count[p.id])/contenance;
+  }
+  p.u='btl';p.px=p.pc;change=true;
+ });
+ st.carte.forEach(c=>{
+  if(c.k!=='drink'||c.beverageUnitsVersion===1)return;
+  c.fu=c.fu||{};
+  Object.keys(c.f||{}).forEach(pid=>{
+   const p=prod(pid);if(!p||!p.bottle)return;
+   const explicite=c.fu[pid],uniteVolume=explicite==='ml'||p.ctu==='ml'?'ml':'cl';
+   if(explicite==='btl'||(!explicite&&p.bottleRecipeLegacyUnit==='btl')){
+    c.f[pid]=num(c.f[pid])*qteUnite(p.ct,p.ctu||'cl',uniteVolume);
+   }
+   c.fu[pid]=explicite==='cl'||explicite==='ml'?explicite:uniteVolume;
+  });
+  c.beverageUnitsVersion=1;change=true;
+ });
+ return change;
+}
+/* BEVERAGE_BOTTLE_CORE_END */
 const uid=p=>p+'_'+Math.random().toString(36).slice(2,8);
 
 /* ═════════════════════════════════════════════
@@ -2670,6 +2713,7 @@ ZONES_L.forEach(z=>{
 });
 if(!Array.isArray(st.carte))st.carte=st.modePilote?[]:JSON.parse(JSON.stringify(CARTE_DEF));
 else if(!st.carte.length&&!st.modePilote)st.carte=JSON.parse(JSON.stringify(CARTE_DEF));
+if(migrerUnitesBoissons())ordreMigre=true;
 if(!Object.keys(st.stock).length)st.prods.forEach(p=>st.stock[p.id]=p.s);
 assurerFournisseurs();
 if(ordreMigre)await Store.set(dataKey(),st)}
@@ -6106,13 +6150,13 @@ let body='';
 if(stockTab==='mat'){
 const rows=st.prods.filter(p=>p.n.toLowerCase().includes(sq.toLowerCase())).map(p=>{
 const q=st.stock[p.id]??p.s??0;const cls=q<=0?'out':(q<=p.seuil?'low':'');
-const cont=p.ct?` · ${fmtQ(p.ct)} ${p.u}`:'';
+const cont=p.bottle?` · ${fmtQ(p.ct)} ${p.ctu||'cl'} / bouteille`:(p.ct?` · ${fmtQ(p.ct)} ${p.u}`:'');
 const R=estResp();
 const pvx=pvMap[p.id];
 const bd=pvx&&q>0&&(pvx.type==='perte'||(pvx.type==='rupture'&&pvx.quand<7))?badgePrev(pvx):null;
 const qq=bd?{txt:bd.txt,cls:bd.cls}:null;
 const meta=(R?`${fmt(p.px)} €/${p.u}${cont} · ${zLabel(p.z||'reserve')}${p.pxPrev&&p.px>p.pxPrev?' · ▲':''}`
-:`${cont?fmtQ(p.ct)+' '+p.u+' · ':''}${zLabel(p.z||'reserve')}`)
+:`${cont?(p.bottle?fmtQ(p.ct)+' '+(p.ctu||'cl')+' / bouteille':fmtQ(p.ct)+' '+p.u)+' · ':''}${zLabel(p.z||'reserve')}`)
 +(qq?` · <b style="color:${qq.cls==='rouge'?'var(--red,#7E2F1B)':'var(--amber,#7A4F0A)'}">${qq.txt}</b>`:'');
 return `<button class="line" ${R?`data-editmat="${p.id}"`:'style="cursor:default"'}><span class="l-ico">${p.i}</span>
 <span class="l-body"><div class="l-nm">${p.n}</div>
@@ -6226,14 +6270,15 @@ if(pe)pe.onclick=async()=>{
 /* ── Formulaire MATIÈRE ── */
 function openMat(id,fournisseurDefaut){
 const p=id?prod(id):null;
-fm=p?{...p,mode:p.ct?'cont':'direct',stock:st.stock[p.id]??p.s??0}
-:{id:null,n:'',i:'📦',u:'kg',ct:'',pc:'',px:'',seuil:'',stock:'',mode:'direct',fo:fournisseurDefaut||''};
+fm=p?{...p,mode:p.bottle?'bottle':(p.ct?'cont':'direct'),ctu:p.ctu||'cl',stock:st.stock[p.id]??p.s??0}
+:{id:null,n:'',i:'📦',u:'kg',ct:'',ctu:'cl',pc:'',px:'',seuil:'',stock:'',mode:'direct',fo:fournisseurDefaut||''};
 drawMat()}
 
 function drawMat(){
 const isNew=!fm.id;
-const calc=fm.mode==='cont'&&parseFloat(fm.ct)>0&&parseFloat(fm.pc)>=0
+const calc=(fm.mode==='cont'||fm.mode==='bottle')&&parseFloat(fm.ct)>0&&parseFloat(fm.pc)>=0
 ?parseFloat(fm.pc)/parseFloat(fm.ct):null;
+const uniteStock=fm.mode==='bottle'?'btl':fm.u;
 const used=fm.id?st.carte.filter(c=>c.f&&c.f[fm.id]!==undefined).length:0;
 document.getElementById('modal').innerHTML=`<div class="sheet-bg" id="bgM"><div class="sheet">
 <h3>${isNew?t('addMat'):t('editMat')}</h3>
@@ -6242,22 +6287,28 @@ document.getElementById('modal').innerHTML=`<div class="sheet-bg" id="bgM"><div 
  <div class="fld"><label>${t('fIcone')}</label><input id="mI" value="${fm.i}" maxlength="4" style="text-align:center;font-size:20px"></div>
  <div class="fld"><label>${t('fNom')}</label><input id="mN" value="${fm.n.replace(/"/g,'&quot;')}" placeholder="Gin Beefeater"></div>
 </div>
-<div class="fld"><label>${t('fUnite')}</label><select id="mU">
-${UNITES.map(u=>`<option ${fm.u===u?'selected':''}>${u}</option>`).join('')}</select>
-<small>cl pour les bouteilles d'alcool, kg pour la cuisine, u à la pièce.</small></div>
+<div class="fld"><label>${t('fUnite')}</label>${fm.mode==='bottle'
+?`<select id="mU" disabled><option>btl</option></select><small>Le stock et l’inventaire sont suivis en bouteilles.</small>`
+:`<select id="mU">${UNITES.map(u=>`<option ${fm.u===u?'selected':''}>${u}</option>`).join('')}</select><small>kg pour la cuisine, L pour les fûts, u à la pièce.</small>`}</div>
 <div class="fld"><label>${t('fAchat')}</label></div>
 <div class="seg">
- <button class="${fm.mode==='cont'?'on':''}" data-mode="cont">🍾 ${t('achCont')}</button>
+ <button class="${fm.mode==='bottle'?'on':''}" data-mode="bottle">🍾 Bouteille</button>
+ <button class="${fm.mode==='cont'?'on':''}" data-mode="cont">📦 ${t('achCont')}</button>
  <button class="${fm.mode==='direct'?'on':''}" data-mode="direct">⚖️ ${t('achDirect')}</button></div>
-${fm.mode==='cont'?`<div class="f2">
+${fm.mode==='bottle'?`<div class="f2">
+ <div class="fld"><label>${t('fContenance')}</label><div style="display:flex;gap:8px"><input id="mCt" inputmode="decimal" value="${fm.ct}" placeholder="70"><select id="mCtU" style="max-width:82px"><option ${fm.ctu==='cl'?'selected':''}>cl</option><option ${fm.ctu==='ml'?'selected':''}>ml</option></select></div></div>
+ <div class="fld"><label>Prix par bouteille (€)</label><input id="mPc" inputmode="decimal" value="${fm.pc}" placeholder="15,40"></div></div>
+ ${calc!==null?`<div class="calc"><span class="calc-l">Équivalent au volume</span><span class="calc-v">${fmt(calc)} €/${fm.ctu||'cl'}</span></div>`:''}
+ <div class="hint">Dans les fiches techniques de boissons, cette bouteille pourra être dosée en cl ou ml. INVO convertira automatiquement chaque vente en fraction de bouteille.</div>`
+:fm.mode==='cont'?`<div class="f2">
  <div class="fld"><label>${t('fContenance')} (${fm.u})</label><input id="mCt" inputmode="decimal" value="${fm.ct}" placeholder="70"></div>
  <div class="fld"><label>${t('fPrixCont')} (€)</label><input id="mPc" inputmode="decimal" value="${fm.pc}" placeholder="15,40"></div></div>
  ${calc!==null?`<div class="calc"><span class="calc-l">${t('fPrixU')}</span>
  <span class="calc-v">${fmt(calc)} €/${fm.u}</span></div>`:''}`
 :`<div class="fld"><label>${t('fPrixU')} (€/${fm.u})</label><input id="mPx" inputmode="decimal" value="${fm.px}" placeholder="16,50"></div>`}
 <div class="f2">
- <div class="fld"><label>${t('fStock')}</label><input id="mS" inputmode="decimal" value="${fm.stock}" placeholder="0"></div>
- <div class="fld"><label>${t('fSeuil')}</label><input id="mSe" inputmode="decimal" value="${fm.seuil}" placeholder="0"></div></div>
+ <div class="fld"><label>${t('fStock')} (${uniteStock})</label><input id="mS" inputmode="decimal" value="${fm.stock}" placeholder="0"></div>
+ <div class="fld"><label>${t('fSeuil')} (${uniteStock})</label><input id="mSe" inputmode="decimal" value="${fm.seuil}" placeholder="0"></div></div>
 <div class="fld"><label>${t('fDlc')}</label><input id="mD" inputmode="numeric" value="${fm.dlc===undefined?'':fm.dlc}" placeholder="4">
 <small>${t('fDlcAide')}</small></div>
 <div class="f2">
@@ -6275,11 +6326,12 @@ const bind=(el,key)=>{const n=document.getElementById(el);if(n)n.oninput=e=>{fm[
 bind('mN','n');bind('mI','i');bind('mCt','ct');bind('mPc','pc');bind('mPx','px');
 bind('mS','stock');bind('mSe','seuil');bind('mD','dlc');bind('mFo','fo');
 const zSel=document.getElementById('mZ');if(zSel)zSel.onchange=e=>fm.z=e.target.value;
-const uSel=document.getElementById('mU');uSel.onchange=e=>{fm.u=e.target.value;drawMat()};
+const uSel=document.getElementById('mU');if(uSel&&!uSel.disabled)uSel.onchange=e=>{fm.u=e.target.value;drawMat()};
+const ctuSel=document.getElementById('mCtU');if(ctuSel)ctuSel.onchange=e=>{fm.ctu=e.target.value;drawMat()};
 document.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>{fm.mode=b.dataset.mode;drawMat()});
 function updCalc(){const c=document.querySelector('.calc-v');
  const v=parseFloat(String(fm.ct).replace(',','.')),pc=parseFloat(String(fm.pc).replace(',','.'));
- if(c&&v>0&&pc>=0)c.textContent=fmt(pc/v)+' €/'+fm.u}
+ if(c&&v>0&&pc>=0)c.textContent=fmt(pc/v)+' €/'+(fm.mode==='bottle'?(fm.ctu||'cl'):fm.u)}
 document.getElementById('mCancel').onclick=closeModal;
 document.getElementById('mSave').onclick=saveMat;
 const d=document.getElementById('mDel');if(d)d.onclick=delMat}
@@ -6288,14 +6340,17 @@ const num=v=>{const x=parseFloat(String(v).replace(',','.'));return isNaN(x)?0:x
 
 async function saveMat(){
 if(!fm.n.trim())return;
-const px=fm.mode==='cont'?(num(fm.ct)>0?num(fm.pc)/num(fm.ct):0):num(fm.px);
+const px=fm.mode==='bottle'?num(fm.pc):(fm.mode==='cont'?(num(fm.ct)>0?num(fm.pc)/num(fm.ct):0):num(fm.px));
 const ancien=fm.id?prod(fm.id):null,nouvelleZone=fm.z||'reserve';
-const obj={id:fm.id||uid('m'),n:fm.n.trim(),i:fm.i||'📦',u:fm.u,px,
+const obj={id:fm.id||uid('m'),n:fm.n.trim(),i:fm.i||'📦',u:fm.mode==='bottle'?'btl':fm.u,px,
  seuil:num(fm.seuil),s:num(fm.stock),dlc:num(fm.dlc),z:nouvelleZone,fo:(fm.fo||'Divers').trim(),
  displayOrder:ancien&&(ancien.z||'reserve')===nouvelleZone&&Number.isFinite(Number(ancien.displayOrder))
   ?Number(ancien.displayOrder):prochainePositionZone(nouvelleZone)};
 if(fm.pxPrev)obj.pxPrev=fm.pxPrev;if(fm.hist)obj.hist=fm.hist;
-if(fm.mode==='cont'){obj.ct=num(fm.ct);obj.pc=num(fm.pc)}
+if(fm.mode==='bottle'){
+ obj.bottle=true;obj.bottleVersion=1;obj.bottleRecipeLegacyUnit=fm.bottleRecipeLegacyUnit||'cl';
+ obj.ct=num(fm.ct);obj.ctu=fm.ctu==='ml'?'ml':'cl';obj.pc=num(fm.pc);
+}else if(fm.mode==='cont'){obj.ct=num(fm.ct);obj.pc=num(fm.pc)}
 if(fm.id){const ix=st.prods.findIndex(p=>p.id===fm.id);st.prods[ix]=obj}
 else st.prods.push(obj);
 if(ancien&&(ancien.z||'reserve')!==nouvelleZone)normaliserZone(ancien.z||'reserve');
@@ -6315,16 +6370,30 @@ await save();closeModal();renderStock();toast(t('matDel'))}
 /* ── Formulaire CARTE ── */
 function openCarte(id){
 const c=id?item(id):null;
-fm=c?{...c,f:{...(c.f||{})},fu:{...(c.fu||{})},ing:Object.entries(c.f||{}).map(([k,v])=>({k,v,u:(c.fu||{})[k]||(prod(k)?.u||'')}))}
+fm=c?{...c,f:{...(c.f||{})},fu:{...(c.fu||{})},ing:Object.entries(c.f||{}).map(([k,v])=>({k,v,u:uniteFiche(c,k)}))}
 :{id:null,n:'',i:'🍽️',c:'cPlats',k:'food',sv:'tous',pv:'',ing:[]};
 drawCarte()}
 
+function changerTypeFiche(type){
+ if(type===fm.k)return;
+ fm.ing.forEach(r=>{const p=prod(r.k);if(!p||!p.bottle)return;
+  if(type==='drink'&&r.u==='btl'){
+   r.v=num(r.v)*qteUnite(p.ct,p.ctu||'cl','cl');r.u='cl';
+  }else if(fm.k==='drink'&&(r.u==='cl'||r.u==='ml')){
+   r.v=qteFicheEnStock({k:'drink',fu:{[r.k]:r.u}},r.k,num(r.v));r.u='btl';
+  }
+ });
+ fm.k=type;drawCarte();
+}
+
 function drawCarte(){
 const isNew=!fm.id;
-const cr=fm.ing.reduce((s,r)=>{const p=prod(r.k);return s+(p?qteUnite(num(r.v),r.u||p.u,p.u)*p.px:0)},0);
+const cr=fm.ing.reduce((s,r)=>{const p=prod(r.k),fiche={k:fm.k,fu:{[r.k]:r.u}};return s+(p?qteFicheEnStock(fiche,r.k,num(r.v))*p.px:0)},0);
 const pv=num(fm.pv);const ratio=pv>0?cr/pv*100:0;
-const ings=fm.ing.map((r,ix)=>{const p=prod(r.k),uStock=p?p.u:'',uSaisie=r.u||uStock,unites=unitesCompatibles(uStock);
- const equivalent=uStock&&uSaisie!==uStock?'<span class="ing-equivalent">≈ '+fmtQ(qteUnite(num(r.v),uSaisie,uStock))+' '+uStock+'</span>':'';
+const ings=fm.ing.map((r,ix)=>{const p=prod(r.k),uStock=p?p.u:'',unites=unitesFiche(fm,p);
+ const uSaisie=unites.includes(r.u)?r.u:(fm.k==='drink'&&p&&p.bottle?(p.ctu||'cl'):uStock);r.u=uSaisie;
+ const fiche={k:fm.k,fu:{[r.k]:uSaisie}},qStock=p?qteFicheEnStock(fiche,r.k,num(r.v)):0;
+ const equivalent=uStock&&uSaisie!==uStock?'<span class="ing-equivalent">≈ '+fmtQ(qStock)+' '+uStock+'</span>':'';
  return `<div class="ing-row"><select data-ik="${ix}">${st.prods.map(p=>`<option value="${p.id}" ${r.k===p.id?'selected':''}>${p.i} ${p.n} (${p.u})</option>`).join('')}</select><input data-iv="${ix}" inputmode="decimal" value="${r.v}" placeholder="0"><select class="ing-unit" data-iu="${ix}">${unites.map(u=>`<option value="${u}" ${u===uSaisie?'selected':''}>${u}</option>`).join('')}</select><button class="ing-x" data-ix="${ix}">×</button>${equivalent}</div>`}).join('');
 document.getElementById('modal').innerHTML=`<div class="sheet-bg" id="bgC"><div class="sheet">
 <h3>${isNew?t('addCarte'):t('editCarte')}</h3><p class="sh-sub">${t('ficheS')}</p>
@@ -6345,6 +6414,7 @@ document.getElementById('modal').innerHTML=`<div class="sheet-bg" id="bgC"><div 
  <button class="${fm.sv==='soir'?'on':''}" data-sv="soir">🌙 ${t('soir')}</button>
  <button class="${fm.sv==='tous'?'on':''}" data-sv="tous">🕐 ${t('svTous')}</button></div>
 <div class="fld"><label>${t('fiche')}</label></div>
+${fm.k==='drink'?`<div class="hint">Les ingrédients stockés en bouteilles se saisissent en cl ou ml. Chaque vente est automatiquement convertie en fraction de bouteille dans le stock et les analyses.</div>`:''}
 ${ings||`<p style="font-size:12px;color:var(--steel-d,#4A4436);margin-bottom:8px">${t('noIng')}</p>`}
 <button class="ing-add" id="cAddIng">${t('addIng')}</button>
 <div class="calc" style="margin-top:14px">
@@ -6363,14 +6433,14 @@ document.getElementById('cPv').oninput=e=>{fm.pv=e.target.value;
  const r=p>0?cr/p*100:0;
  c2.innerHTML=`${fmt(cr)} €<span style="color:${r>35?'var(--red,#7E2F1B)':'var(--green,#235A34)'};font-size:13px"> · ${r.toFixed(0)} %</span>`};
 document.getElementById('cC').onchange=e=>fm.c=e.target.value;
-document.querySelectorAll('[data-k]').forEach(x=>x.onclick=()=>{fm.k=x.dataset.k;drawCarte()});
+document.querySelectorAll('[data-k]').forEach(x=>x.onclick=()=>changerTypeFiche(x.dataset.k));
 document.querySelectorAll('[data-sv]').forEach(x=>x.onclick=()=>{fm.sv=x.dataset.sv;drawCarte()});
-document.querySelectorAll('[data-ik]').forEach(s=>s.onchange=e=>{const r=fm.ing[+s.dataset.ik];r.k=e.target.value;r.u=prod(r.k)?.u||r.u;drawCarte()});
+document.querySelectorAll('[data-ik]').forEach(s=>s.onchange=e=>{const r=fm.ing[+s.dataset.ik];r.k=e.target.value;const p=prod(r.k);r.u=fm.k==='drink'&&p?.bottle?(p.ctu||'cl'):(p?.u||r.u);drawCarte()});
 document.querySelectorAll('[data-iv]').forEach(inp=>inp.oninput=e=>{fm.ing[+inp.dataset.iv].v=e.target.value});
 document.querySelectorAll('[data-iu]').forEach(sel=>sel.onchange=e=>{fm.ing[+sel.dataset.iu].u=e.target.value;drawCarte()});
 document.querySelectorAll('[data-ix]').forEach(x=>x.onclick=()=>{fm.ing.splice(+x.dataset.ix,1);drawCarte()});
 document.getElementById('cAddIng').onclick=()=>{
- if(!st.prods.length)return;fm.ing.push({k:st.prods[0].id,v:'',u:st.prods[0].u});drawCarte()};
+ if(!st.prods.length)return;const p=st.prods[0];fm.ing.push({k:p.id,v:'',u:fm.k==='drink'&&p.bottle?(p.ctu||'cl'):p.u});drawCarte()};
 document.getElementById('cCancel').onclick=closeModal;
 document.getElementById('cSave').onclick=saveCarte;
 const d=document.getElementById('cDel');if(d)d.onclick=delCarte}
@@ -6379,6 +6449,7 @@ async function saveCarte(){
 if(!fm.n.trim())return;
 const f={},fu={};fm.ing.forEach(r=>{if(r.k&&num(r.v)>0){f[r.k]=num(r.v);fu[r.k]=r.u||prod(r.k)?.u||''}});
 const obj={id:fm.id||uid('c'),n:fm.n.trim(),i:fm.i||'🍽️',c:fm.c,k:fm.k,sv:fm.sv,pv:num(fm.pv),f,fu};
+if(fm.k==='drink')obj.beverageUnitsVersion=1;
 if(fm.id){const ix=st.carte.findIndex(x=>x.id===fm.id);st.carte[ix]=obj}
 else st.carte.push(obj);
 await save();closeModal();renderStock();toast(t('carteSaved'))}
