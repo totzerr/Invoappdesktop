@@ -1605,6 +1605,47 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .dashboard-new .dash-pilot-empty span{font:500 10px/1.35 Inter,system-ui,sans-serif!important}
 @media(max-width:759px){.dashboard-new .dash-performance-banner{grid-template-columns:1fr!important;gap:12px!important;min-height:0!important;padding:13px!important;border-radius:15px!important}.dashboard-new .dash-performance-copy{grid-template-columns:1fr 1fr!important;grid-template-rows:1fr!important;gap:8px!important}.dashboard-new .dash-performance-metric{min-height:108px!important;padding:12px!important}.dashboard-new .dash-performance-metric small{font-size:7px!important;letter-spacing:.08em!important}.dashboard-new .dash-performance-metric b{font-size:24px!important}.dashboard-new .dash-performance-metric > span:last-child{font-size:8px!important;white-space:normal!important}.dashboard-new .dash-pilot-head{padding:2px 1px 4px!important}.dashboard-new .dash-pilot-head b{font-size:15px!important}.dashboard-new .dash-chart-legend{justify-content:flex-start!important;padding-top:1px!important;font-size:8px!important}.dashboard-new .dash-pilot-plot,.dashboard-new .dash-pilot-svg{height:176px!important}.dashboard-new .dash-pilot-footer{align-items:flex-start!important;flex-direction:column!important;gap:3px!important}.dashboard-new .dash-pilot-footer .dash-performance-best{white-space:normal!important;text-align:left!important}.dashboard-new .dash-pilot-empty{min-height:152px!important}}
 
+/* Tableau de bord personnalisé : mêmes surfaces, couleurs et rythmes que la vue générale. */
+.profile-dashboard{max-width:1180px;margin:0 auto;display:grid;gap:16px;padding:4px 0 34px}
+.profile-dashboard .profile-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;padding:5px 2px 19px;border-bottom:1px solid #ded8cd}
+.profile-dashboard .profile-eyebrow{display:flex;align-items:center;gap:8px;color:#8b7d63;font:800 10px Inter,system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase}
+.profile-dashboard .profile-eyebrow i{width:7px;height:7px;border-radius:50%;background:#a67a23}
+.profile-dashboard h1{margin:9px 0 4px;color:#1d1a16;font:600 clamp(34px,4vw,46px)/1 Fraunces,Georgia,serif;letter-spacing:-.055em}
+.profile-dashboard .profile-intro{max-width:690px;color:#766d60;font:500 13px/1.5 Inter,system-ui,sans-serif}
+.profile-dashboard .profile-change{flex:0 0 auto;padding:10px 13px;border:1px solid #d9d1c3;border-radius:11px;background:#fff;color:#665b4d;font:700 11px Inter,system-ui,sans-serif;cursor:pointer}
+.profile-dashboard .profile-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.profile-dashboard .profile-metrics.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.profile-dashboard .profile-metric{min-height:150px;padding:18px;border:1px solid #e1dbd1;border-radius:16px;background:#fff;box-shadow:0 1px 2px rgba(28,25,20,.04)}
+.profile-dashboard .profile-metric.primary{background:linear-gradient(145deg,#201e1a,#343029);color:#fff;border-color:#201e1a}
+.profile-dashboard .profile-metric.wide{grid-column:span 2}
+.profile-dashboard .profile-metric small{display:block;color:#8c7f6c;font:800 9px Inter,system-ui,sans-serif;letter-spacing:.13em;text-transform:uppercase}
+.profile-dashboard .profile-metric.primary small{color:rgba(255,255,255,.58)}
+.profile-dashboard .profile-value{display:block;margin:16px 0 7px;color:#1d1a16;font:600 34px/1 Fraunces,Georgia,serif;letter-spacing:-.05em;font-variant-numeric:tabular-nums}
+.profile-dashboard .profile-metric.primary .profile-value{color:#fff}
+.profile-dashboard .profile-note{color:#837768;font:600 11px/1.4 Inter,system-ui,sans-serif}
+.profile-dashboard .profile-metric.primary .profile-note{color:rgba(255,255,255,.68)}
+.profile-dashboard .profile-state{display:flex;min-height:80px;flex-direction:column;justify-content:center;gap:5px;margin-top:13px;padding:12px;border:1px dashed #d9d1c3;border-radius:11px;background:#faf8f3;color:#827768}
+.profile-dashboard .profile-state b{color:#51493f;font:700 12px Inter,system-ui,sans-serif}
+.profile-dashboard .profile-state span{font:500 10px/1.4 Inter,system-ui,sans-serif}
+.profile-dashboard .profile-state.error{border-color:#e5b8aa;background:#fbefeb}.profile-dashboard .profile-state.error b{color:#8b3b28}
+.profile-dashboard .profile-list{display:grid;gap:7px;margin-top:12px}
+.profile-dashboard .profile-list-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #eee8dd}
+.profile-dashboard .profile-list-row:last-child{border-bottom:0}
+.profile-dashboard .profile-list-row b{color:#342f28;font:700 12px Inter,system-ui,sans-serif}.profile-dashboard .profile-list-row span{color:#887c6b;font:600 10px Inter,system-ui,sans-serif}
+.profile-dashboard .profile-breakdown{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}
+.profile-dashboard .profile-share{padding:12px;border-radius:11px;background:#f6f2e9}
+.profile-dashboard .profile-share b{display:block;margin-top:5px;color:#342f28;font:700 20px Fraunces,Georgia,serif}.profile-dashboard .profile-share span{color:#887c6b;font:700 9px Inter,system-ui,sans-serif;text-transform:uppercase;letter-spacing:.08em}
+.profile-dashboard .profile-bar{height:6px;margin-top:8px;overflow:hidden;border-radius:99px;background:#e5ded1}.profile-dashboard .profile-bar i{display:block;height:100%;border-radius:inherit;background:#a67a23}
+.dashboard-state{max-width:1180px;min-height:260px;margin:0 auto;display:flex;align-items:center;justify-content:center;padding:24px}
+.dashboard-state-card{width:min(100%,520px);padding:28px;border:1px solid #e1dbd1;border-radius:18px;background:#fff;text-align:center;box-shadow:0 8px 24px rgba(29,26,22,.06)}
+.dashboard-state-card b{display:block;margin-bottom:7px;color:#2f2a24;font:600 22px Fraunces,Georgia,serif}.dashboard-state-card span{display:block;color:#827768;font:500 12px/1.5 Inter,system-ui,sans-serif}
+.dashboard-state-card button{margin-top:16px;padding:10px 14px;border:0;border-radius:10px;background:#7a4f0a;color:#fff;font:700 11px Inter,system-ui,sans-serif;cursor:pointer}
+.dashboard-loader{width:28px;height:28px;margin:0 auto 14px;border:3px solid #e6dfd2;border-top-color:#a67a23;border-radius:50%;animation:dashboard-spin .8s linear infinite}
+@keyframes dashboard-spin{to{transform:rotate(360deg)}}
+.profile-setting-help{display:block;margin-top:6px;color:#746b60;font:500 10px/1.45 Inter,system-ui,sans-serif}
+@media(max-width:759px){.profile-dashboard{gap:12px;padding-bottom:20px}.profile-dashboard .profile-head{align-items:flex-start;flex-direction:column;gap:13px;padding-bottom:15px}.profile-dashboard .profile-change{width:100%}.profile-dashboard .profile-metrics,.profile-dashboard .profile-metrics.two{grid-template-columns:1fr 1fr;gap:9px}.profile-dashboard .profile-metric{min-height:132px;padding:15px}.profile-dashboard .profile-metric.wide{grid-column:span 2}.profile-dashboard .profile-value{font-size:29px}}
+@media(max-width:480px){.profile-dashboard .profile-metrics,.profile-dashboard .profile-metrics.two{grid-template-columns:1fr}.profile-dashboard .profile-metric.wide{grid-column:auto}.profile-dashboard .profile-breakdown{grid-template-columns:1fr}.profile-dashboard h1{font-size:34px}}
+
 </style>
 </head>
 <body>
@@ -2315,11 +2356,19 @@ const POSTES=[{id:'salle',i:'🧑‍💼',n:'Responsable de salle',resp:true},{i
 {id:'gestion',i:'📊',n:'Gestion / direction',resp:true},
 {id:'barman',i:'🍸',n:'Barman',resp:false},
 {id:'serveur',i:'🙋',n:'Serveur',resp:false}];
+/* Préférence d'affichage uniquement : cette liste ne porte aucun droit d'accès. */
+const PROFILS_METIER=[
+ {id:'barman',i:'🍸',n:'Barman'},
+ {id:'chef',i:'👨‍🍳',n:'Chef de cuisine'},
+ {id:'salle',i:'🧑‍💼',n:'Responsable de salle'},
+ {id:'gestion',i:'📊',n:'Gestion'}
+];
+const PROFILS_METIER_IDS=PROFILS_METIER.map(function(p){return p.id});
 /* Droits : les responsables voient tout. L'équipe voit Déclarer, Livraisons, Inventaire, Stock (sans prix). */
 const estResp=()=>{const p=POSTES.find(x=>x.id===st.whoId);return p?!!p.resp:true};
 const ONGLETS_RESP=['caisse','bil'];
 
-let st={lang:'fr',who:'Responsable de salle',whoId:'salle',stock:{},mv:[],count:{},live:false,modeCaisse:'manuel',modePilote:false,
+let st={lang:'fr',who:'Responsable de salle',whoId:'salle',profilMetier:'',stock:{},mv:[],count:{},live:false,modeCaisse:'manuel',modePilote:false,
 lastSync:Date.now(),svc:'soir',prods:null,carte:null,liv:[],invHist:[],photos:{},fournisseurs:[],commandes:[]};
 let panier={},panierMotifs={},motif=null,motifLigneEditee=null,motifsOuverts=false,cat='cCock',screen='dash',seenFeed=0,timer=null,sq='',stockTab='mat',fm=null;
 let msgDec=null,forcerStock=false;   /* retours de validation sur l'écran Déclarer */
@@ -2355,6 +2404,7 @@ const loadAuth=async()=>{
  let changed=false;
  Object.values(auth.users).forEach(u=>{
   if(!u.role){u.role='gestion';changed=true}
+  if(u.profilMetier&&!PROFILS_METIER_IDS.includes(u.profilMetier)){u.profilMetier='';changed=true}
   if(!u.statut){u.statut=u.hash?'actif':'invite';changed=true}
   if(!u.cree){u.cree=Date.now();changed=true}
  });
@@ -2385,7 +2435,7 @@ async function hashPwd(pwd,salt){
  return 'simple:'+Math.abs(x).toString(36);
 }
 
-function stVierge(){return{lang:st?st.lang:'fr',who:'Responsable de salle',whoId:'salle',
+function stVierge(){return{lang:st?st.lang:'fr',who:'Responsable de salle',whoId:'salle',profilMetier:st&&PROFILS_METIER_IDS.includes(st.profilMetier)?st.profilMetier:'',
 stock:{},mv:[],count:{},live:false,modeCaisse:'manuel',modePilote:false,lastSync:Date.now(),svc:'soir',prods:null,carte:null,
 liv:[],invHist:[],photos:{},fournisseurs:[],commandes:[],doseurs:{actif:false,releves:{}}}}
 
@@ -2398,7 +2448,7 @@ async function creerCompte(nom,mail,etab,pwd,pwd2){
  if(pwd!==pwd2)return{e:t('aPwdDiff')};
  if(auth.users[mail])return{e:t('aDejaPris')};
  const salt=rnd(16), code=rnd(4)+'-'+rnd(4), etabId=uid('etab');
- auth.users[mail]={mail,nom:nom.trim(),etabId,etabNom:etab.trim(),
+ auth.users[mail]={mail,nom:nom.trim(),etabId,etabNom:etab.trim(),profilMetier:'',
   salt,hash:await hashPwd(pwd,salt),codeHash:await hashPwd(code,salt),cree:Date.now(),role:'gestion',statut:'actif'};
  await saveAuth();
  session={email:mail,etabId};await saveSess();
@@ -2902,8 +2952,140 @@ function openQualification(mvId){
   if(!r.ok){toast(r.msg);return}await save();closeModal();renderCaisse();toast(t('qualSaved'));
  };
 }
-/* ═════ TABLEAU DE BORD · données réellement enregistrées ═════ */
+/* DASHBOARD_PROFILE_CORE_START
+   Les intégrations attendues sont centralisées dans st.dashboardIntegrations :
+   covers {date,midi,soir}, recommendedProductIds {date,ids},
+   unsavedPurchaseOrders {date,count}. Aucune valeur n'est déduite ou simulée. */
+function dateLocaleDashboard(date){
+ const d=date instanceof Date?date:new Date(date),p=function(v){return String(v).padStart(2,'0')};
+ return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate());
+}
+function resumeVentesDashboard(maintenant){
+ const debut=new Date(maintenant);debut.setHours(0,0,0,0);
+ const fin=new Date(debut);fin.setDate(fin.getDate()+1);
+ const ventes=(st.mv||[]).filter(function(m){
+  if(!m||m.motif!=='vente'||!m.ts)return false;
+  const d=new Date(m.ts);return !isNaN(d.getTime())&&d>=debut&&d<fin;
+ });
+ return ventes.reduce(function(r,m){
+  const c=item(m.plat),montant=pvMv(m);
+  r.ca+=montant;r.nombreVentes+=1;
+  if(c&&c.k==='drink')r.liquide+=montant;else if(c)r.solide+=montant;
+  if(c&&c.c==='cCock')r.cocktails+=Number(m.qty)||0;
+  return r;
+ },{ventes:ventes,ca:0,solide:0,liquide:0,cocktails:0,nombreVentes:0});
+}
+function integrationDashboard(nom){return st.dashboardIntegrations&&st.dashboardIntegrations[nom]}
+function sourceCouvertsDashboard(dateISO){
+ const source=integrationDashboard('covers');
+ if(!source)return{status:'missing',message:'Aucune source de couverts n’est connectée.'};
+ if(typeof source.date!=='string'||!Object.prototype.hasOwnProperty.call(source,'midi')||!Object.prototype.hasOwnProperty.call(source,'soir'))
+  return{status:'error',message:'La source de couverts ne respecte pas le format attendu.'};
+ if(source.date!==dateISO)return{status:'empty',message:'Aucune donnée de couverts reçue pour aujourd’hui.'};
+ const midi=Number(source.midi),soir=Number(source.soir);
+ if(!Number.isFinite(midi)||midi<0||!Number.isFinite(soir)||soir<0)
+  return{status:'error',message:'Les nombres de couverts reçus sont invalides.'};
+ return{status:'ready',midi:Math.round(midi),soir:Math.round(soir),total:Math.round(midi+soir)};
+}
+function sourceRecommandationsDashboard(dateISO){
+ const source=integrationDashboard('recommendedProductIds');
+ if(!source)return{status:'missing',message:'Aucun service de recommandation produit n’est connecté.'};
+ if(typeof source.date!=='string'||!Array.isArray(source.ids))
+  return{status:'error',message:'La source de recommandations ne respecte pas le format attendu.'};
+ if(source.date!==dateISO)return{status:'empty',message:'Aucune recommandation reçue pour aujourd’hui.'};
+ const vus=new Set(),produits=source.ids.map(function(id){return item(id)}).filter(function(p){if(!p||vus.has(p.id))return false;vus.add(p.id);return true});
+ if(!produits.length)return{status:'empty',message:'Aucun produit à recommander pour le moment.'};
+ return{status:'ready',items:produits};
+}
+function sourceBonsNonSaisisDashboard(dateISO){
+ const source=integrationDashboard('unsavedPurchaseOrders');
+ if(!source)return{status:'missing',message:'Aucune source de bons de commande non saisis n’est connectée.'};
+ if(typeof source.date!=='string'||!Object.prototype.hasOwnProperty.call(source,'count'))
+  return{status:'error',message:'La source des bons de commande ne respecte pas le format attendu.'};
+ if(source.date!==dateISO)return{status:'empty',message:'Aucun état des bons non saisis reçu pour aujourd’hui.'};
+ const count=Number(source.count);
+ if(!Number.isFinite(count)||count<0)return{status:'error',message:'Le nombre de bons non saisis reçu est invalide.'};
+ return{status:'ready',count:Math.round(count)};
+}
+/* DASHBOARD_PROFILE_CORE_END */
+
+function utilisateurDashboardActuel(){
+ return session&&session.email&&auth.users&&auth.users[session.email]?auth.users[session.email]:null;
+}
+function profilMetierActuel(){
+ const utilisateur=utilisateurDashboardActuel(),id=utilisateur?utilisateur.profilMetier:st.profilMetier;
+ return PROFILS_METIER_IDS.includes(id)?id:'';
+}
+async function enregistrerProfilMetier(id){
+ if(id&&!PROFILS_METIER_IDS.includes(id))throw new Error('Profil métier invalide');
+ const utilisateur=utilisateurDashboardActuel();
+ if(utilisateur){utilisateur.profilMetier=id;await saveAuth()}else{st.profilMetier=id;await save()}
+ if(screen==='dash')renderDash();
+ toast(id?'Profil métier enregistré.':'Vue générale restaurée.');
+}
+function etatSourceDashboard(source){
+ const titre=source.status==='error'?'Donnée en erreur':source.status==='empty'?'Aucune donnée':'Donnée indisponible';
+ return '<div class="profile-state '+(source.status==='error'?'error':'')+'"><b>'+titre+'</b><span>'+escapeHTML(source.message||'')+'</span></div>';
+}
+function carteMetier(label,valeur,note,classes){
+ return '<article class="profile-metric '+(classes||'')+'"><small>'+label+'</small><strong class="profile-value">'+valeur+'</strong><p class="profile-note">'+note+'</p></article>';
+}
+function carteSourceMetier(label,source,contenu,classes){
+ return '<article class="profile-metric '+(classes||'')+'"><small>'+label+'</small>'+(source.status==='ready'?contenu(source):etatSourceDashboard(source))+'</article>';
+}
+function enteteTableauMetier(profil,maintenant){
+ const utilisateur=utilisateurDashboardActuel(),nom=((utilisateur&&utilisateur.nom)||st.who||'').split(' ')[0];
+ const date=maintenant.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+ return '<section class="profile-head"><div><div class="profile-eyebrow"><i></i>'+escapeHTML(profil.i+' '+profil.n)+' · '+date.toUpperCase()+'</div><h1>'+(nom?'Bonjour '+escapeHTML(nom)+'.':'Bonjour.')+'</h1><p class="profile-intro">Les informations utiles à votre activité sont mises en avant. Ce choix ne modifie ni votre rôle, ni vos accès.</p></div><button class="profile-change" data-profile-settings>Modifier le profil métier</button></section>';
+}
+function renderDashboardMetier(profilId){
+ const profil=PROFILS_METIER.find(function(p){return p.id===profilId});
+ if(!profil){renderDashboardGeneral();return}
+ const maintenant=new Date(),dateISO=dateLocaleDashboard(maintenant),ventes=resumeVentesDashboard(maintenant);
+ const couverts=sourceCouvertsDashboard(dateISO),recommandations=sourceRecommandationsDashboard(dateISO),bons=sourceBonsNonSaisisDashboard(dateISO);
+ const noteVentes=ventes.nombreVentes?ventes.nombreVentes+' vente'+(ventes.nombreVentes>1?'s':'')+' enregistrée'+(ventes.nombreVentes>1?'s':'')+' aujourd’hui':'Aucune vente enregistrée aujourd’hui';
+ let classeGrille='',cartes='';
+ if(profilId==='barman'){
+  classeGrille=' two';
+  cartes=carteMetier('COCKTAILS VENDUS',fmtQ(ventes.cocktails),noteVentes,'primary')
+   +carteSourceMetier('PRODUITS À RECOMMANDER',recommandations,function(s){return '<div class="profile-list">'+s.items.slice(0,4).map(function(p){return '<div class="profile-list-row"><b>'+escapeHTML((p.i||'')+' '+p.n)+'</b><span>'+fmt(p.pv||0)+' €</span></div>'}).join('')+'</div>'});
+ }else if(profilId==='chef'){
+  cartes=carteSourceMetier('COUVERTS · JOURNÉE',couverts,function(s){return '<strong class="profile-value">'+s.total+'</strong><p class="profile-note">Total du midi et du soir</p>'},'primary')
+   +carteSourceMetier('SERVICE DU MIDI',couverts,function(s){return '<strong class="profile-value">'+s.midi+'</strong><p class="profile-note">Couverts réalisés</p>'})
+   +carteSourceMetier('SERVICE DU SOIR',couverts,function(s){return '<strong class="profile-value">'+s.soir+'</strong><p class="profile-note">Couverts réalisés</p>'});
+ }else if(profilId==='salle'){
+  classeGrille=' two';
+  cartes=carteMetier('CHIFFRE D’AFFAIRES',fmt(ventes.ca)+' €',noteVentes,'primary')
+   +carteSourceMetier('COUVERTS RÉALISÉS',couverts,function(s){return '<strong class="profile-value">'+s.total+'</strong><p class="profile-note">'+s.midi+' midi · '+s.soir+' soir</p>'});
+ }else{
+  const partSolide=ventes.ca>0?ventes.solide/ventes.ca*100:0,partLiquide=ventes.ca>0?ventes.liquide/ventes.ca*100:0;
+  cartes=carteMetier('CHIFFRE D’AFFAIRES',fmt(ventes.ca)+' €',noteVentes,'primary')
+   +'<article class="profile-metric"><small>RÉPARTITION DU CA</small>'+(ventes.ca>0?'<div class="profile-breakdown"><div class="profile-share"><span>Solide</span><b>'+fmt(ventes.solide)+' €</b><div class="profile-bar"><i style="width:'+Math.min(100,partSolide)+'%"></i></div></div><div class="profile-share"><span>Liquide</span><b>'+fmt(ventes.liquide)+' €</b><div class="profile-bar"><i style="width:'+Math.min(100,partLiquide)+'%"></i></div></div></div>':'<div class="profile-state"><b>Aucune donnée</b><span>La répartition apparaîtra dès la première vente enregistrée aujourd’hui.</span></div>')+'</article>'
+   +carteSourceMetier('BONS NON SAISIS',bons,function(s){return '<strong class="profile-value">'+s.count+'</strong><p class="profile-note">Bon'+(s.count>1?'s':'')+' de commande à saisir</p>'});
+ }
+ const racine=document.getElementById('s-dash');
+ racine.innerHTML='<div class="profile-dashboard">'+enteteTableauMetier(profil,maintenant)+'<section class="profile-metrics'+classeGrille+'" aria-label="Indicateurs '+escapeHTML(profil.n)+'">'+cartes+'</section></div>';
+ const reglages=racine.querySelector('[data-profile-settings]');if(reglages)reglages.onclick=function(){openReglages('general')};
+}
+let dashboardRenderVersion=0;
 function renderDash(){
+ const profilId=profilMetierActuel(),racine=document.getElementById('s-dash'),version=++dashboardRenderVersion;
+ if(!profilId){renderDashboardGeneral();return}
+ racine.innerHTML='<div class="dashboard-state" role="status"><div class="dashboard-state-card"><div class="dashboard-loader"></div><b>Chargement du tableau de bord</b><span>Préparation des indicateurs de votre profil métier…</span></div></div>';
+ Promise.resolve().then(function(){
+  if(version!==dashboardRenderVersion||screen!=='dash')return;
+  try{renderDashboardMetier(profilId)}catch(e){renderDashboardErreur(e)}
+ });
+}
+function renderDashboardErreur(erreur){
+ console.error('Tableau de bord indisponible',erreur);
+ const racine=document.getElementById('s-dash');
+ racine.innerHTML='<div class="dashboard-state" role="alert"><div class="dashboard-state-card"><b>Tableau de bord indisponible</b><span>Les indicateurs n’ont pas pu être chargés. Vos données et vos accès n’ont pas été modifiés.</span><button id="dashboardRetry">Réessayer</button></div></div>';
+ const retry=document.getElementById('dashboardRetry');if(retry)retry.onclick=renderDash;
+}
+
+/* ═════ TABLEAU DE BORD · vue générale et données réellement enregistrées ═════ */
+function renderDashboardGeneral(){
  const produits=st.prods||[],mouvements=st.mv||[],commandes=st.commandes||[];
  const ruptures=produits.filter(function(p){return(st.stock[p.id]??0)<=0});
  const sousSeuil=produits.filter(function(p){const q=st.stock[p.id]??0;return q>0&&q<=p.seuil});
@@ -5847,7 +6029,7 @@ async function ajouterUtilisateur(){
  if(auth.users[mail])return fail('Un utilisateur possède déjà cette adresse e-mail.');
  if(!POSTES.some(p=>p.id===role))return fail('Sélectionnez un rôle valide.');
  const salt=rnd(16),code=rnd(4)+'-'+rnd(4),etabId=(session&&session.etabId)||'local';
- auth.users[mail]={mail,nom,role,etabId,etabNom:st.etabNom||'SP Wallace',salt,hash:await hashPwd(code,salt),
+ auth.users[mail]={mail,nom,role,profilMetier:'',etabId,etabNom:st.etabNom||'SP Wallace',salt,hash:await hashPwd(code,salt),
   codeHash:await hashPwd(code,salt),cree:Date.now(),statut:'invite'};
  await saveAuth();
  document.getElementById('modal').innerHTML=`<div class="sheet-bg" id="bgUC"><div class="sheet"><h3>Utilisateur ajouté</h3>
@@ -5856,13 +6038,20 @@ async function ajouterUtilisateur(){
   <div class="sh-actions"><button class="btn" id="uDone">Terminer</button></div></div></div>`;
  document.getElementById('uDone').onclick=()=>{toast('Utilisateur ajouté.');openReglages('users')};
 }
+function optionsProfilMetier(){
+ const actuel=profilMetierActuel();
+ return '<option value="" '+(!actuel?'selected':'')+'>Vue générale (par défaut)</option>'+PROFILS_METIER.map(function(p){return '<option value="'+p.id+'" '+(actuel===p.id?'selected':'')+'>'+p.i+' '+p.n+'</option>'}).join('');
+}
 function openReglages(){
- settingsTab=arguments[0]||settingsTab||'general';
+ settingsTab=typeof arguments[0]==='string'?arguments[0]:(settingsTab||'general');
  const dos=st.doseurs||{actif:false,releves:{}};
  const general=`
  <div class="set-sec">${t('etablissement')}</div>
  <div class="fld"><label>${t('nomEtab')}</label>
  <input id="rEtab" value="${(st.etabNom||'SP Wallace').replace(/"/g,'&quot;')}" placeholder="SP Wallace"></div>
+ <div class="set-sec">PERSONNALISATION DU TABLEAU DE BORD</div>
+ <div class="fld"><label for="rProfilMetier">Profil métier</label><select id="rProfilMetier">${optionsProfilMetier()}</select>
+ <small class="profile-setting-help">Cette préférence change uniquement les indicateurs de l’accueil. Elle ne modifie aucun rôle, droit ou accès.</small></div>
  <div class="set-sec">${t('pilot')} / ${t('reset')}</div>
  <div class="auth-msg ${st.modePilote?'ok':'info'}">${st.modePilote?t('pilotOn'):t('pilotS')}</div>
  <div class="pilot-actions" style="margin:10px 0 18px">${st.modePilote?'':`<button class="btn btn-2 btn-sm" id="pilotStart">${t('pilotStart')}</button>`}
@@ -5901,6 +6090,8 @@ function openReglages(){
  if(bkIn)bkIn.onchange=async()=>{const f=bkIn.files&&bkIn.files[0];bkIn.value='';await importerSauvegarde(f)};
  const re_=document.getElementById('rEtab');
  if(re_)re_.oninput=e=>{st.etabNom=e.target.value;save()};
+ const profilMetier=document.getElementById('rProfilMetier');
+ if(profilMetier)profilMetier.onchange=async function(){profilMetier.disabled=true;try{await enregistrerProfilMetier(profilMetier.value)}catch(e){toast('Impossible d’enregistrer le profil métier.')}profilMetier.disabled=false};
  document.querySelectorAll('[data-dos]').forEach(b=>b.onclick=async()=>{
   st.doseurs.actif=b.dataset.dos==='1';await save();openReglages();
   if(screen==='bil')renderBil()});
