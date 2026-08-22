@@ -340,6 +340,12 @@ test(path+' expose toutes les vues Administration et leurs états responsives',(
  assert.match(source,/Aucun connecteur fictif/);
 });
 
+test(path+' aligne l’en-tête Compté avec les zones de saisie de l’inventaire',()=>{
+ assert.match(source,/--inv-table-width:980px/);
+ assert.match(source,/\.inv-line,\.inv-table-head\{[^}]*width:100%;max-width:var\(--inv-table-width\)/);
+ assert.match(source,/@media\(min-width:900px\)\{\.inv-table-head\{padding:0 8px 10px!important\}\}/);
+});
+
 test(path+' réserve les quantités attendues et écarts d’inventaire aux seuls profils autorisés',()=>{
  assert.match(source,/const peutVoirEcartsInventaire=\(\)=>\['gestion','salle'\]\.includes\(st\.whoId\)/);
  const inventory=source.match(/function renderInv\(\)\{[\s\S]*?\n\}\n\nasync function validerInv/)?.[0]||'';
