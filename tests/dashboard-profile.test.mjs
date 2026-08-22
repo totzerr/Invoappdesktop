@@ -92,11 +92,15 @@ test('le noyau partagé des indicateurs est présent',()=>{
   assert.equal(context.dashboardCore.sourceBonsNonSaisisDashboard(date).status,'error');
  });
 
- test(path+' garde le profil métier indépendant des rôles et la vue générale par défaut',()=>{
+ test(path+' synchronise le tableau de bord avec la vue choisie sans modifier les rôles',()=>{
   const saveProfile=source.match(/async function enregistrerProfilMetier\(id\)\{[\s\S]*?\n\}/)?.[0]||'';
+  const syncProfile=source.match(/async function synchroniserProfilMetierAvecVue\(id\)\{[\s\S]*?\n\}/)?.[0]||'';
   assert.ok(saveProfile);
+  assert.ok(syncProfile);
   assert.doesNotMatch(saveProfile,/\.role\s*=/);
+  assert.doesNotMatch(syncProfile,/\.role\s*=/);
   assert.match(source,/const estResp=\(\)=>\{const p=POSTES\.find\(x=>x\.id===st\.whoId\)/);
-  assert.match(source,/if\(!profilId\)\{renderDashboardGeneral\(\);return\}/);
+  assert.match(source,/return PROFILS_METIER_IDS\.includes\(id\)\?id:profilMetierDepuisVue\(st\.whoId\)/);
+  assert.match(source,/await synchroniserProfilMetierAvecVue\(p\.id\);await save\(\);closeModal\(\);renderAll\(\)/);
   assert.match(source,/PROFILS_METIER=\[[\s\S]*?id:'barman'[\s\S]*?id:'chef'[\s\S]*?id:'salle'[\s\S]*?id:'gestion'/);
  });
