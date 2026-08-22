@@ -1656,6 +1656,48 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 @media(max-width:560px){.profile-dashboard .profile-drinks-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:480px){.profile-dashboard .profile-metrics,.profile-dashboard .profile-metrics.two{grid-template-columns:1fr}.profile-dashboard .profile-metric.wide{grid-column:auto}.profile-dashboard .profile-breakdown{grid-template-columns:1fr}.profile-dashboard h1{font-size:34px}}
 
+/* ═════ ADMINISTRATION ═════ */
+#s-admin{max-width:1180px}
+.admin-shell{display:grid;gap:18px;padding-bottom:24px;color:#29251f}
+.admin-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;padding:4px 0 2px}
+.admin-head small,.admin-section-head small{display:block;color:#8b7655;font:800 9px Inter,system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase}
+.admin-head h1{margin:5px 0;color:#29251f;font:650 38px/1 Fraunces,Georgia,serif;letter-spacing:-.045em}
+.admin-head p{max-width:680px;color:#746b60;font:500 12px/1.55 Inter,system-ui,sans-serif}
+.admin-tabs{display:flex;gap:7px;overflow:auto;padding:2px 0 3px;scrollbar-width:none}
+.admin-tabs::-webkit-scrollbar{display:none}
+.admin-tabs button{flex:none;border:1px solid #ded7c9;border-radius:99px;background:#fffdfa;color:#706556;padding:9px 13px;font:750 10px Inter,system-ui,sans-serif;cursor:pointer}
+.admin-tabs button.on{border-color:#302b24;background:#302b24;color:#fff}
+.admin-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.admin-kpi{min-height:128px;padding:16px;border:1px solid #e1dacd;border-radius:16px;background:#fffdfa;box-shadow:0 10px 24px rgba(42,34,21,.035)}
+.admin-kpi.critical{border-color:#e0b5a7;background:#fff8f5}.admin-kpi.warn{border-color:#dfca9d;background:#fffaf0}
+.admin-kpi small{color:#877a67;font:800 8px Inter,system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase}
+.admin-kpi b{display:block;margin:14px 0 5px;color:#2d2923;font:650 30px/1 Fraunces,Georgia,serif;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.admin-kpi span{color:#8a7d6b;font:600 10px/1.35 Inter,system-ui,sans-serif}
+.admin-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,.7fr);gap:12px}
+.admin-panel,.admin-list-panel,.admin-widget{border:1px solid #e0d9cc;border-radius:17px;background:#fffdfa;box-shadow:0 10px 24px rgba(42,34,21,.04)}
+.admin-panel{padding:17px}.admin-section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.admin-section-head b{display:block;margin-top:3px;color:#332e27;font:700 18px Fraunces,Georgia,serif}
+.admin-actions{display:grid;gap:8px}.admin-action{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:11px;align-items:center;padding:12px;border:1px solid #e8e1d5;border-radius:13px;background:#fbfaf7}
+.admin-priority{width:8px;height:42px;border-radius:99px;background:#7f887a}.admin-priority.critical{background:#a4402a}.admin-priority.high{background:#b77b1e}.admin-priority.medium{background:#51738a}.admin-priority.info{background:#71806e}
+.admin-action-copy{min-width:0}.admin-action-copy b{display:block;color:#373129;font:750 12px Inter,system-ui,sans-serif}.admin-action-copy span{display:block;margin-top:3px;color:#817565;font:550 10px/1.4 Inter,system-ui,sans-serif}
+.admin-action-meta{display:flex;align-items:flex-end;flex-direction:column;gap:6px;text-align:right}.admin-action-meta strong{color:#3d362c;font:700 12px Inter,system-ui,sans-serif}.admin-action-meta button,.admin-link-btn{border:0;background:transparent;color:#8a5a12;font:800 9px Inter,system-ui,sans-serif;text-transform:uppercase;letter-spacing:.06em;cursor:pointer}
+.admin-assistant{display:grid;gap:9px}.admin-insight{position:relative;padding:11px 12px 11px 30px;border-radius:12px;background:#f4f0e8;color:#574f44;font:600 11px/1.45 Inter,system-ui,sans-serif}.admin-insight:before{content:'✦';position:absolute;left:11px;top:10px;color:#9a6d21}
+.admin-source-note{margin-top:12px;padding:10px 11px;border-radius:10px;background:#f8f5ee;color:#827768;font:550 9.5px/1.45 Inter,system-ui,sans-serif}
+.admin-toolbar{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding:14px;border:1px solid #e0d9cc;border-radius:15px;background:#fffdfa}
+.admin-filters{display:flex;flex:1;align-items:flex-end;gap:8px;flex-wrap:wrap}.admin-filter{display:grid;gap:4px;min-width:140px;flex:1}.admin-filter label{color:#8a7e6d;font:800 8px Inter,system-ui,sans-serif;text-transform:uppercase;letter-spacing:.08em}.admin-filter input,.admin-filter select{width:100%;min-height:38px;border:1px solid #ded7cb;border-radius:10px;background:#fbfaf7;color:#302b25;padding:8px 10px;font:600 11px Inter,system-ui,sans-serif;outline:0}
+.admin-list-panel{overflow:hidden}.admin-list-head{display:grid;grid-template-columns:minmax(170px,1.2fr) minmax(130px,.8fr) 120px 110px 110px;gap:10px;padding:10px 14px;border-bottom:1px solid #ece6dc;background:#f7f4ed;color:#8b806f;font:800 8px Inter,system-ui,sans-serif;text-transform:uppercase;letter-spacing:.07em}
+.admin-row{display:grid;grid-template-columns:minmax(170px,1.2fr) minmax(130px,.8fr) 120px 110px 110px;gap:10px;align-items:center;padding:13px 14px;border-bottom:1px solid #eee8de}.admin-row:last-child{border-bottom:0}
+.admin-cell-main{min-width:0}.admin-cell-main b{display:block;overflow:hidden;text-overflow:ellipsis;color:#373129;font:750 12px Inter,system-ui,sans-serif;white-space:nowrap}.admin-cell-main small,.admin-row>span{color:#817565;font:550 10px/1.35 Inter,system-ui,sans-serif}.admin-amount{color:#373129!important;font-weight:750!important;font-variant-numeric:tabular-nums}
+.admin-badge{display:inline-flex;width:max-content;align-items:center;border-radius:99px;padding:5px 7px;background:#eeeae2;color:#645d53;font:800 8px Inter,system-ui,sans-serif;text-transform:uppercase;letter-spacing:.045em}.admin-badge.critical{background:#fae5df;color:#8f3824}.admin-badge.warn{background:#f8ebc9;color:#825d00}.admin-badge.ok{background:#e4f1e6;color:#236039}.admin-badge.info{background:#e6eef4;color:#315d78}
+.admin-row-actions{display:flex;justify-content:flex-end;gap:5px}.admin-row-actions button{border:1px solid #ded7cb;border-radius:8px;background:#fff;color:#655b4e;padding:6px 8px;font:750 8px Inter,system-ui,sans-serif;cursor:pointer}.admin-row-actions button.primary{border-color:#302b24;background:#302b24;color:#fff}
+.admin-empty{padding:42px 20px;text-align:center;color:#817565}.admin-empty i{display:block;margin-bottom:9px;font-style:normal;font-size:28px;opacity:.55}.admin-empty b{display:block;color:#453e35;font:700 15px Fraunces,Georgia,serif}.admin-empty span{display:block;max-width:430px;margin:5px auto 15px;font:550 11px/1.5 Inter,system-ui,sans-serif}
+.admin-deadlines{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.admin-deadline{padding:15px;border:1px solid #e2dbcf;border-radius:15px;background:#fffdfa}.admin-deadline h3{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;color:#373129;font:700 15px Fraunces,Georgia,serif}.admin-deadline h3 span{border-radius:99px;background:#f0ece4;padding:3px 7px;font:800 9px Inter,system-ui,sans-serif}.admin-deadline-line{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px;padding:9px 0;border-bottom:1px solid #eee8de}.admin-deadline-line:last-child{border:0}.admin-deadline-line b{font:700 11px Inter,system-ui,sans-serif}.admin-deadline-line strong{font:750 11px Inter,system-ui,sans-serif}.admin-deadline-line small{grid-column:1/-1;color:#867a69;font:550 9px Inter,system-ui,sans-serif}
+.admin-upload{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:18px;border:1px dashed #cfbea0;border-radius:16px;background:#fbf7ee}.admin-upload b{display:block;color:#373129;font:700 15px Fraunces,Georgia,serif}.admin-upload span{display:block;margin-top:4px;color:#817565;font:550 10px/1.45 Inter,system-ui,sans-serif}
+.admin-widget{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;padding:18px;margin-top:3px}.admin-widget small{color:#8a6b34;font:850 8px Inter,system-ui,sans-serif;letter-spacing:.11em;text-transform:uppercase}.admin-widget h2{margin:4px 0;color:#312c25;font:700 20px Fraunces,Georgia,serif}.admin-widget-stats{display:flex;gap:11px;flex-wrap:wrap;color:#7c7161;font:650 10px Inter,system-ui,sans-serif}.admin-widget-stats b{color:#433b31}.admin-widget .btn{width:auto;margin:0;white-space:nowrap}
+.admin-modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.admin-modal-grid .wide{grid-column:1/-1}.admin-modal-hint{margin:-2px 0 12px;padding:9px 10px;border-radius:9px;background:#f6f2e9;color:#7b7060;font:550 9.5px/1.45 Inter,system-ui,sans-serif}
+@media(max-width:760px){.admin-head{align-items:flex-start;flex-direction:column}.admin-head .btn{width:100%}.admin-head h1{font-size:34px}.admin-summary{grid-template-columns:1fr 1fr}.admin-grid,.admin-deadlines{grid-template-columns:1fr}.admin-toolbar{align-items:stretch;flex-direction:column}.admin-filters{display:grid;grid-template-columns:1fr 1fr}.admin-toolbar>.btn{width:100%}.admin-list-head{display:none}.admin-row{grid-template-columns:minmax(0,1fr) auto;gap:8px}.admin-row>span{grid-column:1}.admin-row-actions{grid-column:2;grid-row:1/5;flex-direction:column}.admin-widget{grid-template-columns:1fr}.admin-widget .btn{width:100%}.admin-action{grid-template-columns:auto minmax(0,1fr)}.admin-action-meta{grid-column:2;align-items:flex-start;text-align:left}.admin-modal-grid{grid-template-columns:1fr}.admin-modal-grid .wide{grid-column:auto}}
+@media(max-width:480px){.admin-summary{grid-template-columns:1fr}.admin-filters{grid-template-columns:1fr}.admin-kpi{min-height:105px}.admin-upload{align-items:flex-start;flex-direction:column}.admin-upload .btn{width:100%}}
+
 </style>
 </head>
 <body>
@@ -1681,6 +1723,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <section class="screen" id="s-stock"></section>
 <section class="screen" id="s-inv"></section>
 <section class="screen" id="s-bil"></section>
+<section class="screen" id="s-admin"></section>
 </main></div>
 <div id="cartbar"></div>
 <nav class="nav" id="nav"></nav>
@@ -2376,15 +2419,23 @@ const PROFILS_METIER=[
 const PROFILS_METIER_IDS=PROFILS_METIER.map(function(p){return p.id});
 /* Droits : les responsables voient tout. L'équipe voit Déclarer, Livraisons, Inventaire, Stock (sans prix). */
 const estResp=()=>{const p=POSTES.find(x=>x.id===st.whoId);return p?!!p.resp:true};
-const ONGLETS_RESP=['caisse','bil'];
+const ONGLETS_RESP=['caisse','bil','admin'];
+
+function administrationVierge(){return{
+ version:1,documents:[],invoices:[],anomalies:[],auditLog:[],contracts:[],obligations:[],deadlines:[],
+ approvalWorkflows:[],approvalRequests:[],expenseCategories:[],accountingCategories:[],cashFlowForecasts:[],
+ settings:{taxRates:[5.5,10,20],contractAlertDays:[90,60,30,7],approvalRules:[],
+  integrations:{ocr:'not_configured',accounting:'not_configured',banking:'not_configured',electronicInvoicing:'not_configured'}}
+}}
 
 let st={lang:'fr',who:'Responsable de salle',whoId:'salle',profilMetier:'',stock:{},mv:[],count:{},live:false,modeCaisse:'manuel',modePilote:false,
-lastSync:Date.now(),svc:'soir',prods:null,carte:null,liv:[],invHist:[],photos:{},fournisseurs:[],commandes:[]};
+lastSync:Date.now(),svc:'soir',prods:null,carte:null,liv:[],invHist:[],photos:{},fournisseurs:[],commandes:[],administration:administrationVierge()};
 let panier={},panierMotifs={},motif=null,motifLigneEditee=null,motifsOuverts=false,cat='cCock',screen='dash',seenFeed=0,timer=null,sq='',stockTab='mat',fm=null;
 let msgDec=null,forcerStock=false;   /* retours de validation sur l'écran Déclarer */
 let cartePrix=false,prixEdit={},cartCat='tous';   /* édition groupée des prix de vente */
 let livTab='recep',invTab='count',invZone='all',invOrderMode=false,draggedProductId=null,zoneOrderSaveTimer=null,
-livForm=null,decPhoto=null,commandeFo='',fournisseurForm=null,settingsTab='general',userForm=null;
+livForm=null,decPhoto=null,commandeFo='',fournisseurForm=null,settingsTab='general',userForm=null,
+adminTab='overview',adminFilters={search:'',supplier:'',status:'',type:''},adminRenderVersion=0;
 
 const t=k=>(L[st.lang]&&L[st.lang][k])??L.fr[k];
 const prod=id=>st.prods.find(p=>p.id===id);
@@ -2413,7 +2464,7 @@ const loadAuth=async()=>{
  if(!auth.users||typeof auth.users!=='object')auth.users={};
  let changed=false;
  Object.values(auth.users).forEach(u=>{
-  if(!u.role){u.role='gestion';changed=true}
+ if(!u.role){u.role='gestion';changed=true}
   if(u.profilMetier&&!PROFILS_METIER_IDS.includes(u.profilMetier)){u.profilMetier='';changed=true}
   if(!u.statut){u.statut=u.hash?'actif':'invite';changed=true}
   if(!u.cree){u.cree=Date.now();changed=true}
@@ -2447,7 +2498,7 @@ async function hashPwd(pwd,salt){
 
 function stVierge(){return{lang:st?st.lang:'fr',who:'Responsable de salle',whoId:'salle',profilMetier:st&&PROFILS_METIER_IDS.includes(st.profilMetier)?st.profilMetier:'',
 stock:{},mv:[],count:{},live:false,modeCaisse:'manuel',modePilote:false,lastSync:Date.now(),svc:'soir',prods:null,carte:null,
-liv:[],invHist:[],photos:{},fournisseurs:[],commandes:[],doseurs:{actif:false,releves:{}}}}
+liv:[],invHist:[],photos:{},fournisseurs:[],commandes:[],doseurs:{actif:false,releves:{}},administration:administrationVierge()}}
 
 /* ── Création de compte ── */
 async function creerCompte(nom,mail,etab,pwd,pwd2){
@@ -2575,6 +2626,12 @@ if(!st.doseurs)st.doseurs={actif:false,releves:{}};
 if(!st.liv)st.liv=[];if(!st.invHist)st.invHist=[];if(!st.photos)st.photos={};
 if(!Array.isArray(st.fournisseurs))st.fournisseurs=[];
 if(!Array.isArray(st.commandes))st.commandes=[];
+if(!st.administration||typeof st.administration!=='object')st.administration=administrationVierge();
+else{
+ const a=administrationVierge();
+ Object.keys(a).forEach(function(k){if(st.administration[k]===undefined)st.administration[k]=a[k]});
+ Object.keys(a.settings).forEach(function(k){if(st.administration.settings[k]===undefined)st.administration.settings[k]=a.settings[k]});
+}
 if(!st.docs)st.docs={};          /* documents scannés (bons de livraison) */
 if(!st.refFo)st.refFo={};        /* mémoire : référence fournisseur -> produit Invo */
 if(!st.brouillons)st.brouillons=[];
@@ -2613,9 +2670,10 @@ function nomSauvegarde(suffix=''){
 async function creerSauvegarde(){
  const documents={}, ids=new Set(Object.keys(st.docs||{}));
  (st.liv||[]).forEach(l=>(l.docs||[]).forEach(k=>ids.add(k)));
+ ((st.administration&&st.administration.documents)||[]).forEach(function(d){if(d.fileKey)ids.add(d.fileKey)});
  for(const k of ids){
   const v=Docs.get(k)||await Docs.getAsync(k);
-  if(typeof v==='string'&&v.startsWith('data:image/'))documents[k]=v;
+  if(typeof v==='string'&&(v.startsWith('data:image/')||v.startsWith('data:application/pdf')))documents[k]=v;
  }
  return {format:'invo-backup',version:1,exportedAt:new Date().toISOString(),
   data:JSON.parse(JSON.stringify(st)),documents};
@@ -3085,8 +3143,6 @@ function blocBoissonsHebdomadaireDashboard(maintenant){
  return '<section class="profile-drinks-banner" aria-label="Ventes de boissons de la semaine"><article class="profile-drinks-total"><small>BOISSONS VENDUES · CETTE SEMAINE</small><b>'+fmtQ(resume.total)+'</b><span>'+(resume.total?'Total issu des ventes enregistrées':'Aucune boisson vendue cette semaine')+'</span></article><div class="profile-drinks-grid">'+categories+'</div></section>';
 }
 
-
-
 function utilisateurDashboardActuel(){
  return session&&session.email&&auth.users&&auth.users[session.email]?auth.users[session.email]:null;
 }
@@ -3151,8 +3207,9 @@ function renderDashboardMetier(profilId){
    +carteSourceMetier('BONS NON SAISIS',bons,function(s){return '<strong class="profile-value">'+s.count+'</strong><p class="profile-note">Bon'+(s.count>1?'s':'')+' de commande à saisir</p>'});
  }
  const racine=document.getElementById('s-dash');
- racine.innerHTML='<div class="profile-dashboard dashboard-new">'+enteteTableauMetier(profil,maintenant)+bandeau+'<section class="profile-metrics'+classeGrille+'" aria-label="Indicateurs '+escapeHTML(profil.n)+'">'+cartes+'</section></div>';
+ racine.innerHTML='<div class="profile-dashboard dashboard-new">'+enteteTableauMetier(profil,maintenant)+bandeau+'<section class="profile-metrics'+classeGrille+'" aria-label="Indicateurs '+escapeHTML(profil.n)+'">'+cartes+'</section>'+adminWidgetAccueil()+'</div>';
  const reglages=racine.querySelector('[data-profile-settings]');if(reglages)reglages.onclick=function(){openReglages('general')};
+ lierWidgetAdministration(racine);
 }
 let dashboardRenderVersion=0;
 function renderDash(){
@@ -3205,9 +3262,10 @@ function renderDashboardGeneral(){
  +'<button class="dash-kpi '+(commandesARecevoir.length?'pending':'')+'" data-dashgo="liv"><small>RÉCEPTIONS</small><b>'+commandesARecevoir.length+'</b><span>'+(commandesARecevoir.length?'À contrôler':'Aucune prévue')+'<i>›</i></span></button>'
  +'<button class="dash-kpi '+(aVerifier.length?'review':'')+'" data-dashgo="caisse"><small>À CLASSER</small><b>'+aVerifier.length+'</b><span>'+(aVerifier.length?'Caisse à vérifier':'Caisse à jour')+'<i>›</i></span></button></section>'
  +'<section class="dash-grid"><section class="dash-panel"><header class="dash-panel-head"><div><small>STOCK</small><b>À surveiller</b></div><button data-dashgo="stock">Voir le stock</button></header><div class="dash-list">'+stockRows+'</div></section><aside class="dash-side"><section class="dash-actions"><small>PROCHAINES ACTIONS</small><b>À faire</b>'+actionRows+'</section></aside></section>'
- +'<section class="dash-cash"><div class="dash-cash-copy"><i>€</i><div><small>CAISSE</small><b>'+fmt(caJour)+' € aujourd’hui</b><span>'+aVerifier.length+' mouvement'+(aVerifier.length>1?'s':'')+' à classer</span></div></div><button data-dashgo="caisse">Ouvrir la caisse</button></section></div>';
+ +'<section class="dash-cash"><div class="dash-cash-copy"><i>€</i><div><small>CAISSE</small><b>'+fmt(caJour)+' € aujourd’hui</b><span>'+aVerifier.length+' mouvement'+(aVerifier.length>1?'s':'')+' à classer</span></div></div><button data-dashgo="caisse">Ouvrir la caisse</button></section>'+adminWidgetAccueil()+'</div>';
  document.querySelectorAll('[data-dashgo]').forEach(function(b){b.onclick=function(){screen=b.dataset.dashgo;sq='';go()}});
  document.querySelectorAll('[data-dashreceive]').forEach(function(b){b.onclick=function(){screen='liv';sq='';go();openLiv(b.dataset.dashreceive)}});
+ lierWidgetAdministration(document.getElementById('s-dash'));
 }
 function renderCaisse(){
  const rows=st.mv.length?st.mv.slice(0,40).map(m=>{const d=new Date(m.ts),hh=d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0');
@@ -3818,7 +3876,7 @@ const Docs={
   }
  },
 
- /* Ne conserve que les documents encore référencés par une livraison */
+ /* Ne conserve que les documents encore référencés par une livraison ou l'administration */
  async _purger(){
   if(!await Docs.dispo())return;
   try{
@@ -3828,6 +3886,7 @@ const Docs={
    if(cles.length<=Docs.MAX_IDB)return;
    const utiles=new Set();
    (st.liv||[]).forEach(l=>(l.docs||[]).forEach(k=>utiles.add(k)));
+   ((st.administration&&st.administration.documents)||[]).forEach(function(d){if(d.fileKey)utiles.add(d.fileKey)});
    const s2=await Docs._tx('readwrite');
    cles.filter(k=>!utiles.has(k)).forEach(k=>s2.delete(k));
   }catch(e){}
@@ -3854,7 +3913,7 @@ const Docs={
   if(!obj(documents))return 0;
   let n=0;
   for(const[k,v]of Object.entries(documents)){
-   if(!/^d_[a-z0-9]+$/i.test(k)||typeof v!=='string'||!v.startsWith('data:image/'))continue;
+   if(!/^d_[a-z0-9]+$/i.test(k)||typeof v!=='string'||!(v.startsWith('data:image/')||v.startsWith('data:application/pdf')))continue;
    let range=false;
    if(await Docs.dispo())try{
     const s=await Docs._tx('readwrite');
@@ -3868,6 +3927,369 @@ const Docs={
  },
  poids(){let n=0;for(const v of Object.values(st.docs||{}))n+=v.length;return n}
 };
+
+/* ADMINISTRATION_CORE_START
+   Noyau métier partagé par la vue d'ensemble, les listes, le widget d'accueil
+   et les tests. Les alertes restent dérivées des données : aucune duplication
+   de calcul ni donnée artificielle dans les composants. */
+const ADMIN_INVOICE_STATUSES=[
+ {id:'a_verifier',label:'À vérifier'},{id:'a_valider',label:'À valider'},
+ {id:'a_payer',label:'À payer'},{id:'payee',label:'Payée'},
+ {id:'litige',label:'Litige'},{id:'archivee',label:'Archivée'}
+];
+const ADMIN_DOCUMENT_TYPES=[
+ {id:'facture',label:'Facture'},{id:'avoir',label:'Avoir'},{id:'devis',label:'Devis'},
+ {id:'bon_livraison',label:'Bon de livraison'},{id:'contrat',label:'Contrat'},
+ {id:'assurance',label:'Assurance'},{id:'justificatif',label:'Justificatif'},
+ {id:'fournisseur',label:'Document fournisseur'},{id:'administratif',label:'Document administratif'},
+ {id:'autre',label:'Autre'}
+];
+const ADMIN_PROCESSING_STATUSES=[
+ {id:'pending',label:'En attente'},{id:'processing',label:'Traitement'},
+ {id:'completed',label:'Traité'},{id:'error',label:'Erreur'},
+ {id:'needs_review',label:'À vérifier'}
+];
+const ADMIN_MAX_FILE=15*1024*1024;
+const adminDateISO=function(date){const d=date||new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+function adminDate(value){if(!value)return null;const d=value instanceof Date?new Date(value):new Date(String(value).slice(0,10)+'T12:00:00');return isNaN(d.getTime())?null:d}
+function adminDiffJours(value,maintenant){
+ const cible=adminDate(value);if(!cible)return null;
+ const jour=adminDate(adminDateISO(maintenant||new Date()));
+ return Math.ceil((cible-jour)/86400000);
+}
+function adminEtablissementId(){return(session&&session.etabId)||st.etabId||'etablissement-local'}
+function adminOrganisationId(){return st.organizationId||null}
+function adminAuteur(){return(session&&session.email)||st.who||'Utilisateur local'}
+function adminData(){if(!st.administration)st.administration=administrationVierge();return st.administration}
+function adminDansEtablissement(liste){
+ const id=adminEtablissementId();
+ return(liste||[]).filter(function(x){return !x.establishmentId||x.establishmentId===id});
+}
+function adminStatutFacture(facture,maintenant){
+ const statut=facture.status||'a_verifier';
+ if(statut==='payee'||statut==='archivee')return statut;
+ return facture.dueDate&&adminDiffJours(facture.dueDate,maintenant)<0?'en_retard':statut;
+}
+function adminFactureOuverte(facture){const s=facture.status||'a_verifier';return s!=='payee'&&s!=='archivee'}
+function adminResume(maintenant){
+ const data=adminData(),factures=adminDansEtablissement(data.invoices),documents=adminDansEtablissement(data.documents);
+ const ouvertes=factures.filter(adminFactureOuverte),retard=ouvertes.filter(function(f){return adminStatutFacture(f,maintenant)==='en_retard'});
+ const sous30=ouvertes.filter(function(f){const j=adminDiffJours(f.dueDate,maintenant);return j!==null&&j>=0&&j<=30});
+ const documentsAction=documents.filter(function(d){const j=adminDiffJours(d.expiryDate,maintenant);return d.processingStatus==='needs_review'||d.processingStatus==='error'||(j!==null&&j<=30)});
+ return{
+  invoicesToPay:ouvertes.length,totalToPay:ouvertes.reduce(function(s,f){return s+num(f.amountTTC)},0),
+  overdueCount:retard.length,overdueAmount:retard.reduce(function(s,f){return s+num(f.amountTTC)},0),
+  deadlines30:sous30.length,contractsExpiring:documents.filter(function(d){const j=adminDiffJours(d.expiryDate,maintenant);return d.type==='contrat'&&j!==null&&j>=0&&j<=30}).length,
+  documentsAction:documentsAction.length,deductibleTax:factures.reduce(function(s,f){return s+num(f.taxAmount)},0)
+ };
+}
+function adminAlertes(maintenant){
+ const data=adminData(),alertes=[],factures=adminDansEtablissement(data.invoices),documents=adminDansEtablissement(data.documents);
+ factures.filter(adminFactureOuverte).forEach(function(f){
+  const jours=adminDiffJours(f.dueDate,maintenant),retard=jours!==null&&jours<0;
+  if(retard||jours!==null&&jours<=30)alertes.push({
+   id:'invoice_due_'+f.id,priority:retard&&(Math.abs(jours)>7)?'critical':retard||jours<=7?'high':'medium',
+   category:'Facture',title:retard?'Facture en retard':'Facture à échéance',
+   description:(f.supplier||'Fournisseur')+(retard?' · '+Math.abs(jours)+' jour'+(Math.abs(jours)>1?'s':'')+' de retard':' · dans '+jours+' jour'+(jours>1?'s':'')),
+   amount:num(f.amountTTC),deadline:f.dueDate,establishmentId:f.establishmentId,objectId:f.id,tab:'invoices'
+  });
+ });
+ documents.forEach(function(d){
+  if(d.processingStatus==='error'||d.processingStatus==='needs_review')alertes.push({
+   id:'document_review_'+d.id,priority:d.processingStatus==='error'?'high':'medium',category:'Document',
+   title:d.processingStatus==='error'?'Traitement du document en erreur':'Document à vérifier',
+   description:d.title||d.fileName||'Document administratif',amount:null,deadline:null,
+   establishmentId:d.establishmentId,objectId:d.id,tab:'inbox'
+  });
+  const jours=adminDiffJours(d.expiryDate,maintenant);
+  if(jours!==null&&jours<=30)alertes.push({
+   id:'document_expiry_'+d.id,priority:jours<0?'high':jours<=7?'high':'medium',category:d.type==='contrat'?'Contrat':'Document',
+   title:jours<0?'Document expiré':'Document bientôt expiré',description:d.title||d.fileName||'Document administratif',
+   amount:null,deadline:d.expiryDate,establishmentId:d.establishmentId,objectId:d.id,tab:'documents'
+  });
+ });
+ const doublons={};
+ factures.forEach(function(f){
+  const numero=String(f.invoiceNumber||'').trim().toLowerCase(),fo=String(f.supplier||'').trim().toLowerCase();
+  if(!numero||!fo)return;const cle=fo+'|'+numero;(doublons[cle]||(doublons[cle]=[])).push(f);
+ });
+ Object.values(doublons).filter(function(xs){return xs.length>1}).forEach(function(xs){
+  alertes.push({id:'duplicate_'+xs[0].id,priority:'high',category:'Anomalie',title:'Facture potentiellement dupliquée',
+   description:(xs[0].supplier||'Fournisseur')+' · n° '+xs[0].invoiceNumber,amount:num(xs[0].amountTTC),
+   deadline:null,establishmentId:xs[0].establishmentId,objectId:xs[0].id,tab:'invoices'});
+ });
+ const ordre={critical:0,high:1,medium:2,info:3};
+ return alertes.sort(function(a,b){return ordre[a.priority]-ordre[b.priority]||String(a.deadline||'9999').localeCompare(String(b.deadline||'9999'))});
+}
+function adminAssistant(maintenant){
+ const r=adminResume(maintenant),alertes=adminAlertes(maintenant),phrases=[];
+ if(r.overdueCount)phrases.push(r.overdueCount+' facture'+(r.overdueCount>1?'s sont':' est')+' en retard pour '+fmt(r.overdueAmount)+' €.');
+ if(r.deadlines30)phrases.push(r.deadlines30+' facture'+(r.deadlines30>1?'s arrivent':' arrive')+' à échéance sous 30 jours pour un total de '+fmt(adminDansEtablissement(adminData().invoices).filter(adminFactureOuverte).filter(function(f){const j=adminDiffJours(f.dueDate,maintenant);return j!==null&&j>=0&&j<=30}).reduce(function(s,f){return s+num(f.amountTTC)},0))+' €.');
+ const expiration=alertes.find(function(a){return a.id.indexOf('document_expiry_')===0});
+ if(expiration)phrases.push(expiration.description+' '+(adminDiffJours(expiration.deadline,maintenant)<0?'a expiré.':'arrive à échéance dans '+adminDiffJours(expiration.deadline,maintenant)+' jours.'));
+ if(alertes.some(function(a){return a.id.indexOf('duplicate_')===0}))phrases.push('Une facture potentiellement dupliquée nécessite une vérification.');
+ if(!phrases.length)phrases.push('Aucune action administrative urgente n’est détectée avec les données présentes.');
+ return phrases.slice(0,4);
+}
+function adminJournaliser(action,entityType,entityId,details){
+ const log=adminData().auditLog;
+ log.unshift({id:uid('audit'),action,entityType,entityId,details:details||'',createdAt:new Date().toISOString(),createdBy:adminAuteur(),establishmentId:adminEtablissementId(),organizationId:adminOrganisationId()});
+ if(log.length>250)log.length=250;
+}
+function adminConstruireFacture(input,existante,maintenant){
+ const f=existante||{},date=(maintenant||new Date()).toISOString(),statuts=ADMIN_INVOICE_STATUSES.map(function(x){return x.id});
+ const statut=statuts.includes(input.status)?input.status:'a_verifier',ht=Math.max(0,num(input.amountHT)),taxe=Math.max(0,num(input.taxAmount));
+ const ttc=input.amountTTC===''||input.amountTTC===null||input.amountTTC===undefined?ht+taxe:Math.max(0,num(input.amountTTC));
+ return{
+  id:f.id||uid('ainv'),documentId:input.documentId||null,invoiceNumber:String(input.invoiceNumber||'').trim(),
+  supplier:String(input.supplier||'').trim(),establishmentId:f.establishmentId||input.establishmentId||adminEtablissementId(),
+  organizationId:f.organizationId===undefined?(input.organizationId===undefined?adminOrganisationId():input.organizationId):f.organizationId,
+  documentDate:input.documentDate||null,dueDate:input.dueDate||null,amountHT:ht,taxAmount:taxe,amountTTC:ttc,status:statut,
+  paymentDate:input.paymentDate||(statut==='payee'?adminDateISO(maintenant):null),paymentMethod:String(input.paymentMethod||'').trim(),
+  orderReference:String(input.orderReference||'').trim(),deliveryReference:String(input.deliveryReference||'').trim(),
+  lines:Array.isArray(f.lines)?f.lines:[],categories:Array.isArray(f.categories)?f.categories:[],notes:String(input.notes||'').trim(),
+  createdAt:f.createdAt||date,updatedAt:date,createdBy:f.createdBy||adminAuteur()
+ };
+}
+function adminAppliquerStatutFacture(facture,statut,maintenant){
+ if(!facture||!ADMIN_INVOICE_STATUSES.some(function(x){return x.id===statut}))return false;
+ facture.status=statut;facture.updatedAt=(maintenant||new Date()).toISOString();
+ if(statut==='payee'&&!facture.paymentDate)facture.paymentDate=adminDateISO(maintenant);
+ return true;
+}
+/* ADMINISTRATION_CORE_END */
+
+function adminLibelleStatut(statut){
+ if(statut==='en_retard')return'En retard';
+ const x=ADMIN_INVOICE_STATUSES.find(function(s){return s.id===statut});return x?x.label:statut||'—';
+}
+function adminClasseStatut(statut){
+ return statut==='en_retard'?'critical':statut==='payee'?'ok':statut==='a_payer'||statut==='a_valider'?'warn':statut==='a_verifier'?'info':'';
+}
+function adminFormatDate(date){const d=adminDate(date);return d?d.toLocaleDateString('fr-FR'):'—'}
+function adminWidgetAccueil(){
+ if(!estResp())return'';
+ const r=adminResume(new Date()),urgentes=adminAlertes(new Date()).filter(function(a){return a.priority==='critical'||a.priority==='high'}).length;
+ return '<section class="admin-widget" aria-label="Synthèse Administration"><div><small>ADMINISTRATION</small><h2>Votre centre de contrôle administratif</h2><div class="admin-widget-stats"><span><b>'+urgentes+'</b> action'+(urgentes>1?'s':'')+' urgente'+(urgentes>1?'s':'')+'</span><span><b>'+r.invoicesToPay+'</b> facture'+(r.invoicesToPay>1?'s':'')+' à payer</span><span><b>'+fmt(r.totalToPay)+' €</b> à décaisser</span><span><b>'+r.deadlines30+'</b> échéance'+(r.deadlines30>1?'s':'')+' ce mois</span></div></div><button class="btn btn-sm" data-admin-open>Voir l’administration</button></section>';
+}
+function lierWidgetAdministration(racine){
+ const b=(racine||document).querySelector('[data-admin-open]');
+ if(b)b.onclick=function(){screen='admin';adminTab='overview';sq='';go()};
+}
+
+function adminTabs(){
+ const tabs=[['overview','Vue d’ensemble'],['inbox','Inbox'],['invoices','Factures'],['deadlines','Échéancier'],['documents','Documents']];
+ return '<nav class="admin-tabs" aria-label="Navigation Administration">'+tabs.map(function(x){return '<button class="'+(adminTab===x[0]?'on':'')+'" data-admin-tab="'+x[0]+'">'+x[1]+'</button>'}).join('')+'</nav>';
+}
+function adminVide(icone,titre,texte,action){
+ return '<div class="admin-empty"><i>'+icone+'</i><b>'+titre+'</b><span>'+texte+'</span>'+(action||'')+'</div>';
+}
+function adminPrioriteLabel(p){return p==='critical'?'Critique':p==='high'?'Haute':p==='medium'?'Moyenne':'Information'}
+function adminActionsHTML(alertes){
+ if(!alertes.length)return adminVide('✓','Rien à traiter','Aucune échéance, anomalie ou pièce à vérifier avec les données présentes.','');
+ return '<div class="admin-actions">'+alertes.slice(0,8).map(function(a){
+  return '<article class="admin-action"><i class="admin-priority '+a.priority+'" title="'+adminPrioriteLabel(a.priority)+'"></i><div class="admin-action-copy"><b>'+escapeHTML(a.title)+'</b><span>'+escapeHTML(a.category+' · '+a.description)+(a.deadline?' · limite '+adminFormatDate(a.deadline):'')+'</span></div><div class="admin-action-meta">'+(a.amount!==null?'<strong>'+fmt(a.amount)+' €</strong>':'')+'<button data-admin-action="'+a.tab+'" data-admin-object="'+a.objectId+'">Traiter</button></div></article>';
+ }).join('')+'</div>';
+}
+function adminVueOverview(){
+ const maintenant=new Date(),r=adminResume(maintenant),alertes=adminAlertes(maintenant),phrases=adminAssistant(maintenant);
+ const journal=adminDansEtablissement(adminData().auditLog).slice(0,5);
+ return '<section class="admin-summary" aria-label="Résumé administratif">'
+  +'<article class="admin-kpi '+(r.invoicesToPay?'warn':'')+'"><small>FACTURES À PAYER</small><b>'+r.invoicesToPay+'</b><span>'+fmt(r.totalToPay)+' € au total</span></article>'
+  +'<article class="admin-kpi '+(r.overdueCount?'critical':'')+'"><small>EN RETARD</small><b>'+r.overdueCount+'</b><span>'+fmt(r.overdueAmount)+' € concernés</span></article>'
+  +'<article class="admin-kpi"><small>ÉCHÉANCES · 30 JOURS</small><b>'+r.deadlines30+'</b><span>'+r.contractsExpiring+' contrat'+(r.contractsExpiring>1?'s':'')+' proche'+(r.contractsExpiring>1?'s':'')+'</span></article>'
+  +'<article class="admin-kpi '+(r.documentsAction?'warn':'')+'"><small>DOCUMENTS À TRAITER</small><b>'+r.documentsAction+'</b><span>TVA déductible saisie · '+fmt(r.deductibleTax)+' €</span></article></section>'
+  +'<section class="admin-grid"><section class="admin-panel"><header class="admin-section-head"><div><small>PRIORITÉ</small><b>Actions requises</b></div><button class="admin-link-btn" data-admin-tab="deadlines">Voir l’échéancier</button></header>'+adminActionsHTML(alertes)+'</section>'
+  +'<aside class="admin-panel"><header class="admin-section-head"><div><small>ASSISTANT</small><b>Ce qu’il faut savoir</b></div></header><div class="admin-assistant">'+phrases.map(function(p){return '<p class="admin-insight">'+escapeHTML(p)+'</p>'}).join('')+'</div><p class="admin-source-note">Analyse déterministe des données enregistrées. Trésorerie, banque et TVA collectée ne sont pas affichées car aucune source n’est connectée.</p></aside></section>'
+  +'<section class="admin-panel"><header class="admin-section-head"><div><small>TRAÇABILITÉ LOCALE</small><b>Dernières actions</b></div></header>'+(journal.length?'<div class="admin-actions">'+journal.map(function(l){return '<div class="admin-action"><i class="admin-priority info"></i><div class="admin-action-copy"><b>'+escapeHTML(l.action)+'</b><span>'+escapeHTML((l.details||l.entityType)+' · '+l.createdBy)+' · '+new Date(l.createdAt).toLocaleString('fr-FR')+'</span></div></div>'}).join('')+'</div>':adminVide('⌁','Aucune action journalisée','Les créations, modifications et paiements apparaîtront ici.',''))+'</section>';
+}
+function adminFournisseurs(){
+ const noms=[];
+ (st.fournisseurs||[]).forEach(function(f){const n=typeof f==='string'?f:f.nom||f.name;if(n)noms.push(n)});
+ adminData().invoices.forEach(function(f){if(f.supplier)noms.push(f.supplier)});
+ adminData().documents.forEach(function(d){if(d.supplier)noms.push(d.supplier)});
+ return[...new Set(noms)].sort(function(a,b){return a.localeCompare(b,'fr')});
+}
+function adminVueInbox(){
+ const docs=adminDansEtablissement(adminData().documents).slice().sort(function(a,b){return String(b.createdAt).localeCompare(String(a.createdAt))});
+ const lignes=docs.map(function(d){
+  const ps=ADMIN_PROCESSING_STATUSES.find(function(s){return s.id===d.processingStatus});
+  return '<div class="admin-row"><div class="admin-cell-main"><b>'+escapeHTML(d.title||d.fileName||'Document')+'</b><small>'+escapeHTML(d.fileName||'Sans fichier')+'</small></div><span>'+escapeHTML((ADMIN_DOCUMENT_TYPES.find(function(x){return x.id===d.type})||{}).label||d.type)+'</span><span>'+adminFormatDate(d.documentDate||d.createdAt)+'</span><span><i class="admin-badge '+(d.processingStatus==='error'?'critical':d.processingStatus==='completed'?'ok':'warn')+'">'+escapeHTML(ps?ps.label:d.processingStatus)+'</i></span><div class="admin-row-actions">'+(d.fileKey?'<button data-admin-view-doc="'+d.id+'">Voir</button>':'')+'<button class="primary" data-admin-edit-doc="'+d.id+'">Modifier</button></div></div>';
+ }).join('');
+ return '<section class="admin-upload"><div><b>Centralisez un document entrant</b><span>PDF ou image, 15 Mo maximum. Les fichiers restent dans le stockage local du navigateur actuel.</span></div><button class="btn btn-sm" data-admin-new-doc>Importer un document</button></section>'
+  +'<section class="admin-list-panel"><div class="admin-list-head"><span>Document</span><span>Type</span><span>Date</span><span>Traitement</span><span>Actions</span></div>'+(lignes||adminVide('⇧','Inbox vide','Importez votre première facture ou pièce administrative pour commencer le suivi.','<button class="btn btn-sm" data-admin-new-doc>Importer</button>'))+'</section>';
+}
+function adminVueFactures(){
+ const fs=adminFilters,fo=adminFournisseurs();
+ const factures=adminDansEtablissement(adminData().invoices).filter(function(f){
+  const q=(fs.search||'').toLowerCase(),texte=(f.supplier+' '+(f.invoiceNumber||'')+' '+(f.notes||'')).toLowerCase();
+  const statut=adminStatutFacture(f,new Date());
+  return(!q||texte.indexOf(q)>=0)&&(!fs.supplier||f.supplier===fs.supplier)&&(!fs.status||statut===fs.status);
+ }).sort(function(a,b){return String(a.dueDate||'9999').localeCompare(String(b.dueDate||'9999'))});
+ const lignes=factures.map(function(f){
+  const statut=adminStatutFacture(f,new Date());
+  return '<div class="admin-row"><div class="admin-cell-main"><b>'+escapeHTML(f.supplier||'Fournisseur à renseigner')+'</b><small>N° '+escapeHTML(f.invoiceNumber||'à vérifier')+'</small></div><span>HT '+fmt(num(f.amountHT))+' €<br>TVA '+fmt(num(f.taxAmount))+' €</span><span class="admin-amount">'+fmt(num(f.amountTTC))+' €</span><span><i class="admin-badge '+adminClasseStatut(statut)+'">'+adminLibelleStatut(statut)+'</i><br>'+adminFormatDate(f.dueDate)+'</span><div class="admin-row-actions">'+(f.documentId?'<button data-admin-invoice-doc="'+f.documentId+'">Pièce</button>':'')+(adminFactureOuverte(f)?'<button data-admin-paid="'+f.id+'">Payée</button>':'')+'<button class="primary" data-admin-edit-invoice="'+f.id+'">Modifier</button></div></div>';
+ }).join('');
+ return '<section class="admin-toolbar"><div class="admin-filters"><div class="admin-filter"><label>Rechercher</label><input id="adminInvoiceSearch" value="'+escapeHTML(fs.search)+'" placeholder="Fournisseur, numéro…"></div><div class="admin-filter"><label>Fournisseur</label><select id="adminInvoiceSupplier"><option value="">Tous</option>'+fo.map(function(n){return '<option '+(fs.supplier===n?'selected':'')+'>'+escapeHTML(n)+'</option>'}).join('')+'</select></div><div class="admin-filter"><label>Statut</label><select id="adminInvoiceStatus"><option value="">Tous</option>'+ADMIN_INVOICE_STATUSES.concat([{id:'en_retard',label:'En retard'}]).map(function(s){return '<option value="'+s.id+'" '+(fs.status===s.id?'selected':'')+'>'+s.label+'</option>'}).join('')+'</select></div></div><button class="btn btn-sm" data-admin-new-invoice>Nouvelle facture</button></section>'
+  +'<section class="admin-list-panel"><div class="admin-list-head"><span>Fournisseur</span><span>Montants</span><span>TTC</span><span>Échéance</span><span>Actions</span></div>'+(lignes||adminVide('□','Aucune facture','Créez une facture ou importez un PDF dans l’Inbox.','<button class="btn btn-sm" data-admin-new-invoice>Créer une facture</button>'))+'</section>';
+}
+function adminVueEcheances(){
+ const factures=adminDansEtablissement(adminData().invoices).filter(adminFactureOuverte);
+ const groupes=[
+  {id:'late',label:'En retard',test:function(j){return j!==null&&j<0}},
+  {id:'today',label:'Aujourd’hui',test:function(j){return j===0}},
+  {id:'week',label:'Cette semaine',test:function(j){return j!==null&&j>0&&j<=7}},
+  {id:'month',label:'Ce mois',test:function(j){return j!==null&&j>7&&j<=30}}
+ ];
+ return '<section class="admin-deadlines">'+groupes.map(function(g){
+  const xs=factures.filter(function(f){return g.test(adminDiffJours(f.dueDate,new Date()))}).sort(function(a,b){return String(a.dueDate).localeCompare(String(b.dueDate))});
+  return '<article class="admin-deadline"><h3>'+g.label+' <span>'+xs.length+'</span></h3>'+(xs.length?xs.map(function(f){return '<button class="admin-deadline-line admin-link-btn" data-admin-edit-invoice="'+f.id+'"><b>'+escapeHTML(f.supplier||'Fournisseur')+'</b><strong>'+fmt(num(f.amountTTC))+' €</strong><small>Échéance '+adminFormatDate(f.dueDate)+' · '+escapeHTML(st.etabNom||'Établissement courant')+'</small></button>'}).join(''):'<div class="admin-empty" style="padding:20px 6px"><span>Aucune facture dans cette période.</span></div>')+'</article>';
+ }).join('')+'</section>';
+}
+function adminVueDocuments(){
+ const fs=adminFilters,q=(fs.search||'').toLowerCase();
+ const docs=adminDansEtablissement(adminData().documents).filter(function(d){const txt=((d.title||'')+' '+(d.supplier||'')+' '+(d.notes||'')).toLowerCase();return(!q||txt.indexOf(q)>=0)&&(!fs.type||d.type===fs.type)}).sort(function(a,b){return String(a.expiryDate||'9999').localeCompare(String(b.expiryDate||'9999'))});
+ const lignes=docs.map(function(d){const j=adminDiffJours(d.expiryDate,new Date()),expire=j!==null&&j<0,proche=j!==null&&j>=0&&j<=30;return '<div class="admin-row"><div class="admin-cell-main"><b>'+escapeHTML(d.title||d.fileName||'Document')+'</b><small>'+escapeHTML(d.supplier||'Sans organisme')+'</small></div><span>'+escapeHTML((ADMIN_DOCUMENT_TYPES.find(function(x){return x.id===d.type})||{}).label||d.type)+'</span><span>'+adminFormatDate(d.documentDate)+'</span><span>'+(d.expiryDate?'<i class="admin-badge '+(expire?'critical':proche?'warn':'ok')+'">'+(expire?'Expiré':proche?'Expire bientôt':adminFormatDate(d.expiryDate))+'</i>':'—')+'</span><div class="admin-row-actions">'+(d.fileKey?'<button data-admin-view-doc="'+d.id+'">Voir</button>':'')+'<button class="primary" data-admin-edit-doc="'+d.id+'">Modifier</button></div></div>'}).join('');
+ return '<section class="admin-toolbar"><div class="admin-filters"><div class="admin-filter"><label>Rechercher</label><input id="adminDocumentSearch" value="'+escapeHTML(fs.search)+'" placeholder="Titre, fournisseur…"></div><div class="admin-filter"><label>Catégorie</label><select id="adminDocumentType"><option value="">Toutes</option>'+ADMIN_DOCUMENT_TYPES.map(function(x){return '<option value="'+x.id+'" '+(fs.type===x.id?'selected':'')+'>'+x.label+'</option>'}).join('')+'</select></div></div><button class="btn btn-sm" data-admin-new-doc>Ajouter un document</button></section>'
+  +'<section class="admin-list-panel"><div class="admin-list-head"><span>Document</span><span>Catégorie</span><span>Date</span><span>Expiration</span><span>Actions</span></div>'+(lignes||adminVide('◇','Aucun document','Ajoutez une pièce pour constituer le coffre-fort administratif.','<button class="btn btn-sm" data-admin-new-doc>Ajouter</button>'))+'</section>';
+}
+function renderAdministration(){
+ const racine=document.getElementById('s-admin'),version=++adminRenderVersion;
+ racine.innerHTML='<div class="dashboard-state" role="status"><div class="dashboard-state-card"><div class="dashboard-loader"></div><b>Chargement de l’administration</b><span>Analyse des échéances et actions requises…</span></div></div>';
+ Promise.resolve().then(function(){
+  if(version!==adminRenderVersion||screen!=='admin')return;
+  try{
+   const vues={overview:adminVueOverview,inbox:adminVueInbox,invoices:adminVueFactures,deadlines:adminVueEcheances,documents:adminVueDocuments};
+   const contenu=(vues[adminTab]||adminVueOverview)();
+   racine.innerHTML='<div class="admin-shell"><header class="admin-head"><div><small>CENTRE DE CONTRÔLE</small><h1>Administration</h1><p>Les actions et anomalies sont présentées avant les documents bruts. Toutes les données affichées proviennent de vos saisies.</p></div>'+(adminTab==='overview'?'<button class="btn btn-sm" data-admin-new-doc>Importer un document</button>':'')+'</header>'+adminTabs()+contenu+'</div>';
+   lierAdministration(racine);
+  }catch(e){
+   console.error('Administration indisponible',e);
+   racine.innerHTML='<div class="dashboard-state" role="alert"><div class="dashboard-state-card"><b>Administration indisponible</b><span>Les données n’ont pas pu être chargées. Aucune modification n’a été effectuée.</span><button id="adminRetry">Réessayer</button></div></div>';
+   document.getElementById('adminRetry').onclick=renderAdministration;
+  }
+ });
+}
+function lierAdministration(racine){
+ racine.querySelectorAll('[data-admin-tab]').forEach(function(b){b.onclick=function(){adminTab=b.dataset.adminTab;adminFilters={search:'',supplier:'',status:'',type:''};renderAdministration()}});
+ racine.querySelectorAll('[data-admin-new-doc]').forEach(function(b){b.onclick=function(){openAdminDocument()}});
+ racine.querySelectorAll('[data-admin-edit-doc]').forEach(function(b){b.onclick=function(){openAdminDocument(b.dataset.adminEditDoc)}});
+ racine.querySelectorAll('[data-admin-view-doc]').forEach(function(b){b.onclick=function(){adminVoirDocument(b.dataset.adminViewDoc)}});
+ racine.querySelectorAll('[data-admin-new-invoice]').forEach(function(b){b.onclick=function(){openAdminInvoice()}});
+ racine.querySelectorAll('[data-admin-edit-invoice]').forEach(function(b){b.onclick=function(){openAdminInvoice(b.dataset.adminEditInvoice)}});
+ racine.querySelectorAll('[data-admin-paid]').forEach(function(b){b.onclick=function(){adminMarquerPayee(b.dataset.adminPaid)}});
+ racine.querySelectorAll('[data-admin-invoice-doc]').forEach(function(b){b.onclick=function(){adminVoirDocument(b.dataset.adminInvoiceDoc)}});
+ racine.querySelectorAll('[data-admin-action]').forEach(function(b){b.onclick=function(){adminTab=b.dataset.adminAction;renderAdministration()}});
+ const is=racine.querySelector('#adminInvoiceSearch'),ifo=racine.querySelector('#adminInvoiceSupplier'),ist=racine.querySelector('#adminInvoiceStatus');
+ if(is)is.onchange=function(){adminFilters.search=is.value.trim();renderAdministration()};
+ if(ifo)ifo.onchange=function(){adminFilters.supplier=ifo.value;renderAdministration()};
+ if(ist)ist.onchange=function(){adminFilters.status=ist.value;renderAdministration()};
+ const ds=racine.querySelector('#adminDocumentSearch'),dt=racine.querySelector('#adminDocumentType');
+ if(ds)ds.onchange=function(){adminFilters.search=ds.value.trim();renderAdministration()};
+ if(dt)dt.onchange=function(){adminFilters.type=dt.value;renderAdministration()};
+}
+
+function lireFichierAdmin(fichier){
+ return new Promise(function(resolve,reject){const r=new FileReader();r.onload=function(){resolve(String(r.result||''))};r.onerror=function(){reject(r.error||new Error('lecture'))};r.readAsDataURL(fichier)});
+}
+function adminValeur(id){const e=document.getElementById(id);return e?e.value.trim():''}
+function adminOptions(liste,valeur){return liste.map(function(x){return '<option value="'+x.id+'" '+(valeur===x.id?'selected':'')+'>'+x.label+'</option>'}).join('')}
+function openAdminDocument(id){
+ const existant=id?adminData().documents.find(function(d){return d.id===id}):null,d=existant||{},fournisseurs=adminFournisseurs();
+ document.getElementById('modal').innerHTML='<div class="sheet-bg" id="adminDocBg"><div class="sheet"><h3>'+(existant?'Modifier le document':'Importer un document')+'</h3><p class="sh-sub">Le fichier original et ses métadonnées alimentent les échéances et alertes.</p><div class="admin-modal-hint">PDF ou image uniquement · 15 Mo maximum. Une facture importée crée automatiquement une fiche « À vérifier ».</div><div class="admin-modal-grid">'
+  +'<div class="fld wide"><label>Titre *</label><input id="adTitle" value="'+escapeHTML(d.title||'')+'" placeholder="Ex. Facture fournisseur août"></div>'
+  +'<div class="fld"><label>Type *</label><select id="adType">'+adminOptions(ADMIN_DOCUMENT_TYPES,d.type||'facture')+'</select></div>'
+  +'<div class="fld"><label>Fournisseur / organisme</label><input id="adSupplier" list="adminSupplierList" value="'+escapeHTML(d.supplier||'')+'" placeholder="Nom"><datalist id="adminSupplierList">'+fournisseurs.map(function(n){return '<option value="'+escapeHTML(n)+'">' }).join('')+'</datalist></div>'
+  +'<div class="fld"><label>Date du document</label><input id="adDate" type="date" value="'+escapeHTML(d.documentDate||adminDateISO())+'"></div>'
+  +'<div class="fld"><label>Échéance / expiration</label><input id="adExpiry" type="date" value="'+escapeHTML(d.expiryDate||'')+'"></div>'
+  +'<div class="fld"><label>État de traitement</label><select id="adProcessing">'+adminOptions(ADMIN_PROCESSING_STATUSES,d.processingStatus||'needs_review')+'</select></div>'
+  +'<div class="fld"><label>Statut du document</label><select id="adStatus"><option value="actif" '+(d.status!=='archive'?'selected':'')+'>Actif</option><option value="archive" '+(d.status==='archive'?'selected':'')+'>Archivé</option></select></div>'
+  +'<div class="fld wide"><label>Notes</label><textarea id="adNotes" rows="3" placeholder="Informations utiles">'+escapeHTML(d.notes||'')+'</textarea></div>'
+  +'<div class="fld wide"><label>Fichier '+(existant?'(laisser vide pour conserver)':'*')+'</label><input id="adFile" type="file" accept="application/pdf,image/*"></div></div>'
+  +'<button class="btn" id="adSave">'+(existant?'Enregistrer les modifications':'Importer le document')+'</button><button class="btn btn-2" id="adCancel">Annuler</button></div></div>';
+ document.getElementById('adCancel').onclick=closeModal;
+ document.getElementById('adminDocBg').onclick=function(e){if(e.target.id==='adminDocBg')closeModal()};
+ document.getElementById('adSave').onclick=async function(){
+  const bouton=this,titre=adminValeur('adTitle'),type=adminValeur('adType'),fichier=document.getElementById('adFile').files[0];
+  if(!titre){toast('Renseignez le titre du document.');return}
+  if(!existant&&!fichier){toast('Sélectionnez un PDF ou une image.');return}
+  if(fichier&&fichier.size>ADMIN_MAX_FILE){toast('Le fichier dépasse 15 Mo.');return}
+  if(fichier&&fichier.type!=='application/pdf'&&!fichier.type.startsWith('image/')){toast('Format refusé : PDF ou image uniquement.');return}
+  bouton.disabled=true;let fileKey=d.fileKey||null,ancienFileKey=d.fileKey||null;
+  try{
+   if(fichier)fileKey=await Docs.put(await lireFichierAdmin(fichier));
+   const maintenant=new Date().toISOString(),record={
+    id:d.id||uid('adoc'),title,type,supplier:adminValeur('adSupplier'),establishmentId:d.establishmentId||adminEtablissementId(),
+    organizationId:d.organizationId===undefined?adminOrganisationId():d.organizationId,documentDate:adminValeur('adDate')||null,
+    dueDate:adminValeur('adExpiry')||null,expiryDate:adminValeur('adExpiry')||null,status:adminValeur('adStatus')||'actif',
+    notes:adminValeur('adNotes'),fileKey,fileName:fichier?fichier.name:(d.fileName||''),fileType:fichier?fichier.type:(d.fileType||''),
+    fileSize:fichier?fichier.size:(d.fileSize||0),processingStatus:adminValeur('adProcessing')||'pending',
+    createdAt:d.createdAt||maintenant,updatedAt:maintenant,createdBy:d.createdBy||adminAuteur()
+   };
+   if(existant)Object.assign(existant,record);else adminData().documents.unshift(record);
+   if(!existant&&type==='facture'){
+    adminData().invoices.unshift({id:uid('ainv'),documentId:record.id,invoiceNumber:'',supplier:record.supplier,
+     establishmentId:record.establishmentId,organizationId:record.organizationId,documentDate:record.documentDate,dueDate:record.dueDate,
+     amountHT:0,taxAmount:0,amountTTC:0,status:'a_verifier',paymentDate:null,paymentMethod:'',orderReference:'',
+     deliveryReference:'',lines:[],categories:[],notes:'Créée depuis l’Inbox · informations à vérifier',
+     createdAt:maintenant,updatedAt:maintenant,createdBy:adminAuteur()});
+   }
+   adminJournaliser(existant?'Document modifié':'Document importé','AdministrativeDocument',record.id,record.title);
+   await save();if(fichier&&ancienFileKey&&ancienFileKey!==fileKey)await Docs.del(ancienFileKey);
+   closeModal();renderAdministration();toast(existant?'Document mis à jour.':'Document importé.');
+  }catch(e){console.error(e);bouton.disabled=false;toast('Impossible d’enregistrer ce document.')}
+ };
+}
+function openAdminInvoice(id){
+ const existant=id?adminData().invoices.find(function(f){return f.id===id}):null,f=existant||{},docs=adminDansEtablissement(adminData().documents).filter(function(d){return d.type==='facture'});
+ const dans30=new Date();dans30.setDate(dans30.getDate()+30);
+ document.getElementById('modal').innerHTML='<div class="sheet-bg" id="adminInvBg"><div class="sheet"><h3>'+(existant?'Modifier la facture':'Nouvelle facture')+'</h3><p class="sh-sub">Les montants et l’échéance alimentent automatiquement le résumé administratif.</p><div class="admin-modal-grid">'
+  +'<div class="fld wide"><label>Pièce associée</label><select id="aiDocument"><option value="">Aucune pièce</option>'+docs.map(function(d){return '<option value="'+d.id+'" '+(f.documentId===d.id?'selected':'')+'>'+escapeHTML(d.title||d.fileName||'Document')+'</option>'}).join('')+'</select></div>'
+  +'<div class="fld"><label>Fournisseur *</label><input id="aiSupplier" list="adminInvoiceSuppliers" value="'+escapeHTML(f.supplier||'')+'" placeholder="Nom du fournisseur"><datalist id="adminInvoiceSuppliers">'+adminFournisseurs().map(function(n){return '<option value="'+escapeHTML(n)+'">' }).join('')+'</datalist></div>'
+  +'<div class="fld"><label>Numéro</label><input id="aiNumber" value="'+escapeHTML(f.invoiceNumber||'')+'" placeholder="N° de facture"></div>'
+  +'<div class="fld"><label>Date du document *</label><input id="aiDate" type="date" value="'+escapeHTML(f.documentDate||adminDateISO())+'"></div>'
+  +'<div class="fld"><label>Échéance *</label><input id="aiDue" type="date" value="'+escapeHTML(f.dueDate||adminDateISO(dans30))+'"></div>'
+  +'<div class="fld"><label>Montant HT</label><input id="aiHT" inputmode="decimal" value="'+escapeHTML(f.amountHT??'')+'" placeholder="0,00"></div>'
+  +'<div class="fld"><label>TVA</label><input id="aiTax" inputmode="decimal" value="'+escapeHTML(f.taxAmount??'')+'" placeholder="0,00"></div>'
+  +'<div class="fld"><label>Montant TTC</label><input id="aiTTC" inputmode="decimal" value="'+escapeHTML(f.amountTTC??'')+'" placeholder="0,00"></div>'
+  +'<div class="fld"><label>Statut</label><select id="aiStatus">'+adminOptions(ADMIN_INVOICE_STATUSES,f.status||'a_verifier')+'</select></div>'
+  +'<div class="fld"><label>Référence commande</label><input id="aiOrder" value="'+escapeHTML(f.orderReference||'')+'"></div>'
+  +'<div class="fld"><label>Référence livraison</label><input id="aiDelivery" value="'+escapeHTML(f.deliveryReference||'')+'"></div>'
+  +'<div class="fld"><label>Date de paiement</label><input id="aiPaidDate" type="date" value="'+escapeHTML(f.paymentDate||'')+'"></div>'
+  +'<div class="fld"><label>Moyen de paiement</label><input id="aiMethod" value="'+escapeHTML(f.paymentMethod||'')+'" placeholder="Virement, carte…"></div>'
+  +'<div class="fld wide"><label>Notes</label><textarea id="aiNotes" rows="3">'+escapeHTML(f.notes||'')+'</textarea></div></div>'
+  +'<button class="btn" id="aiSave">'+(existant?'Enregistrer les modifications':'Créer la facture')+'</button><button class="btn btn-2" id="aiCancel">Annuler</button></div></div>';
+ document.getElementById('aiCancel').onclick=closeModal;
+ document.getElementById('adminInvBg').onclick=function(e){if(e.target.id==='adminInvBg')closeModal()};
+ document.getElementById('aiSave').onclick=async function(){
+  const fournisseur=adminValeur('aiSupplier'),date=adminValeur('aiDate'),echeance=adminValeur('aiDue');
+  if(!fournisseur||!date||!echeance){toast('Renseignez le fournisseur et les dates.');return}
+  const montantHT=num(adminValeur('aiHT')),tva=num(adminValeur('aiTax')),saisieTTC=adminValeur('aiTTC'),montantTTC=saisieTTC?num(saisieTTC):montantHT+tva;
+  if(montantHT<0||tva<0||montantTTC<0){toast('Les montants doivent être positifs.');return}
+  const record=adminConstruireFacture({
+   documentId:adminValeur('aiDocument')||null,invoiceNumber:adminValeur('aiNumber'),supplier:fournisseur,
+   documentDate:date,dueDate:echeance,amountHT:montantHT,taxAmount:tva,amountTTC:montantTTC,status:adminValeur('aiStatus'),
+   paymentDate:adminValeur('aiPaidDate')||null,paymentMethod:adminValeur('aiMethod'),
+   orderReference:adminValeur('aiOrder'),deliveryReference:adminValeur('aiDelivery'),notes:adminValeur('aiNotes')
+  },existant||null,new Date());
+  if(existant)Object.assign(existant,record);else adminData().invoices.unshift(record);
+  adminJournaliser(existant?'Facture modifiée':'Facture créée','SupplierInvoice',record.id,record.supplier+' · '+fmt(record.amountTTC)+' €');
+  await save();closeModal();renderAdministration();toast(existant?'Facture mise à jour.':'Facture créée.');
+ };
+}
+async function adminMarquerPayee(id){
+ const f=adminData().invoices.find(function(x){return x.id===id});if(!f)return;
+ adminAppliquerStatutFacture(f,'payee',new Date());
+ adminJournaliser('Facture marquée payée','SupplierInvoice',f.id,(f.supplier||'Fournisseur')+' · '+fmt(num(f.amountTTC))+' €');
+ await save();renderAdministration();toast('Facture marquée comme payée.');
+}
+async function adminVoirDocument(id){
+ const d=adminData().documents.find(function(x){return x.id===id});if(!d||!d.fileKey){toast('Aucun fichier associé.');return}
+ const popup=window.open('','_blank');
+ const contenu=Docs.get(d.fileKey)||await Docs.getAsync(d.fileKey);
+ if(!contenu){if(popup)popup.close();toast('Le fichier est indisponible sur cet appareil.');return}
+ if(popup){popup.opener=null;popup.location.href=contenu}else toast('Autorisez l’ouverture d’un nouvel onglet pour voir le fichier.');
+}
 
 /* ═══════ PRÉPARATION DE L'IMAGE ═══════
    Objectif : donner à l'OCR une image aussi lisible que possible.
@@ -5944,7 +6366,7 @@ document.getElementById('bilCsv').onclick=()=>{
 
 /* ═════ NAV ═════ */
 function renderNav(){
- const iconesNav={dash:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><rect x="14" y="14" width="6" height="6" rx="1"></rect></svg>',caisse:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19V9m5 10V5m5 14v-7m5 7V8"></path></svg>',dec:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"></circle><path d="M12 9v6m-3-3h6"></path></svg>',liv:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14v11H5zM9 4h6M12 4v8m-3-3 3 3 3-3"></path></svg>',cmd:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h3l2 10h9l2-7H8"></path><circle cx="10" cy="19" r="1"></circle><circle cx="18" cy="19" r="1"></circle></svg>',stock:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z"></path><path d="m4 7.5 8 4.5 8-4.5M12 12v9"></path></svg>',inv:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="4" width="12" height="17" rx="2"></rect><path d="M9 4.5h6M9 10h6m-6 4h6m-6 4h4"></path></svg>',bil:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18 9 13l4 3 7-8"></path><path d="M15 8h5v5"></path></svg>'};
+ const iconesNav={dash:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><rect x="14" y="14" width="6" height="6" rx="1"></rect></svg>',caisse:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19V9m5 10V5m5 14v-7m5 7V8"></path></svg>',dec:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"></circle><path d="M12 9v6m-3-3h6"></path></svg>',liv:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14v11H5zM9 4h6M12 4v8m-3-3 3 3 3-3"></path></svg>',cmd:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h3l2 10h9l2-7H8"></path><circle cx="10" cy="19" r="1"></circle><circle cx="18" cy="19" r="1"></circle></svg>',stock:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z"></path><path d="m4 7.5 8 4.5 8-4.5M12 12v9"></path></svg>',inv:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="4" width="12" height="17" rx="2"></rect><path d="M9 4.5h6M9 10h6m-6 4h6m-6 4h4"></path></svg>',bil:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18 9 13l4 3 7-8"></path><path d="M15 8h5v5"></path></svg>',admin:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v13H4z"></path><path d="M8 7V4h8v3M8 11h8m-8 4h5"></path></svg>'};
  const nouv=Math.max(0,st.mv.length-seenFeed),pc=panierCount();
  const sousSeuil=st.prods.filter(p=>(st.stock[p.id]??0)<=p.seuil).length;
  let items=[
@@ -5955,7 +6377,8 @@ function renderNav(){
   {id:'cmd',i:iconesNav.cmd,l:'Commandes',group:'gestion'},
   {id:'stock',i:iconesNav.stock,l:'Stock',group:'gestion'},
   {id:'inv',i:iconesNav.inv,l:'Inventaire',group:'gestion'},
-  {id:'bil',i:iconesNav.bil,l:'Analyse',group:'analyse'}
+  {id:'bil',i:iconesNav.bil,l:'Analyse',group:'analyse'},
+  {id:'admin',i:iconesNav.admin,l:'Administration',group:'administration'}
  ];
  if(!estResp())items=items.filter(x=>!ONGLETS_RESP.includes(x.id));
  const logoTpl=document.getElementById('invoLogo');
@@ -5969,7 +6392,7 @@ function renderNav(){
   <div class="workspace-head"><div class="workspace-brand">${logoHTML}</div>
    <button class="workspace-place" data-reg="1"><span>${st.etabNom||'SP Wallace'}</span><b>⌄</b></button></div>
   <div class="workspace-compose"><button class="workspace-add" data-nav="dec"><span>＋</span>${t('newVente')}</button></div>
-  <div class="workspace-content">${groupe('VUE GÉNÉRALE',['dash'])}${groupe('FLUX',['caisse','dec'])}${groupe('STOCK',['liv','cmd','stock','inv'])}${groupe('RAPPORTS',['bil'])}</div>
+  <div class="workspace-content">${groupe('VUE GÉNÉRALE',['dash'])}${groupe('FLUX',['caisse','dec'])}${groupe('STOCK',['liv','cmd','stock','inv'])}${groupe('RAPPORTS',['bil'])}${groupe('DIRECTION',['admin'])}</div>
   <div class="workspace-bottom"><button class="workspace-settings" data-reg="1"><span>⚙</span>${t('reglages')}</button>
    <p>${t('slogan')}</p></div>`;
  const tabs=items;
@@ -6003,6 +6426,7 @@ document.getElementById('s-'+screen).classList.add('on');window.scrollTo({top:0}
 if(screen==='dash')renderDash();if(screen==='caisse')renderCaisse();if(screen==='dec')renderDec();
 if(screen==='liv')renderLiv();if(screen==='cmd')renderCommanderScreen();
 if(screen==='stock')renderStock();if(screen==='inv')renderInv();if(screen==='bil')renderBil();
+if(screen==='admin')renderAdministration();
 if(screen!=='dec')document.getElementById('cartbar').innerHTML=''}
 
 const closeModal=()=>{document.getElementById('modal').innerHTML='';fm=null};
