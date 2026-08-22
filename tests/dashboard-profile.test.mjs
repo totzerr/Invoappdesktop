@@ -58,14 +58,15 @@ function createAdministrationCore(source){
  const context={
   Date,Set,Number,Object,String,Array,Math,isNaN,
   session:{etabId:'etab-a'},
-  st:{who:'Gestion',administration:empty()},
+  st:{who:'Gestion',administration:empty(),commandes:[],liv:[],prods:[]},
   administrationVierge:empty,
   num(value){const n=parseFloat(String(value).replace(',','.'));return Number.isNaN(n)?0:n},
   fmt(value){return (Math.round(value*100)/100).toFixed(2).replace('.',',')},
+  adminFormatDate(value){return String(value||'').slice(0,10)},
   uid(prefix){id+=1;return prefix+'_'+id}
  };
  vm.createContext(context);
- vm.runInContext(extractAdministrationCore(source)+'\nthis.adminCore={adminDateISO,adminDiffJours,adminStatutFacture,adminResume,adminAlertes,adminAssistant,adminDansEtablissement,adminConstruireFacture,adminAppliquerStatutFacture};',context);
+ vm.runInContext(extractAdministrationCore(source)+'\nthis.adminCore={adminDateISO,adminDiffJours,adminStatutFacture,adminStatutContrat,adminStatutObligation,adminCoutsContrat,adminResume,adminAlertes,adminAssistant,adminDansEtablissement,adminConstruireFacture,adminSynchroniserDemandeApprobation,adminAppliquerStatutFacture,adminCalendrier,adminPrevisionTresorerie,adminTVA,adminAnomaliesDetectees};',context);
  return context;
 }
 
@@ -239,4 +240,102 @@ test(path+' intègre Administration à la navigation, au dashboard et aux sauveg
  const postes=source.match(/const POSTES=\[[\s\S]*?\];/)?.[0]||'';
  assert.ok(postes);
  assert.doesNotMatch(postes,/id:'admin'/);
+});
+
+test(path+' calcule les contrats et rassemble les échéances administratives',()=>{
+ const context=createAdministrationCore(source),now=new Date(2026,7,22,12);
+ context.st.administration.contracts=[
+  {id:'c1',establishmentId:'etab-a',name:'Assurance',supplier:'Assureur',costMonthly:100,endDate:'2026-09-20',status:'actif'},
+  {id:'c2',establishmentId:'etab-b',name:'Hors site',supplier:'X',costAnnual:9999,endDate:'2026-08-25',status:'actif'}
+ ];
+ context.st.administration.obligations=[{id:'o1',establishmentId:'etab-a',name:'Contrôle sécurité',nextDue:'2026-08-29',status:'conforme'}];
+ context.st.administration.deadlines=[{id:'d1',establishmentId:'etab-a',title:'Dossier annuel',date:'2026-09-01',status:'pending'}];
+ assert.deepEqual(JSON.parse(JSON.stringify(context.adminCore.adminCoutsContrat(context.st.administration.contracts[0]))),{monthly:100,annual:1200});
+ assert.equal(context.adminCore.adminStatutContrat(context.st.administration.contracts[0],now),'a_renouveler');
+ assert.equal(context.adminCore.adminStatutObligation(context.st.administration.obligations[0],now),'bientot_expire');
+ const calendar=context.adminCore.adminCalendrier(now);
+ assert.deepEqual(JSON.parse(JSON.stringify(calendar.map(event=>event.type))),['obligation','manuel','contrat']);
+ const summary=context.adminCore.adminResume(now);
+ assert.equal(summary.contractAnnualCost,1200);
+ assert.equal(summary.obligationsAction,1);
+ assert.ok(context.adminCore.adminAlertes(now).some(alert=>alert.title==='Contrat à renouveler'));
+});
+
+test(path+' projette la trésorerie uniquement depuis les données enregistrées',()=>{
+ const context=createAdministrationCore(source),now=new Date(2026,7,22,12);
+ assert.equal(context.adminCore.adminPrevisionTresorerie(now).status,'missing');
+ context.st.administration.settings.currentCashBalance=10000;
+ context.st.administration.settings.cashWarningThreshold=5000;
+ context.st.administration.invoices=[{id:'f1',establishmentId:'etab-a',supplier:'Metro',status:'a_payer',dueDate:'2026-08-25',amountTTC:4000}];
+ context.st.administration.cashFlowForecasts=[
+  {id:'m1',establishmentId:'etab-a',title:'Loyer',date:'2026-08-28',direction:'out',amount:2500},
+  {id:'m2',establishmentId:'etab-a',title:'Encaissement',date:'2026-08-30',direction:'in',amount:1000},
+  {id:'m3',establishmentId:'etab-b',title:'Autre site',date:'2026-08-23',direction:'out',amount:9999}
+ ];
+ const forecast=context.adminCore.adminPrevisionTresorerie(now);
+ assert.equal(forecast.status,'ready');
+ assert.equal(forecast.forecastBalance,4500);
+ assert.equal(forecast.lowPoint,3500);
+ assert.equal(forecast.events.length,3);
+ assert.ok(context.adminCore.adminAlertes(now).some(alert=>alert.id==='cash_low'));
+});
+
+test(path+' ventile la TVA et conserve son évolution mensuelle',()=>{
+ const context=createAdministrationCore(source);
+ context.st.administration.invoices=[
+  {id:'f1',establishmentId:'etab-a',documentDate:'2026-07-02',taxRate:10,taxAmount:100},
+  {id:'f2',establishmentId:'etab-a',documentDate:'2026-08-10',taxRate:20,taxAmount:240},
+  {id:'f3',establishmentId:'etab-b',documentDate:'2026-08-12',taxRate:20,taxAmount:900}
+ ];
+ context.st.administration.settings.vatCollectedSource={amount:500,period:'2026-08',source:'manual'};
+ const vat=context.adminCore.adminTVA(new Date(2026,7,22));
+ assert.equal(vat.deductible,340);
+ assert.equal(vat.collected,500);
+ assert.equal(vat.estimated,160);
+ assert.equal(vat.byRate['10'],100);
+ assert.equal(vat.byRate['20'],240);
+ assert.deepEqual(JSON.parse(JSON.stringify(vat.byMonth)),[['2026-07',100],['2026-08',240]]);
+});
+
+test(path+' applique un workflow configurable et persiste la demande de validation',()=>{
+ const context=createAdministrationCore(source),now=new Date(2026,7,22,12);
+ context.st.administration.approvalWorkflows=[{id:'r1',minAmount:500,maxAmount:2000,role:'salle',documentType:'facture',establishmentId:'etab-a',enabled:true}];
+ const invoice=context.adminCore.adminConstruireFacture({supplier:'Metro',amountHT:1000,taxAmount:100,amountTTC:1100,status:'a_valider',lines:[{description:'Marchandises',quantity:2,unitPriceHT:500}]},null,now);
+ assert.equal(invoice.approvalRuleId,'r1');
+ assert.equal(invoice.approvalStatus,'pending');
+ assert.equal(invoice.lines.length,1);
+ const request=context.adminCore.adminSynchroniserDemandeApprobation(invoice,now);
+ assert.equal(request.invoiceId,invoice.id);
+ assert.equal(request.requestedRole,'salle');
+ assert.equal(context.st.administration.approvalRequests.length,1);
+ invoice.approvalStatus='approved';
+ context.adminCore.adminSynchroniserDemandeApprobation(invoice,new Date(2026,7,23,12));
+ assert.equal(context.st.administration.approvalRequests[0].status,'approved');
+});
+
+test(path+' détecte les écarts commande, livraison et hausse tarifaire configurée',()=>{
+ const context=createAdministrationCore(source);
+ context.st.commandes=[{id:'cmd1',lines:[{q:10,px:5}]}];
+ context.st.liv=[{id:'liv1',total:60}];
+ context.st.prods=[{id:'p1',n:'Eau',fo:'Fournisseur A',pxPrev:1,px:1.2}];
+ context.st.administration.settings.priceIncreaseAlertPercent=10;
+ context.st.administration.invoices=[{id:'f1',establishmentId:'etab-a',supplier:'Fournisseur A',invoiceNumber:'A1',amountHT:100,amountTTC:120,orderReference:'cmd1',deliveryReference:'liv1'}];
+ const anomalies=context.adminCore.adminAnomaliesDetectees(new Date(2026,7,22));
+ assert.ok(anomalies.some(item=>item.type==='difference_commande_facture'));
+ assert.ok(anomalies.some(item=>item.type==='difference_livraison_facture'));
+ assert.ok(anomalies.some(item=>item.type==='augmentation_prix'));
+});
+
+test(path+' expose toutes les vues Administration et leurs états responsives',()=>{
+ for(const id of ['overview','inbox','invoices','deadlines','cashflow','vat','accounting','contracts','documents','calendar','compliance','anomalies','settings']){
+  assert.match(source,new RegExp("\\['"+id+"'"));
+ }
+ assert.match(source,/function adminVueTresorerie\(\)/);
+ assert.match(source,/function adminVueTVA\(\)/);
+ assert.match(source,/function adminVueContrats\(\)/);
+ assert.match(source,/function adminVueConformite\(\)/);
+ assert.match(source,/function adminVueAnomalies\(\)/);
+ assert.match(source,/@media\(max-width:760px\)[\s\S]*?\.admin-subgrid/);
+ assert.match(source,/Estimation indicative basée sur les données présentes dans le logiciel/);
+ assert.match(source,/Aucun connecteur fictif/);
 });
