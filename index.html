@@ -3012,9 +3012,18 @@ function sourceBonsNonSaisisDashboard(dateISO){
 function utilisateurDashboardActuel(){
  return session&&session.email&&auth.users&&auth.users[session.email]?auth.users[session.email]:null;
 }
+function profilMetierDepuisVue(id){
+ return PROFILS_METIER_IDS.includes(id)?id:'';
+}
 function profilMetierActuel(){
  const utilisateur=utilisateurDashboardActuel(),id=utilisateur?utilisateur.profilMetier:st.profilMetier;
- return PROFILS_METIER_IDS.includes(id)?id:'';
+ return PROFILS_METIER_IDS.includes(id)?id:profilMetierDepuisVue(st.whoId);
+}
+async function synchroniserProfilMetierAvecVue(id){
+ const profilId=profilMetierDepuisVue(id),utilisateur=utilisateurDashboardActuel();
+ st.profilMetier=profilId;
+ if(utilisateur){utilisateur.profilMetier=profilId;await saveAuth()}
+ return profilId;
 }
 async function enregistrerProfilMetier(id){
  if(id&&!PROFILS_METIER_IDS.includes(id))throw new Error('Profil métier invalide');
@@ -5968,7 +5977,8 @@ ${POSTES.map(p=>`<button class="opt ${st.whoId===p.id?'on':''}" data-w="${p.id}"
 </div></div>`;
 document.getElementById('bg2').onclick=e=>{if(e.target.id==='bg2')closeModal()};
 document.querySelectorAll('[data-w]').forEach(b=>b.onclick=async()=>{
-const p=POSTES.find(x=>x.id===b.dataset.w);st.whoId=p.id;st.who=p.n;await save();closeModal();renderAll()})}
+const p=POSTES.find(x=>x.id===b.dataset.w);st.whoId=p.id;st.who=p.n;
+await synchroniserProfilMetierAvecVue(p.id);await save();closeModal();renderAll()})}
 /* ═════ RÉGLAGES · COMPTE · MATÉRIEL CONNECTÉ ═════ */
 const roleEstAutorise=id=>{const p=POSTES.find(x=>x.id===id);return !!(p&&p.resp)};
 function utilisateursEtablissement(){
