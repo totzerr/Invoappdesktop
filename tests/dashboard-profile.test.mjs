@@ -3,15 +3,13 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
 
-const variants=['invophone/index.html','invodesktop/index.html'];
-const sources=Object.fromEntries(variants.map(path=>[path,readFileSync(new URL('../'+path,import.meta.url),'utf8')]));
+const path='index.html';
+const source=readFileSync(new URL('../index.html',import.meta.url),'utf8');
 
-test('les scripts intégrés des deux variantes restent syntaxiquement valides',()=>{
- for(const path of variants){
-  const scripts=[...sources[path].matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)].map(match=>match[1]).filter(Boolean);
-  assert.ok(scripts.length,path+' doit contenir un script applicatif');
+test('le script intégré reste syntaxiquement valide',()=>{
+  const scripts=[...source.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)].map(match=>match[1]).filter(Boolean);
+  assert.ok(scripts.length,'la page doit contenir un script applicatif');
   scripts.forEach((script,index)=>assert.doesNotThrow(()=>new vm.Script(script,{filename:path+'#script-'+index})));
- }
 });
 
 function extractCore(source){
@@ -37,13 +35,12 @@ function createCore(source){
  return context;
 }
 
-test('les deux variantes partagent exactement la même logique d’indicateurs',()=>{
- assert.equal(extractCore(sources[variants[0]]),extractCore(sources[variants[1]]));
+test('le noyau partagé des indicateurs est présent',()=>{
+ assert.ok(extractCore(source));
 });
 
-for(const path of variants){
  test(path+' calcule le CA, sa répartition et les cocktails depuis les ventes réelles',()=>{
-  const context=createCore(sources[path]);
+  const context=createCore(source);
   const now=new Date(2026,7,22,14,0,0);
   const today=new Date(2026,7,22,12,0,0).toISOString();
   const yesterday=new Date(2026,7,21,12,0,0).toISOString();
@@ -63,7 +60,7 @@ for(const path of variants){
  });
 
  test(path+' distingue source absente, journée vide, donnée valide et erreur',()=>{
-  const context=createCore(sources[path]),date='2026-08-22';
+  const context=createCore(source),date='2026-08-22';
   assert.equal(context.dashboardCore.sourceCouvertsDashboard(date).status,'missing');
 
   context.st.dashboardIntegrations.covers={date:'2026-08-21',midi:10,soir:12};
@@ -80,7 +77,7 @@ for(const path of variants){
  });
 
  test(path+' valide les contrats des recommandations et des bons non saisis',()=>{
-  const context=createCore(sources[path]),date='2026-08-22';
+  const context=createCore(source),date='2026-08-22';
   context.st.dashboardIntegrations.recommendedProductIds={date,ids:['mojito','mojito','inconnu']};
   const recommendations=context.dashboardCore.sourceRecommandationsDashboard(date);
   assert.equal(recommendations.status,'ready');
@@ -96,7 +93,6 @@ for(const path of variants){
  });
 
  test(path+' garde le profil métier indépendant des rôles et la vue générale par défaut',()=>{
-  const source=sources[path];
   const saveProfile=source.match(/async function enregistrerProfilMetier\(id\)\{[\s\S]*?\n\}/)?.[0]||'';
   assert.ok(saveProfile);
   assert.doesNotMatch(saveProfile,/\.role\s*=/);
@@ -104,4 +100,3 @@ for(const path of variants){
   assert.match(source,/if\(!profilId\)\{renderDashboardGeneral\(\);return\}/);
   assert.match(source,/PROFILS_METIER=\[[\s\S]*?id:'barman'[\s\S]*?id:'chef'[\s\S]*?id:'salle'[\s\S]*?id:'gestion'/);
  });
-}
