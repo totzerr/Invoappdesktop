@@ -1636,6 +1636,15 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .profile-dashboard .profile-share{padding:12px;border-radius:11px;background:#f6f2e9}
 .profile-dashboard .profile-share b{display:block;margin-top:5px;color:#342f28;font:700 20px Fraunces,Georgia,serif}.profile-dashboard .profile-share span{color:#887c6b;font:700 9px Inter,system-ui,sans-serif;text-transform:uppercase;letter-spacing:.08em}
 .profile-dashboard .profile-bar{height:6px;margin-top:8px;overflow:hidden;border-radius:99px;background:#e5ded1}.profile-dashboard .profile-bar i{display:block;height:100%;border-radius:inherit;background:#a67a23}
+.profile-dashboard .profile-drinks-banner{display:grid;grid-template-columns:minmax(210px,.52fr) minmax(0,1.48fr);gap:12px;padding:13px;border:1px solid #ded7c9;border-radius:18px;background:#fffdfa;box-shadow:0 12px 28px rgba(42,34,21,.045)}
+.profile-dashboard .profile-drinks-total{display:flex;min-height:180px;flex-direction:column;justify-content:center;padding:20px;border-radius:14px;background:linear-gradient(145deg,#201e1a,#343029);color:#fff}
+.profile-dashboard .profile-drinks-total small{color:rgba(255,255,255,.58);font:800 9px Inter,system-ui,sans-serif;letter-spacing:.13em;text-transform:uppercase}
+.profile-dashboard .profile-drinks-total b{display:block;margin:13px 0 6px;color:#fff;font:650 42px/1 Fraunces,Georgia,serif;letter-spacing:-.06em}
+.profile-dashboard .profile-drinks-total span{color:rgba(255,255,255,.68);font:600 11px/1.4 Inter,system-ui,sans-serif}
+.profile-dashboard .profile-drinks-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.profile-dashboard .profile-drink-stat{display:flex;min-width:0;flex-direction:column;justify-content:center;gap:6px;padding:13px;border:1px solid #e7dfd1;border-radius:12px;background:#fbfaf7}
+.profile-dashboard .profile-drink-stat span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#817563;font:800 8px/1.2 Inter,system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+.profile-dashboard .profile-drink-stat b{color:#29251f;font:650 25px/1 Fraunces,Georgia,serif;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
 .dashboard-state{max-width:1180px;min-height:260px;margin:0 auto;display:flex;align-items:center;justify-content:center;padding:24px}
 .dashboard-state-card{width:min(100%,520px);padding:28px;border:1px solid #e1dbd1;border-radius:18px;background:#fff;text-align:center;box-shadow:0 8px 24px rgba(29,26,22,.06)}
 .dashboard-state-card b{display:block;margin-bottom:7px;color:#2f2a24;font:600 22px Fraunces,Georgia,serif}.dashboard-state-card span{display:block;color:#827768;font:500 12px/1.5 Inter,system-ui,sans-serif}
@@ -1643,7 +1652,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .dashboard-loader{width:28px;height:28px;margin:0 auto 14px;border:3px solid #e6dfd2;border-top-color:#a67a23;border-radius:50%;animation:dashboard-spin .8s linear infinite}
 @keyframes dashboard-spin{to{transform:rotate(360deg)}}
 .profile-setting-help{display:block;margin-top:6px;color:#746b60;font:500 10px/1.45 Inter,system-ui,sans-serif}
-@media(max-width:759px){.profile-dashboard{gap:12px;padding-bottom:20px}.profile-dashboard .profile-head{align-items:flex-start;flex-direction:column;gap:13px;padding-bottom:15px}.profile-dashboard .profile-change{width:100%}.profile-dashboard .profile-metrics,.profile-dashboard .profile-metrics.two{grid-template-columns:1fr 1fr;gap:9px}.profile-dashboard .profile-metric{min-height:132px;padding:15px}.profile-dashboard .profile-metric.wide{grid-column:span 2}.profile-dashboard .profile-value{font-size:29px}}
+@media(max-width:759px){.profile-dashboard{gap:12px;padding-bottom:20px}.profile-dashboard .profile-head{align-items:flex-start;flex-direction:column;gap:13px;padding-bottom:15px}.profile-dashboard .profile-change{width:100%}.profile-dashboard .profile-metrics,.profile-dashboard .profile-metrics.two{grid-template-columns:1fr 1fr;gap:9px}.profile-dashboard .profile-metric{min-height:132px;padding:15px}.profile-dashboard .profile-metric.wide{grid-column:span 2}.profile-dashboard .profile-value{font-size:29px}.profile-dashboard .profile-drinks-banner{grid-template-columns:1fr}.profile-dashboard .profile-drinks-total{min-height:126px}.profile-dashboard .profile-drinks-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:560px){.profile-dashboard .profile-drinks-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:480px){.profile-dashboard .profile-metrics,.profile-dashboard .profile-metrics.two{grid-template-columns:1fr}.profile-dashboard .profile-metric.wide{grid-column:auto}.profile-dashboard .profile-breakdown{grid-template-columns:1fr}.profile-dashboard h1{font-size:34px}}
 
 </style>
@@ -3007,7 +3017,75 @@ function sourceBonsNonSaisisDashboard(dateISO){
  if(!Number.isFinite(count)||count<0)return{status:'error',message:'Le nombre de bons non saisis reçu est invalide.'};
  return{status:'ready',count:Math.round(count)};
 }
+function periodesSemaineDashboard(maintenant){
+ const debut=new Date(maintenant);debut.setHours(0,0,0,0);debut.setDate(debut.getDate()-((debut.getDay()+6)%7));
+ const fin=new Date(debut);fin.setDate(fin.getDate()+7);
+ const precedente=new Date(debut);precedente.setDate(precedente.getDate()-7);
+ return{debut:debut,fin:fin,precedente:precedente};
+}
+function ventesDashboardEntre(debut,fin){
+ return(st.mv||[]).filter(function(m){if(!m||m.motif!=='vente'||!m.ts)return false;const d=new Date(m.ts);return !isNaN(d.getTime())&&d>=debut&&d<fin});
+}
+function resumePerformanceSemaineDashboard(maintenant){
+ const periode=periodesSemaineDashboard(maintenant),ventes=ventesDashboardEntre(periode.debut,periode.fin),ventesPrecedentes=ventesDashboardEntre(periode.precedente,periode.debut);
+ const jours=Array.from({length:7},function(_,ix){const d=new Date(periode.debut);d.setDate(d.getDate()+ix);return{d:d,ca:0}});
+ const joursPrecedents=Array.from({length:7},function(_,ix){const d=new Date(periode.precedente);d.setDate(d.getDate()+ix);return{d:d,ca:0}});
+ ventes.forEach(function(m){const d=new Date(m.ts),ix=Math.floor((new Date(d.getFullYear(),d.getMonth(),d.getDate())-periode.debut)/86400000);if(jours[ix])jours[ix].ca+=pvMv(m)});
+ ventesPrecedentes.forEach(function(m){const d=new Date(m.ts),ix=Math.floor((new Date(d.getFullYear(),d.getMonth(),d.getDate())-periode.precedente)/86400000);if(joursPrecedents[ix])joursPrecedents[ix].ca+=pvMv(m)});
+ return{periode:periode,ventes:ventes,ventesPrecedentes:ventesPrecedentes,jours:jours,joursPrecedents:joursPrecedents,
+  ca:ventes.reduce(function(s,m){return s+pvMv(m)},0),caPrecedent:ventesPrecedentes.reduce(function(s,m){return s+pvMv(m)},0)};
+}
+const CATEGORIES_BOISSONS_DASHBOARD=[
+ {id:'bieres',label:'Bières'},{id:'cocktails',label:'Cocktails'},{id:'softs',label:'Softs'},{id:'chaudes',label:'Boissons chaudes'},
+ {id:'vinsVerres',label:'Vins au verre'},{id:'vinsBouteilles',label:'Vins à la bouteille'},{id:'digestifs',label:'Digestifs'},{id:'aperitifs',label:'Apéritifs'}
+];
+const APERITIFS_DASHBOARD=new Set(['vRicard','dblRicard']);
+function categorieBoissonDashboard(produit){
+ if(!produit||produit.k!=='drink')return'';
+ if(produit.c==='cBieres')return'bieres';if(produit.c==='cCock')return'cocktails';if(produit.c==='cSofts')return'softs';if(produit.c==='cCafe')return'chaudes';
+ if(produit.c==='cVins')return /^bt/.test(produit.id)?'vinsBouteilles':'vinsVerres';
+ if(produit.c==='cAlc')return APERITIFS_DASHBOARD.has(produit.id)?'aperitifs':'digestifs';
+ return'';
+}
+function resumeBoissonsSemaineDashboard(maintenant){
+ const periode=periodesSemaineDashboard(maintenant),ventes=ventesDashboardEntre(periode.debut,periode.fin),categories={};
+ CATEGORIES_BOISSONS_DASHBOARD.forEach(function(c){categories[c.id]=0});
+ let total=0;
+ ventes.forEach(function(m){const produit=item(m.plat),categorie=categorieBoissonDashboard(produit),quantite=Math.max(0,Number(m.qty)||0);if(!produit||produit.k!=='drink')return;total+=quantite;if(categorie)categories[categorie]+=quantite});
+ return{periode:periode,ventes:ventes,total:total,categories:categories};
+}
 /* DASHBOARD_PROFILE_CORE_END */
+
+function blocPerformanceHebdomadaireDashboard(maintenant){
+ const performance=resumePerformanceSemaineDashboard(maintenant),joursSemaine=performance.jours,joursSemainePrecedente=performance.joursPrecedents;
+ const caSemaine=performance.ca,caSemainePrecedente=performance.caPrecedent,ecartSemaine=caSemaine-caSemainePrecedente;
+ const ecartPct=caSemainePrecedente>0?Math.round(ecartSemaine/caSemainePrecedente*100):null;
+ const comparaisonSemaine=caSemainePrecedente>0?(ecartSemaine>=0?'+':'−')+fmt(Math.abs(ecartSemaine))+' € · '+(ecartPct>=0?'+':'')+ecartPct+' % vs sem. dernière':(caSemaine>0?'Aucune vente la semaine dernière':'Pas encore de comparaison');
+ const comparaisonClasse=caSemainePrecedente>0?(ecartSemaine>0?'up':ecartSemaine<0?'down':'neutral'):'empty';
+ const meilleurJour=joursSemaine.reduce(function(max,j){return j.ca>max.ca?j:max},joursSemaine[0]);
+ const detailMeilleurJour=caSemaine>0?'Meilleur jour : '+meilleurJour.d.toLocaleDateString('fr-FR',{weekday:'long'})+' · '+fmt(meilleurJour.ca)+' €':'Aucune vente cette semaine';
+ const maximumGraphique=Math.max.apply(null,joursSemaine.map(function(j){return j.ca}).concat(joursSemainePrecedente.map(function(j){return j.ca}),[1]));
+ const historiqueDisponible=caSemainePrecedente>0,pasBrut=maximumGraphique/4;
+ const pasGraphique=pasBrut<=5?Math.max(1,Math.ceil(pasBrut)):pasBrut<=25?Math.ceil(pasBrut/5)*5:Math.ceil(pasBrut/10)*10;
+ const plafondGraphique=Math.max(pasGraphique*4,1),xGraphique=function(ix){return 48+ix*(564/6)},yGraphique=function(valeur){return 158-Math.max(0,Math.min(valeur/plafondGraphique,1))*126};
+ const pointsActuels=joursSemaine.map(function(j,ix){return{x:xGraphique(ix),y:yGraphique(j.ca),ca:j.ca,d:j.d}}),pointsPrecedents=joursSemainePrecedente.map(function(j,ix){return{x:xGraphique(ix),y:yGraphique(j.ca),ca:j.ca,d:j.d}});
+ const traceCourbe=function(points){if(points.length<2)return'';let trace='M '+points[0].x.toFixed(1)+' '+points[0].y.toFixed(1);for(let ix=1;ix<points.length-1;ix++){const suivant=points[ix+1],x=(points[ix].x+suivant.x)/2,y=(points[ix].y+suivant.y)/2;trace+=' Q '+points[ix].x.toFixed(1)+' '+points[ix].y.toFixed(1)+' '+x.toFixed(1)+' '+y.toFixed(1)}const dernier=points[points.length-1];return trace+' Q '+dernier.x.toFixed(1)+' '+dernier.y.toFixed(1)+' '+dernier.x.toFixed(1)+' '+dernier.y.toFixed(1)};
+ const courbeActuelle=traceCourbe(pointsActuels),courbePrecedente=traceCourbe(pointsPrecedents),aireActuelle=courbeActuelle+' L '+pointsActuels[pointsActuels.length-1].x.toFixed(1)+' 158 L '+pointsActuels[0].x.toFixed(1)+' 158 Z';
+ const contientDesVentes=caSemaine>0||caSemainePrecedente>0;
+ const lignesGrille=Array.from({length:5},function(_,ix){const valeur=plafondGraphique-(plafondGraphique/4*ix),y=yGraphique(valeur);return '<line class="dash-chart-gridline" x1="48" y1="'+y.toFixed(1)+'" x2="612" y2="'+y.toFixed(1)+'"></line><text class="dash-chart-ylabel" x="39" y="'+(y+3).toFixed(1)+'">'+fmt(valeur)+' €</text>'}).join('');
+ const libellesJours=pointsActuels.map(function(point){return '<text class="dash-chart-xlabel" x="'+point.x.toFixed(1)+'" y="181" text-anchor="middle">'+point.d.toLocaleDateString('fr-FR',{weekday:'short'}).replace('.','')+'</text>'}).join('');
+ const pointsInteractifs=pointsActuels.map(function(point){const datePoint=point.d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric'});return '<circle class="dash-chart-point" cx="'+point.x.toFixed(1)+'" cy="'+point.y.toFixed(1)+'" r="3.4"><title>'+datePoint+' · '+fmt(point.ca)+' €</title></circle>'}).join('');
+ const legendeGraphique='<div class="dash-chart-legend"><span class="current"><i></i>Cette semaine</span>'+(historiqueDisponible?'<span class="previous"><i></i>Semaine dernière</span>':'<span class="muted">Semaine dernière indisponible</span>')+'</div>';
+ const graphiqueSvg=contientDesVentes?'<div class="dash-pilot-plot"><svg class="dash-pilot-svg" viewBox="0 0 640 194" role="img" aria-label="Évolution du chiffre d’affaires par jour"><defs><linearGradient id="invoPilotArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c69b43" stop-opacity=".28"></stop><stop offset="100%" stop-color="#c69b43" stop-opacity="0"></stop></linearGradient></defs>'+lignesGrille+'<path class="dash-chart-area" d="'+aireActuelle+'"></path>'+(historiqueDisponible?'<path class="dash-chart-previous" d="'+courbePrecedente+'"></path>':'')+'<path class="dash-chart-current" d="'+courbeActuelle+'"></path>'+pointsInteractifs+libellesJours+'</svg></div>':'<div class="dash-pilot-empty"><b>Pas encore de ventes à afficher</b><span>La courbe se dessinera dès la première vente enregistrée.</span></div>';
+ const graphique='<section class="dash-pilot-chart" aria-label="Performance des ventes"><header class="dash-pilot-head"><div><small>PERFORMANCE</small><b>Évolution du chiffre d’affaires</b></div>'+legendeGraphique+'</header>'+graphiqueSvg+'<footer class="dash-pilot-footer"><span class="dash-performance-delta '+comparaisonClasse+'">'+comparaisonSemaine+'</span><span class="dash-performance-best">'+detailMeilleurJour+'</span></footer></section>';
+ return '<section class="dash-performance-banner" aria-label="Performance de la semaine"><div class="dash-performance-copy"><article class="dash-performance-metric"><small>CA VENTES · CETTE SEMAINE</small><b>'+fmt(caSemaine)+' €</b><span class="dash-performance-delta '+comparaisonClasse+'">'+comparaisonSemaine+'</span></article><article class="dash-performance-metric secondary"><small>VENTES ENREGISTRÉES</small><b>'+performance.ventes.length+'</b><span>'+detailMeilleurJour+'</span></article></div><div class="dash-performance-chart">'+graphique+'</div></section>';
+}
+function blocBoissonsHebdomadaireDashboard(maintenant){
+ const resume=resumeBoissonsSemaineDashboard(maintenant),categories=CATEGORIES_BOISSONS_DASHBOARD.map(function(c){return '<article class="profile-drink-stat"><span>'+c.label+'</span><b>'+fmtQ(resume.categories[c.id])+'</b></article>'}).join('');
+ return '<section class="profile-drinks-banner" aria-label="Ventes de boissons de la semaine"><article class="profile-drinks-total"><small>BOISSONS VENDUES · CETTE SEMAINE</small><b>'+fmtQ(resume.total)+'</b><span>'+(resume.total?'Total issu des ventes enregistrées':'Aucune boisson vendue cette semaine')+'</span></article><div class="profile-drinks-grid">'+categories+'</div></section>';
+}
+
+
 
 function utilisateurDashboardActuel(){
  return session&&session.email&&auth.users&&auth.users[session.email]?auth.users[session.email]:null;
@@ -3053,7 +3131,7 @@ function renderDashboardMetier(profilId){
  const maintenant=new Date(),dateISO=dateLocaleDashboard(maintenant),ventes=resumeVentesDashboard(maintenant);
  const couverts=sourceCouvertsDashboard(dateISO),recommandations=sourceRecommandationsDashboard(dateISO),bons=sourceBonsNonSaisisDashboard(dateISO);
  const noteVentes=ventes.nombreVentes?ventes.nombreVentes+' vente'+(ventes.nombreVentes>1?'s':'')+' enregistrée'+(ventes.nombreVentes>1?'s':'')+' aujourd’hui':'Aucune vente enregistrée aujourd’hui';
- let classeGrille='',cartes='';
+ let classeGrille='',cartes='',bandeau=profilId==='barman'?blocBoissonsHebdomadaireDashboard(maintenant):blocPerformanceHebdomadaireDashboard(maintenant);
  if(profilId==='barman'){
   classeGrille=' two';
   cartes=carteMetier('COCKTAILS VENDUS',fmtQ(ventes.cocktails),noteVentes,'primary')
@@ -3073,7 +3151,7 @@ function renderDashboardMetier(profilId){
    +carteSourceMetier('BONS NON SAISIS',bons,function(s){return '<strong class="profile-value">'+s.count+'</strong><p class="profile-note">Bon'+(s.count>1?'s':'')+' de commande à saisir</p>'});
  }
  const racine=document.getElementById('s-dash');
- racine.innerHTML='<div class="profile-dashboard">'+enteteTableauMetier(profil,maintenant)+'<section class="profile-metrics'+classeGrille+'" aria-label="Indicateurs '+escapeHTML(profil.n)+'">'+cartes+'</section></div>';
+ racine.innerHTML='<div class="profile-dashboard dashboard-new">'+enteteTableauMetier(profil,maintenant)+bandeau+'<section class="profile-metrics'+classeGrille+'" aria-label="Indicateurs '+escapeHTML(profil.n)+'">'+cartes+'</section></div>';
  const reglages=racine.querySelector('[data-profile-settings]');if(reglages)reglages.onclick=function(){openReglages('general')};
 }
 let dashboardRenderVersion=0;
@@ -3106,42 +3184,7 @@ function renderDashboardGeneral(){
  const ventesJour=mouvements.filter(function(m){return m.motif==='vente'&&new Date(m.ts)>=debutJour});
  const caJour=ventesJour.reduce(function(s,m){return s+pvMv(m)},0);
  const nom=(st.who||'').split(' ')[0]||'';
- const debutSemaine=new Date(maintenant);debutSemaine.setHours(0,0,0,0);debutSemaine.setDate(debutSemaine.getDate()-((debutSemaine.getDay()+6)%7));
- const joursSemaine=Array.from({length:7},function(_,ix){const d=new Date(debutSemaine);d.setDate(d.getDate()+ix);return{d:d,ca:0}});
- const ventesSemaine=mouvements.filter(function(m){return m.motif==='vente'&&m.ts&&new Date(m.ts)>=debutSemaine&&new Date(m.ts)<new Date(debutSemaine.getTime()+7*86400000)});
- ventesSemaine.forEach(function(m){const d=new Date(m.ts);const ix=Math.floor((new Date(d.getFullYear(),d.getMonth(),d.getDate())-debutSemaine)/86400000);if(joursSemaine[ix])joursSemaine[ix].ca+=pvMv(m)});
- const caSemaine=ventesSemaine.reduce(function(s,m){return s+pvMv(m)},0),maximumSemaine=Math.max.apply(null,joursSemaine.map(function(j){return j.ca}).concat([1]));
- const debutSemainePrecedente=new Date(debutSemaine);debutSemainePrecedente.setDate(debutSemainePrecedente.getDate()-7);
- const joursSemainePrecedente=Array.from({length:7},function(_,ix){const d=new Date(debutSemainePrecedente);d.setDate(d.getDate()+ix);return{d:d,ca:0}});
- const ventesSemainePrecedente=mouvements.filter(function(m){return m.motif==='vente'&&m.ts&&new Date(m.ts)>=debutSemainePrecedente&&new Date(m.ts)<debutSemaine});
- ventesSemainePrecedente.forEach(function(m){const d=new Date(m.ts);const ix=Math.floor((new Date(d.getFullYear(),d.getMonth(),d.getDate())-debutSemainePrecedente)/86400000);if(joursSemainePrecedente[ix])joursSemainePrecedente[ix].ca+=pvMv(m)});
- const caSemainePrecedente=ventesSemainePrecedente.reduce(function(s,m){return s+pvMv(m)},0);
- const ecartSemaine=caSemaine-caSemainePrecedente;
- const ecartPct=caSemainePrecedente>0?Math.round(ecartSemaine/caSemainePrecedente*100):null;
- const comparaisonSemaine=caSemainePrecedente>0?(ecartSemaine>=0?'+':'−')+fmt(Math.abs(ecartSemaine))+' € · '+(ecartPct>=0?'+':'')+ecartPct+' % vs sem. dernière':(caSemaine>0?'Aucune vente la semaine dernière':'Pas encore de comparaison');
- const comparaisonClasse=caSemainePrecedente>0?(ecartSemaine>0?'up':ecartSemaine<0?'down':'neutral'):'empty';
- const meilleurJour=joursSemaine.reduce(function(max,j){return j.ca>max.ca?j:max},joursSemaine[0]);
- const detailMeilleurJour=caSemaine>0?'Meilleur jour : '+meilleurJour.d.toLocaleDateString('fr-FR',{weekday:'long'})+' · '+fmt(meilleurJour.ca)+' €':'Aucune vente cette semaine';
- const maximumGraphique=Math.max.apply(null,joursSemaine.map(function(j){return j.ca}).concat(joursSemainePrecedente.map(function(j){return j.ca}),[1]));
- const historiqueDisponible=caSemainePrecedente>0;
- const pasBrut=maximumGraphique/4;
- const pasGraphique=pasBrut<=5?Math.max(1,Math.ceil(pasBrut)):pasBrut<=25?Math.ceil(pasBrut/5)*5:Math.ceil(pasBrut/10)*10;
- const plafondGraphique=Math.max(pasGraphique*4,1);
- const xGraphique=function(ix){return 48+ix*(564/6)};
- const yGraphique=function(valeur){return 158-Math.max(0,Math.min(valeur/plafondGraphique,1))*126};
- const pointsActuels=joursSemaine.map(function(j,ix){return{x:xGraphique(ix),y:yGraphique(j.ca),ca:j.ca,d:j.d}});
- const pointsPrecedents=joursSemainePrecedente.map(function(j,ix){return{x:xGraphique(ix),y:yGraphique(j.ca),ca:j.ca,d:j.d}});
- const traceCourbe=function(points){if(points.length<2)return'';let trace='M '+points[0].x.toFixed(1)+' '+points[0].y.toFixed(1);for(let ix=1;ix<points.length-1;ix++){const suivant=points[ix+1],x=(points[ix].x+suivant.x)/2,y=(points[ix].y+suivant.y)/2;trace+=' Q '+points[ix].x.toFixed(1)+' '+points[ix].y.toFixed(1)+' '+x.toFixed(1)+' '+y.toFixed(1)}const dernier=points[points.length-1];return trace+' Q '+dernier.x.toFixed(1)+' '+dernier.y.toFixed(1)+' '+dernier.x.toFixed(1)+' '+dernier.y.toFixed(1)};
- const courbeActuelle=traceCourbe(pointsActuels);
- const courbePrecedente=traceCourbe(pointsPrecedents);
- const aireActuelle=courbeActuelle+' L '+pointsActuels[pointsActuels.length-1].x.toFixed(1)+' 158 L '+pointsActuels[0].x.toFixed(1)+' 158 Z';
- const contientDesVentes=caSemaine>0||caSemainePrecedente>0;
- const lignesGrille=Array.from({length:5},function(_,ix){const valeur=plafondGraphique-(plafondGraphique/4*ix),y=yGraphique(valeur);return '<line class="dash-chart-gridline" x1="48" y1="'+y.toFixed(1)+'" x2="612" y2="'+y.toFixed(1)+'"></line><text class="dash-chart-ylabel" x="39" y="'+(y+3).toFixed(1)+'">'+fmt(valeur)+' €</text>'}).join('');
- const libellesJours=pointsActuels.map(function(point){return '<text class="dash-chart-xlabel" x="'+point.x.toFixed(1)+'" y="181" text-anchor="middle">'+point.d.toLocaleDateString('fr-FR',{weekday:'short'}).replace('.','')+'</text>'}).join('');
- const pointsInteractifs=pointsActuels.map(function(point){const datePoint=point.d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric'});return '<circle class="dash-chart-point" cx="'+point.x.toFixed(1)+'" cy="'+point.y.toFixed(1)+'" r="3.4"><title>'+datePoint+' · '+fmt(point.ca)+' €</title></circle>'}).join('');
- const legendeGraphique='<div class="dash-chart-legend"><span class="current"><i></i>Cette semaine</span>'+(historiqueDisponible?'<span class="previous"><i></i>Semaine dernière</span>':'<span class="muted">Semaine dernière indisponible</span>')+'</div>';
- const graphiqueSvg=contientDesVentes?'<div class="dash-pilot-plot"><svg class="dash-pilot-svg" viewBox="0 0 640 194" role="img" aria-label="Évolution du chiffre d’affaires par jour"><defs><linearGradient id="invoPilotArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c69b43" stop-opacity=".28"></stop><stop offset="100%" stop-color="#c69b43" stop-opacity="0"></stop></linearGradient></defs>'+lignesGrille+'<path class="dash-chart-area" d="'+aireActuelle+'"></path>'+(historiqueDisponible?'<path class="dash-chart-previous" d="'+courbePrecedente+'"></path>':'')+'<path class="dash-chart-current" d="'+courbeActuelle+'"></path>'+pointsInteractifs+libellesJours+'</svg></div>':'<div class="dash-pilot-empty"><b>Pas encore de ventes à afficher</b><span>La courbe se dessinera dès la première vente enregistrée.</span></div>';
- const graphComparison='<section class="dash-pilot-chart" aria-label="Performance des ventes"><header class="dash-pilot-head"><div><small>PERFORMANCE</small><b>Évolution du chiffre d’affaires</b></div>'+legendeGraphique+'</header>'+graphiqueSvg+'<footer class="dash-pilot-footer"><span class="dash-performance-delta '+comparaisonClasse+'">'+comparaisonSemaine+'</span><span class="dash-performance-best">'+detailMeilleurJour+'</span></footer></section>';
+ const performanceHebdomadaire=blocPerformanceHebdomadaireDashboard(maintenant);
  const priorite=ruptures.length?{titre:ruptures.length+' rupture'+(ruptures.length>1?'s':''),detail:ruptures.slice(0,2).map(function(p){return p.n}).join(' · '),action:'Voir le stock',screen:'stock',etat:'critical'}:sousSeuil.length?{titre:sousSeuil.length+' sous seuil',detail:sousSeuil.slice(0,2).map(function(p){return p.n}).join(' · '),action:'Préparer la commande',screen:'cmd',etat:'watch'}:commandesARecevoir.length?{titre:commandesARecevoir.length+' réception'+(commandesARecevoir.length>1?'s':''),detail:'Quantités à contrôler',action:'Réceptionner',screen:'liv',commandeId:commandesARecevoir[0].id,etat:'pending'}:aVerifier.length?{titre:aVerifier.length+' vente'+(aVerifier.length>1?'s':'')+' à classer',detail:'Offert, perte ou annulation',action:'Ouvrir la caisse',screen:'caisse',etat:'review'}:{titre:'Tout est prêt.',detail:'Aucune action urgente pour le moment.',action:'Voir le stock',screen:'stock',etat:'clear'};
  const attr=priorite.commandeId?'data-dashreceive="'+priorite.commandeId+'"':'data-dashgo="'+priorite.screen+'"';
  const stockRows=ruptures.concat(sousSeuil).slice(0,4).map(function(p){const q=st.stock[p.id]??0,etat=q<=0?'Rupture':'Sous seuil';return '<button class="dash-row" data-dashgo="stock"><span class="dash-row-icon">'+(p.i||'□')+'</span><span><b>'+escapeHTML(p.n)+'</b><small>'+fmtQ(q)+' '+escapeHTML(p.u||'')+' en stock</small></span><em class="'+(q<=0?'danger':'warning')+'">'+etat+'</em><i>›</i></button>'}).join('')||'<div class="dash-empty">Aucun produit à surveiller.</div>';
@@ -3154,7 +3197,7 @@ function renderDashboardGeneral(){
  const titre=priorite.etat==='clear'?(nom?'Bonjour '+escapeHTML(nom)+'.':'Bonjour.'):'À traiter maintenant.';
  const demo='';
  document.getElementById('s-dash').innerHTML=demo+'<div class="dashboard-new">'
- +'<section class="dash-performance-banner" aria-label="Performance de la semaine"><div class="dash-performance-copy"><article class="dash-performance-metric"><small>CA VENTES · CETTE SEMAINE</small><b>'+fmt(caSemaine)+' €</b><span class="dash-performance-delta '+comparaisonClasse+'">'+comparaisonSemaine+'</span></article><article class="dash-performance-metric secondary"><small>VENTES ENREGISTRÉES</small><b>'+ventesSemaine.length+'</b><span>'+detailMeilleurJour+'</span></article></div><div class="dash-performance-chart">'+graphComparison+'</div></section>'
+ +performanceHebdomadaire
  +'<section class="dash-head"><div><div class="dash-eyebrow"><i></i>VUE D’ENSEMBLE · '+date.toUpperCase()+'</div><h1>'+titre+'</h1><p>'+escapeHTML(priorite.detail)+'</p><button class="dash-main-action" '+attr+'>'+priorite.action+' <i>›</i></button></div><aside class="dash-sales"><small>VENTES AUJOURD’HUI</small><b>'+fmt(caJour)+' €</b><span>'+ventesJour.length+' vente'+(ventesJour.length>1?'s':'')+' enregistrée'+(ventesJour.length>1?'s':'')+'</span><time>Actualisé · '+heure+'</time></aside></section>'
  +'<section class="dash-kpis" aria-label="Raccourcis de suivi">'
  +'<button class="dash-kpi '+(ruptures.length?'critical':'')+'" data-dashgo="stock"><small>RUPTURES</small><b>'+ruptures.length+'</b><span>'+(ruptures.length?'À traiter':'Stock stable')+'<i>›</i></span></button>'
